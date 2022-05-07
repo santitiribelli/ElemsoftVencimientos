@@ -1,0 +1,531 @@
+﻿@using Entities
+@if (ViewBag.Alta == true)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="button" class="btn btn-info  btn-block" id="btnAgregarForm"><i class="fa fa-plus"></i> Agregar</button>
+        </div>
+    </div>
+    <form class="form-horizontal rowAlt" role="form" id="formPrincipal" style="display: none;">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Caracteristicas - Caracteristica").IdiPal_Texto)</label>
+                                <select type="text" class="form-control input-sm" name="clase" id="clase">
+                                    <option></option>
+                                    @foreach (var item in BusinessLogic.ClasificadoresIdiomasAdmin.GetList("Personas Caracteristicas"))
+                                    {
+                                        <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label style="display: block;">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Caracteristicas - Visible").IdiPal_Texto)</label>
+                                <input type="checkbox" name="visible" id="visible" data-on-color="success" data-off-color="danger" data-on-text="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Control Switch - SI").IdiPal_Texto)" data-off-text="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Control Switch - NO").IdiPal_Texto)" checked>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Caracteristicas - Nivel").IdiPal_Texto)</label>
+                                <select type="text" class="form-control input-sm" name="nivel" id="nivel">
+                                    <option></option>
+                                    @foreach (var item in BusinessLogic.ClasificadoresIdiomasAdmin.GetList("Personas Caracteristicas - Nivel"))
+                                    {
+                                        <option value="@item.Clasificadores.Clas_Abrev">@item.ClasIdi_Texto</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Observación</label>
+                                <textarea rows="2" class="form-control input-sm" name="observacion" id="observacion"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-right btn-Cont">
+                    <button type="submit" class="btn btn-success btn-rounded" id="btnGuardar"><i class="fa fa-check"></i> Guardar</button>
+
+                </div>
+            </div>
+        </div>
+    </form>
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="confirmEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Editar</h4>
+            </div>
+            <form class="form-horizontal" id="formEdit" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Caracteristicas - Caracteristica").IdiPal_Texto)</label>
+                                    <select type="text" class="form-control input-sm" name="claseEdit" id="claseEdit">
+                                        @foreach (var item in BusinessLogic.ClasificadoresIdiomasAdmin.GetList("Personas Caracteristicas"))
+                                        {
+                                            <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label style="display: block;">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Caracteristicas - Visible").IdiPal_Texto)</label>
+                                    <input type="checkbox" name="visibleEdit" id="visibleEdit" data-on-color="success" data-off-color="danger" data-on-text="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Control Switch - SI").IdiPal_Texto)" data-off-text="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Control Switch - NO").IdiPal_Texto)" checked>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Caracteristicas - Nivel").IdiPal_Texto)</label>
+                                    <select type="text" class="form-control input-sm" name="nivelEdit" id="nivelEdit">
+                                        <option></option>
+                                        @foreach (var item in BusinessLogic.ClasificadoresIdiomasAdmin.GetList("Personas Caracteristicas - Nivel"))
+                                        {
+                                            <option value="@item.Clasificadores.Clas_Abrev">@item.ClasIdi_Texto</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Observación</label>
+                                    <textarea rows="2" class="form-control input-sm" name="observacionEdit" id="observacionEdit"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    @if (ViewBag.Alta == true)
+                    {
+                        <div class="pull-left btn-Cont">
+                            <button type="button" class="btn btn-warning btn-rounded" id="btnVerificar" data-toggle="modal" data-target="#confirmVerificar"><i class="fa fa-check"></i> Verificar</button>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-rounded" id="btnEditar"><i class="fa fa-check"></i> Guardar</button>
+                        <button type="button" class="btn btn-danger btn-rounded borrarRegistro" title="Borrar" data-toggle="modal" data-target="#confirmDelete"><i class="fa fa-trash"></i> Eliminar</button>
+                    }
+                    <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmVerificar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Verificar").IdiPal_Texto)*@
+                <h4 class="modal-title" id="myModalLabel">Verificar</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+
+            </div>
+            <div class="modal-body">
+                @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Confirmar Verificar").IdiPal_Texto)
+            </div>
+            <div class="modal-footer">
+                @if (ViewBag.Alta == true)
+                {
+                    <button type="button" class="btn btn-primary btn-rounded verificar"><i class="fa fa-check"></i> Guardar</button>
+                }
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Eliminar</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+
+            </div>
+            <div class="modal-body">
+                Confirma que desea eliminar el registro?
+            </div>
+            <div class="modal-footer">
+                @if (ViewBag.Alta == true)
+                {
+                    <button type="button" class="btn btn-primary btn-rounded deleteRegistro"><i class="fa fa-check"></i> Guardar</button>
+                }
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var id;
+    $(function () {
+        function generarTabla(){
+            $('#dataTables-example').dataTable({
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Paginado").IdiPal_Texto)",
+                    "sZeroRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscar sin resultados").IdiPal_Texto)",
+                    "sEmptyTable": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - No hay datos").IdiPal_Texto)",
+                    "sInfo": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info").IdiPal_Texto)",
+                    "sInfoEmpty": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info sin datos").IdiPal_Texto)",
+                    "sInfoFiltered": "(@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info Filtro").IdiPal_Texto))",
+                    "sInfoPostFix": "",
+                    "sSearch": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscador").IdiPal_Texto): ",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Cargando").IdiPal_Texto)",
+                    "oPaginate": {
+                        "sFirst": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Primero").IdiPal_Texto)",
+                        "sLast": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Ultimo").IdiPal_Texto)",
+                        "sNext": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Siguiente").IdiPal_Texto)",
+                        "sPrevious": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Anterior").IdiPal_Texto)"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                "destroy": true,
+                "ajax": {
+                    "type": "GET",
+                    "url": '@Url.Action("CaracteristicasGrilla")',
+                    "data": { id: $('#personaId').val() },
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+                "ordering": false,
+                "autoWidth": true,
+                "columns": [
+                    {
+                        "data": "clas",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Caracteristicas - Caracteristica").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            var color;
+                            if (full['nivel'] == '0')
+                                color = 'green';
+                            else if (full['nivel'] == '1')
+                                color = 'yellow';
+                            else
+                                color = 'red';
+                            return '<span id="clasGrid" style="color:'+color+';">' + data + '</span><input type="hidden" id="hiddenClase" value="' + full['clasId'] + '"/><input type="hidden" id="hiddenNivel" value="' + full['nivel'] + '"/>';
+                        }
+                    },
+                    {
+                        "data": "visible",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Caracteristicas - Visible").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="visibleGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "observacion",
+                        "title": 'Observación',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="observacionGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "",
+                        "title": 'Acciones',
+                        "class": "claseAlign",
+                        "render": function (data, type, full, meta) {
+
+                            var algo = "";
+                            if ("@ViewBag.Alta" == "True")
+                            {
+                                algo += '<button type="button" class="btn ' + (full['verificados'] == true ? "btn-success" : "btn-warning") + ' btn-xs editarRegistro" title="Editar" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmEdit"><span class="glyphicon glyphicon-pencil"></span></button>';
+                            }
+                            return algo;
+                        }
+                    }
+                ],
+            });
+
+            $('.dataTables_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+        }
+
+        $("[name='visibleEdit']").bootstrapSwitch();
+        $("[name='visibleEdit']").bootstrapSwitch('state', false, true);
+        $("[name='visible']").bootstrapSwitch();
+        $("[name='visible']").bootstrapSwitch('state', false, true);
+
+        $('#nivel,#nivelEdit,#clase,#claseEdit').select2();
+
+        $('#confirmEdit').on('hidden.bs.modal', function (e) {
+            $('td').css('background-color', '');
+            if (id == null)
+                generarTabla();
+        });
+
+        $('body').off('click', '.editarRegistro').on('click', '.editarRegistro', function () {
+          
+            id = this.id;
+            $(this).parent().parent().find('td').css('background-color', 'yellow');
+            $('#observacionEdit').val($(this).parents('tr').find('#observacionGrid').text());
+            $('#claseEdit').val($(this).parents('tr').find('#hiddenClase').val()).trigger('change');
+            $('#nivelEdit').val($(this).parents('tr').find('#hiddenNivel').val()).trigger('change');
+            if ($(this).parents('tr').find('#visibleGrid').text() == '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Control Switch - SI").IdiPal_Texto)')
+                $("[name='visibleEdit']").bootstrapSwitch('state', true, true);
+            else
+                $("[name='visibleEdit']").bootstrapSwitch('state', false, true);
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row($(this).parents('tr')).data();
+
+            if (aData.verificados == true)
+                $('#btnVerificar').hide();
+            else
+                $('#btnVerificar').show();
+        });
+
+
+        $('#formEdit').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnEditar',
+            fields: {
+                claseEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                nivelEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var sessionData = {
+                "PerCar_Id": id,
+                "Per_Id": $("#personaId").val(),
+                "Clas_Carac_Id": $("#claseEdit").select2('val'),
+                "PerCar_Visible": $('[name="visibleEdit"]').bootstrapSwitch('state'),
+                "PerCar_Nivel": $("#nivelEdit").select2('val'),
+                "PerCar_Obs": $("#observacionEdit").val(),
+            };
+            $.ajax({
+                url: '@Url.Action("Caracteristicas")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro actualizado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000,
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'bounceOutRight'
+                            }
+                        });
+
+                        $("[name='visibleEdit']").bootstrapSwitch('state', false, true);
+                        $('#claseEdit,#nivelEdit').select2('data', null);
+                        $('#observacionEdit').val('');
+                        $('#formEdit').bootstrapValidator('resetForm');
+                        id = null;
+
+                        $('#confirmEdit').modal('hide');
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+
+
+        $('#formPrincipal').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnGuardar',
+            fields: {
+                clase: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                nivel: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var sessionData = {
+                //"PerCar_Id": id,
+                "Per_Id": $("#personaId").val(),
+                "Clas_Carac_Id": $("#clase").select2('val'),
+                "PerCar_Visible": $('[name="visible"]').bootstrapSwitch('state'),
+                "PerCar_Nivel": $("#nivel").select2('val'),
+                "PerCar_Obs": $("#observacion").val(),
+            };
+            $.ajax({
+                url: '@Url.Action("Caracteristicas")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro guardado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000,
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'bounceOutRight'
+                            }
+                        });
+
+
+                        $('#tabCaracteristicas').removeClass('sinInfo text-info');
+                        $('#tabCaracteristicas i').remove();
+                        $("[name='visible']").bootstrapSwitch('state', false, true);
+                        $('#clase,#nivel').select2('data', null);
+                        $('#observacion').val('');
+                        $('#formPrincipal').bootstrapValidator('resetForm');
+                        generarTabla();
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        $('body').off('click', '.deleteRegistro').on('click', '.deleteRegistro', function () {
+            $.ajax({
+                url: '@Url.Action("CaracteristicasDelete")',
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro eliminado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#confirmEdit, #confirmDelete').modal('hide');
+                        id = null;
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+
+        $('body').off('click', '.verificar').on('click', '.verificar', function () {
+            $.ajax({
+                url: '@Url.Action("CaracteristicasVerificar")',
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro actualizado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#confirmEdit, #confirmDelete, #confirmVerificar').modal('hide');
+                        id = null;
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+
+        generarTabla();
+    });
+</script>

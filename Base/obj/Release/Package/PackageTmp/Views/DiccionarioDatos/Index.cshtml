@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Diccionario de Datos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="page-header">Diccionario de Datos</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="well well-sm overflowWell">
+            @if (ViewBag.Id != null)
+            {
+                <input type="hidden" value="@ViewBag.Id" name="tablaId" id="tablaId"/>
+                <h5 class="text-info pull-left">
+                    <small>Nombre:</small><span>@ViewBag.FechaBaja</span>
+                    <small>Desc.:</small><span>@ViewBag.Descr</span>
+                </h5>
+            }
+            <a class="btn btn-success" style="float: right" href="javascript: history.go(-1)"><i class="fa fa-caret-left"></i>Volver</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <ul class="nav nav-tabs" role="tablist" id="myTab">
+            <li class="active"><a href="#" id="tablas" data-toggle="tab" role-section="/DiccionarioDatos/tablas">Tablas</a></li>
+
+            <li><a href="#" id="campos" class='' data-toggle="tab" role-section="/DiccionarioDatos/campos">Campos</a></li>
+            <li><a href="#" id="relaciones" class='' data-toggle="tab" role-section="/DiccionarioDatos/relaciones">Relaciones</a></li>
+
+        </ul>
+
+        <div class="tab-content tabsContainer" id="">
+            <div id="link">@Html.Action("Tablas", "DiccionarioDatos")</div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(function () {
+
+        //codigo para cargar las partialview de cada solapa
+        $('#myTab a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+
+            var id = this.id;
+            if (id != "") {
+                $.ajax({
+                    url: $(this).attr('role-section'),
+                    data: { data: id },
+                    success: function (mydata) {
+                        $("#link").empty().append(mydata);
+                    },
+                    type: "GET"
+                });
+            }
+        });
+    });
+
+</script>

@@ -1,0 +1,76 @@
+﻿<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Eliminar</h4>
+                </div>
+                <div class="modal-body">
+                    Confirma que desea eliminar el registro?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-rounded delete"><i class="fa fa-check"></i> Guardar</button>
+                    <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    var urlDelete;
+    $(function () {
+        //**************************
+        //JAVASCRIPT DE ELIMINAR
+        //**************************
+
+        $('body').off('click', 'button.preDelete').on('click', 'button.preDelete', function () {
+            id = this.id;
+            urlDelete = $(this).attr('url');
+            $(this).parent().parent().find('td').css('background-color', 'red');
+        });
+
+        $('body').off('click', 'button.delete').on('click', 'button.delete', function () {
+            $.ajax({
+                url: urlDelete,
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro eliminado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                    id = null;
+                    $('#confirmDelete').modal('hide');
+
+                },
+                type: "POST"
+            });
+        });
+
+        $('#confirmDelete').on('hidden.bs.modal', function (e) {
+            $('td').css('background-color', '');
+            if (id == null)
+                generarTabla();
+        });
+
+        //**************************
+        //FIN JAVASCRIPT DE ELIMINAR
+        //**************************
+    });
+</script>

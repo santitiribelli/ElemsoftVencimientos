@@ -1,0 +1,244 @@
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\BusinessLogic.dll.config
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\BusinessLogic.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\BusinessLogic.pdb
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\CrystalDecisions.Shared.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\DataAccess.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\Entities.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\EntityFramework.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\EntityFramework.SqlServer.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\FacturaElectronicaProd.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\stdole.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\DataAccess.pdb
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\Entities.pdb
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\EntityFramework.xml
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\EntityFramework.SqlServer.xml
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\es\EntityFramework.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\obj\Debug\BusinessLogic.csprojResolveAssemblyReference.cache
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\obj\Debug\BusinessLogic.dll
+C:\Proyectos\TresPrimos\TresPrimos\BussinessLogic\obj\Debug\BusinessLogic.pdb
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\BusinessLogic.dll.config
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\BusinessLogic.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\BusinessLogic.pdb
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\CrystalDecisions.Shared.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\DataAccess.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\Entities.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\EntityFramework.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\EntityFramework.SqlServer.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\FacturaElectronicaProd.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\stdole.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\DataAccess.pdb
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\Entities.pdb
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\EntityFramework.xml
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\EntityFramework.SqlServer.xml
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\es\EntityFramework.resources.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\obj\Debug\BusinessLogic.csprojResolveAssemblyReference.cache
+C:\Proyectos\Terramar\Terramar\BussinessLogic\obj\Debug\BusinessLogic.dll
+C:\Proyectos\Terramar\Terramar\BussinessLogic\obj\Debug\BusinessLogic.pdb
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\BusinessLogic.dll.config
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\BusinessLogic.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\BusinessLogic.pdb
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\CrystalDecisions.Shared.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\DataAccess.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\Entities.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\EntityFramework.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\EntityFramework.SqlServer.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\Newtonsoft.Json.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\stdole.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\DataAccess.pdb
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\Entities.pdb
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\EntityFramework.xml
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\EntityFramework.SqlServer.xml
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\Newtonsoft.Json.xml
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\es\EntityFramework.resources.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\obj\Debug\BusinessLogic.csprojResolveAssemblyReference.cache
+C:\Proyectos\Sealand\Sealand\BussinessLogic\obj\Debug\BusinessLogic.dll
+C:\Proyectos\Sealand\Sealand\BussinessLogic\obj\Debug\BusinessLogic.pdb
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.csprojResolveAssemblyReference.cache
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\BusinessLogic.dll.config
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\BusinessLogic.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\BusinessLogic.pdb
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.Shared.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\DataAccess.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\Entities.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.SqlServer.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\Newtonsoft.Json.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\stdole.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\DataAccess.pdb
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\Entities.pdb
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.SqlServer.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\Newtonsoft.Json.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\es\EntityFramework.resources.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.pdb
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.pdb
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\BusinessLogic.dll.config
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\BusinessLogic.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\BusinessLogic.pdb
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.Shared.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\DataAccess.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\Entities.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\Newtonsoft.Json.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\stdole.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\DataAccess.pdb
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\Entities.pdb
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\Newtonsoft.Json.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\es\EntityFramework.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\BusinessLogic.dll.config
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\BusinessLogic.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\BusinessLogic.pdb
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.Shared.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\DataAccess.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\Entities.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\stdole.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\DataAccess.pdb
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\DataAccess.dll.config
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\Entities.pdb
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\Entities.dll.config
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.csproj.AssemblyReference.cache
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.csproj.CopyComplete
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.pdb
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\es\EntityFramework.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\BussinessLogic\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\BusinessLogic.dll.config
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\BusinessLogic.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\BusinessLogic.pdb
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportSource.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.Shared.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\DataAccess.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\Entities.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\Newtonsoft.Json.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\stdole.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\DataAccess.pdb
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\DataAccess.dll.config
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\Entities.pdb
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\Entities.dll.config
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\Newtonsoft.Json.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\es\EntityFramework.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.csproj.AssemblyReference.cache
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.csproj.CoreCompileInputs.cache
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.csproj.CopyComplete
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\BussinessLogic\obj\Debug\BusinessLogic.pdb

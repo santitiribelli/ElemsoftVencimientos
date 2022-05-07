@@ -1,0 +1,31 @@
+<div>
+	<table cellspacing="0" rules="all" border="1" style="border-collapse:collapse;">
+		<tr>
+			<th scope="col">Id</th><th scope="col">Nombre</th><th scope="col">Detalle</th><th scope="col">Dias</th><th scope="col">Estado</th>
+		</tr><tr>
+			<td>1</td><td>Empleado Verificar</td><td>Muestra los empleados cargados pero sin verificaci&#243;n por parte del Administrador.</td><td>0</td><td>ACTIVA</td>
+		</tr><tr>
+			<td>4</td><td>&nbsp;</td><td>ELEM GERARDO</td><td>0</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>4</td><td>Idioma Traducci&#243;n</td><td>Muestra los idiomas Activos en donde faltan traducci&#243;n de alguna palabra.</td><td>0</td><td>ACTIVA</td>
+		</tr><tr>
+			<td>5</td><td>&nbsp;</td><td>ELEM GERARDO</td><td>0</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>5</td><td>Cliente Verificar</td><td>Muestra los clientes cargados pero sin verificaci&#243;n por parte del Administrador.</td><td>0</td><td>ACTIVA</td>
+		</tr><tr>
+			<td>6</td><td>Proveedor Verificar</td><td>Muestra los proveedores cargados pero sin verificaci&#243;n por parte del Administrador.</td><td>0</td><td>ACTIVA</td>
+		</tr><tr>
+			<td>7</td><td>Tripulante Verificar</td><td>Muestra los tripulantes cargados pero sin verificaci&#243;n por parte del Administrador.</td><td>0</td><td>ACTIVA</td>
+		</tr><tr>
+			<td>8</td><td>Personas Verificar</td><td>Muestra las personas cargadas sin verificaci&#243;n por parte del Administrador.</td><td>0</td><td>ACTIVA</td>
+		</tr><tr>
+			<td>9</td><td>&nbsp;</td><td>ELEM GERARDO</td><td>0</td><td>&nbsp;</td>
+		</tr><tr>
+			<td>9</td><td>Clasificador Traducci&#243;n</td><td>Muestra los idiomas Activos en relaci&#243;n a los Clasificadores que no tienen la traducci&#243;n.</td><td>0</td><td>ACTIVA</td>
+		</tr><tr>
+			<td>10</td><td>Producto Verificar</td><td>Muestra los productos cargados sin verificaci&#243;n por parte del Administrador.</td><td>0</td><td>ACTIVA</td>
+		</tr><tr>
+			<td>11</td><td>Documentos Vencimientos</td><td>Muestra los documentos que est&#225;n pr&#243;ximos a vencer su vigencia.</td><td>0</td><td>ACTIVA</td>
+		</tr>
+	</table>
+</div>

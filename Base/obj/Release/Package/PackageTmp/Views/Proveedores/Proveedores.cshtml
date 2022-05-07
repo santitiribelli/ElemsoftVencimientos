@@ -1,0 +1,202 @@
+﻿@using Entities
+@model Proveedores
+<form class="form-horizontal rowAlt" role="form" id="formPrincipal">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Proveedores - Codigo").IdiPal_Texto)</label>
+                            <input id="codigo" name="codigo" type="text" class="form-control input-sm" maxlength="5" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Proveedores - Estado").IdiPal_Texto)</label>
+                            <select type="text" class="input-sm form-control" id="estado" name="estado">
+                                @foreach (var item in BusinessLogic.ClasificadoresIdiomasAdmin.GetList("Proveedores Estados"))
+                                {
+                                    <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label style="display:block;">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Proveedores - Cta Cte").IdiPal_Texto)</label>
+                            <input type="checkbox" name="cuentaCorriente" id="cuentaCorriente" data-on-color="success" data-on-text="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Control Switch - SI").IdiPal_Texto)" data-off-text="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Control Switch - NO").IdiPal_Texto)" checked tabindex="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label style="display:block;">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Proveedores - Propio").IdiPal_Texto)</label>
+                            <input type="checkbox" name="propio" id="propio" data-on-color="success" data-on-text="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Control Switch - SI").IdiPal_Texto)" data-off-text="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Control Switch - NO").IdiPal_Texto)" checked tabindex="">
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Observacion").IdiPal_Texto)</label>
+                            <textarea rows="2" style="width: 100% !important" class="form-control input-sm" id="observacion" name="observacion"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (ViewBag.Alta == true)
+            {
+                if (Model != null)
+                {
+                    if (!Model.Prov_DatosVerificados && ViewBag.EsAdmin == true)
+                    {
+                        <div class="pull-left btn-Cont">
+                            <button type="button" class="btn btn-warning btn-rounded" id="btnVerificar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Verificar").IdiPal_Texto)</button>
+                        </div>
+                    }
+                }
+                <div class="pull-right btn-Cont">
+                    <button type="submit" class="btn btn-success btn-rounded" id="btnGuardar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                </div>
+            }
+        </div>
+    </div>
+</form>
+<script>
+    $(function () {
+        $("[name='cuentaCorriente']").bootstrapSwitch('state', false, true);
+        $("[name='propio']").bootstrapSwitch('state', false, true);
+        //clasificador('rubro', 'Rubros', 'formPrincipal', true);
+        $('#estado').select2();
+        $('#estado').select2('val', 16);
+
+        $('#formPrincipal').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnGuardar',
+            fields: {
+                estado: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                    }
+                },
+                codigo: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                    }
+                },
+            }
+        }).on('success.form.bv', function(e) {
+            e.preventDefault();
+
+            var sessionData = {
+                "Prov_Id": $("#proveedorId").val(),
+                "Per_Id": $('#personaId').val(),
+                "Prov_Codigo": $("#codigo").val(),
+                "Clas_ProEst_Id": $("#estado").val(),
+                "Prov_Obs": $("#observacion").val(),
+                "Prov_CtaCorriente": $('[name="cuentaCorriente"]').bootstrapSwitch('state'),
+                "Prov_Propio": $('[name="propio"]').bootstrapSwitch('state'),
+            };
+
+            $.ajax({
+                url: '@Url.Action("Proveedores")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function(results) {
+                    if (results.success) {
+                        if ($('#proveedorId').val() > 0) {
+                            new PNotify({
+                                title: ':)',
+                                text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Actualizar").IdiPal_Texto)',
+                                type: 'success',
+                                hide: true,
+                                styling: 'bootstrap3',
+                                delay: 3000,
+                                animate: {
+                                    animate: true,
+                                    in_class: 'bounceInDown',
+                                    out_class: 'bounceOutRight'
+                                }
+                            });
+
+                        } else {
+
+                            window.location.href = '@Url.Action("Index")/?tab=Proveedores&id=' + $('#personaId').val();
+                        }
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        $('body').off('click', '#btnVerificar').on('click', '#btnVerificar', function () {
+            $.ajax({
+                url: '@Url.Action("Verificar")',
+                data: { id: $('#proveedorId').val() },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Verificar").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+
+                        $('#btnVerificar').hide();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+    });
+</script>
+@if (Model != null)
+{
+    <script>
+        $(function () {
+            $("#codigo").val('@Model.Prov_Codigo');
+            $("#observacion").val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Prov_Obs))');
+            $("#estado").select2('val', @Model.Clas_ProEst_Id);
+            if ('@Model.Prov_CtaCorriente' == 'True')
+                $("[name='cuentaCorriente']").bootstrapSwitch('state', true, true);
+            else
+                $("[name='cuentaCorriente']").bootstrapSwitch('state', false, true);
+             if ('@Model.Prov_Propio' == 'True')
+                $("[name='propio']").bootstrapSwitch('state', true, true);
+            else
+                $("[name='propio']").bootstrapSwitch('state', false, true);
+        });
+    </script>
+}

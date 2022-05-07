@@ -1,0 +1,986 @@
+﻿@using Entities
+@if (ViewBag.Alta == true)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="button" class="btn btn-info  btn-block" id="btnAgregarForm"><i class="fa fa-plus"></i> Agregar</button>
+        </div>
+    </div>
+    <form class="form-horizontal rowAlt" role="form" id="formPrincipal" style="display: none;">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Documento</label>
+                                <select type="text" class="form-control input-sm" name="tipoClase" id="tipoClase">
+                                    <option></option>
+                                    @foreach (var item in BusinessLogic.ClasificadoresAdmin.GetList("Vehículos Documentos"))
+                                    {
+                                        <option value="@item.Clas_Id">@item.Clas_Desc</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>F. Aprobado</label>
+                                <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaAprobado" name="fechaAprobado" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>F. Vencimiento</label>
+                                <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaVigencia" name="fechaVigencia" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Fecha Aviso</label>
+                                <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaAviso" name="fechaAviso" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label style="display: block;">Generar Alerta</label>
+                                <input type="checkbox" name="generarAlerta" id="generarAlerta" data-on-color="success" data-off-color="danger" data-on-text="SI" data-off-text="NO" checked>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Subir Archivo</label>
+                                <input id="input-id" type="file" class="file input-sm" name="imagen" data-show-preview="false">
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-md-1" id="divDescargar" style="display:none;">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Descargar</label>
+                                <a class="btn btn-success" target="_blank" href="/Uploads/Pagos/@(Model != null ? Model.Com_ArchivoNom : "")"><span class="glyphicon glyphicon-download-alt"></span></a>
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Observación</label>
+                                <textarea rows="2" class="form-control input-sm" name="observacion" id="observacion"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-right btn-Cont">
+                    <button type="submit" class="btn btn-success btn-rounded" id="btnGuardar"><i class="fa fa-check"></i> Guardar</button>
+
+                </div>
+            </div>
+        </div>
+    </form>
+}
+<style>
+    .colHidden {
+        display: none;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="confirmEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Editar</h4>
+            </div>
+            <form class="form-horizontal" id="formEdit" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Documento</label>
+                                    <select type="text" class="form-control input-sm" name="tipoClaseEdit" id="tipoClaseEdit">
+                                        @foreach (var item in BusinessLogic.ClasificadoresAdmin.GetList("Vehículos Documentos"))
+                                        {
+                                            <option value="@item.Clas_Id">@item.Clas_Desc</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>F. Aprobado</label>
+                                    <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaAprobadoEdit" name="fechaAprobadoEdit" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>F. Vencimiento</label>
+                                    <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaVigenciaEdit" name="fechaVigenciaEdit" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Fecha Aviso</label>
+                                    <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaAvisoEdit" name="fechaAvisoEdit" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label style="display: block;">Generar Alerta</label>
+                                    <input type="checkbox" name="generarAlertaEdit" id="generarAlertaEdit" data-on-color="success" data-off-color="danger" data-on-text="SI" data-off-text="NO" checked>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Subir Archivo</label>
+                                    <input id="inputEdit-id" type="file" class="file input-sm" name="imagenEdit" data-show-preview="false">
+                                    <label id="lblDescargar"><small>Si carga un archivo nuevo borrará el anterior</small></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1" id="divDescargar" style="display: none;">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Descargar</label>
+                                    <a class="btn btn-success" target="_blank" id="descargar" ><span class="glyphicon glyphicon-download-alt"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Observación</label>
+                                    <textarea rows="2" class="form-control input-sm" name="observacionEdit" id="observacionEdit"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    @if (ViewBag.Alta == true)
+                    {
+                        <div class="pull-left btn-Cont">
+                            <button type="button" class="btn btn-warning btn-rounded" id="btnVerificar" data-toggle="modal" data-target="#confirmVerificar"><i class="fa fa-check"></i> Verificar</button>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-rounded" id="btnEditar"><i class="fa fa-check"></i> Guardar</button>
+                        <button type="button" class="btn btn-danger btn-rounded borrarRegistro" title="Borrar" data-toggle="modal" data-target="#confirmDelete"><i class="fa fa-trash"></i> Eliminar</button>
+                    }
+                    <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Eliminar</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+
+            </div>
+            <div class="modal-body">
+                Confirma que desea eliminar el registro?
+            </div>
+            <div class="modal-footer">
+                @if (ViewBag.Alta == true)
+                {
+                    <button type="button" class="btn btn-primary btn-rounded deleteRegistro"><i class="fa fa-check"></i> Guardar</button>
+                }
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmVerificar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Verificar").IdiPal_Texto)*@
+                <h4 class="modal-title" id="myModalLabel">Verificar</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+
+            </div>
+            <div class="modal-body">
+                Confirma que desea verificar el registro?
+            </div>
+            <div class="modal-footer">
+                @if (ViewBag.Alta == true)
+                {
+                    <button type="button" class="btn btn-primary btn-rounded verificar"><i class="fa fa-check"></i> Guardar</button>
+                }
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var id;
+    $(function () {
+        function generarTabla(){
+            $('#dataTables-example').dataTable({
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar: ",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                "destroy": true,
+                "ajax": {
+                    "type": "GET",
+                    "url": '@Url.Action("DocumentosGrilla")',
+                    "data": { id: $('#vehiculoId').val() },
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+                "ordering": false,
+                "autoWidth": true,
+                "columns": [
+                    {
+                        "data": "clas",
+                        "title": 'Documento',
+                        "render": function (data, type, full, meta) {
+
+                            return '<span id="clasGrid">' + data + '</span><input type="hidden" id="hiddenClase" value="' + full['clasId'] + '"/>';
+                        }
+                    },
+                    {
+                        "data": "fechaAprobado",
+                        "title": 'F. Aprobado',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="fechaAprobadoGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "fechaVigencia",
+                        "title": 'F. Vencimiento',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="fechaVigenciaGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "fechaAviso",
+                        "title": 'Fecha Aviso',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="fechaAvisoGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "generarAlerta",
+                        "title": 'Generar Alerta',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="generarAlertaGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "",
+                        "title": 'Descargar',
+                        "class": "claseAlign",
+                        "render": function (data, type, full, meta) {
+                            var algo = "";
+                            if (full['documento'] == "")
+                            {
+                                algo += '<button type="button" class="btn btn-danger btn-xs " title="Cargar Documento" id="' + full['id'] + '" target="_blank" ><span class="fa fa-times"></span></button>';
+                            }
+                            else
+                            {
+                                algo += '<a type="button" class="btn btn-success btn-xs " title="Ver Documento" id="' + full['id'] + '" target="_blank" href="/Uploads/VehiculosDocumentos/' + full['documento'] + '"><span style="margin-right:0px;" class="fa fa-check"></span></a>';
+                            }
+                            return algo;
+                        }
+                    },
+
+                    {
+                        "data": "documento",
+                        "title": 'Nombre Documento',
+                         "class": "colHidden",
+                        "render": function (data, type, full, meta) {
+                            return '<span id="nombreDocumentoGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "observacion",
+                        "title": 'Observación',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="observacionGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "",
+                        "title": 'Acciones',
+                        "class": "claseAlign",
+                        "render": function (data, type, full, meta) {
+
+                            var algo = "";
+                            if ("@ViewBag.Alta" == "True")
+                            {
+                               algo += '<button type="button" class="btn ' + (full['verificados'] == true ? "btn-success" : "btn-warning") + ' btn-xs editarRegistro" title="Editar" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmEdit"><span class="glyphicon glyphicon-pencil"></span></button>';
+                            }
+                            return algo;
+                        }
+                    }
+                ],
+            });
+
+            $('.dataTables_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+        }
+
+
+        function uploadfile(docId) {
+                var bannerImage = $("#input-id").val();
+                if (bannerImage) {
+                    var file = document.getElementById('input-id').files[0];
+                    var formData = new FormData();
+                    formData.append(file.name, file);
+                    var xhr = new XMLHttpRequest();
+                    var url = "@Url.Action("UploadArchivo")/" + docId;
+                    xhr.open('POST', url, false);
+                    xhr.onload = function (e) {
+                        var response = $.parseJSON(e.target.response);
+                        if (response.success == false) {
+                            new PNotify({
+                                title: 'Error!',
+                                text: results.msg,
+                                type: 'danger',
+                                hide: false,
+                                styling: 'bootstrap3'
+                            });
+                        } else {
+                           // $('#divDescargar').show();
+                        }
+                    };
+                    xhr.send(formData);  // multipart/form-data
+                    $('#input-id').fileinput('clear');
+                }
+            }
+
+            $("#input-id").fileinput({
+                previewFileType: "image",
+                browseClass: "btn btn-sm btn-success",
+                browseLabel: " Buscar",
+                browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+                removeClass: "btn btn-sm btn-danger",
+                removeLabel: " Borrar",
+                removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+                showUpload: false
+            });
+        $("#inputEdit-id").fileinput({
+                previewFileType: "image",
+                browseClass: "btn btn-sm btn-success",
+                browseLabel: " Buscar",
+                browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+                removeClass: "btn btn-sm btn-danger",
+                removeLabel: " Borrar",
+                removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+                showUpload: false
+        });
+        function uploadfileEdit(docId) {
+                var bannerImage = $("#inputEdit-id").val();
+                if (bannerImage) {
+                    var file = document.getElementById('inputEdit-id').files[0];
+                    var formData = new FormData();
+                    formData.append(file.name, file);
+                    var xhr = new XMLHttpRequest();
+                    var url = "@Url.Action("UploadArchivo")/" + docId;
+                    xhr.open('POST', url, false);
+                    xhr.onload = function (e) {
+                        var response = $.parseJSON(e.target.response);
+                        if (response.success == false) {
+                            new PNotify({
+                                title: 'Error!',
+                                text: results.msg,
+                                type: 'danger',
+                                hide: false,
+                                styling: 'bootstrap3'
+                            });
+                        } else {
+                           // $('#divDescargar').show();
+                        }
+                    };
+                    xhr.send(formData);  // multipart/form-data
+                    $('#inputEdit-id').fileinput('clear');
+                }
+            }
+
+
+
+        $("[name='generarAlertaEdit']").bootstrapSwitch();
+        $("[name='generarAlertaEdit']").bootstrapSwitch('state', false, true);
+        $("[name='generarAlerta']").bootstrapSwitch();
+        $("[name='generarAlerta']").bootstrapSwitch('state', false, true);
+        $("[name='generarNotificaciondit']").bootstrapSwitch();
+        $("[name='generarNotificacionEdit']").bootstrapSwitch('state', false, true);
+
+        $('#tipoClase,#tipoClaseEdit').select2();
+
+        $('#confirmEdit, #confirmDelete, #visualizarRegistro').on('hidden.bs.modal', function (e) {
+            $('td').css('background-color', '');
+            if (id == null)
+                generarTabla();
+        });
+
+        $('body').off('click', '.editarRegistro').on('click', '.editarRegistro', function () {
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row($(this).parents('tr')).data();
+            id = aData.id;
+            $(this).parent().parent().find('td').css('background-color', 'yellow');
+            $('#observacionEdit').val(aData.observacion);
+            $('#tipoClaseEdit').val(aData.clasId).trigger('change');
+            $('#fechaAprobadoEdit').val(aData.fechaAprobado);
+            $('#fechaVigenciaEdit').val(aData.fechaVigencia);
+            $('#fechaAvisoEdit').val(aData.fechaAviso);
+            if (aData.documento != "") {
+                $('#divDescargar').show();
+                 $('#lblDescargar').show();
+                $('#descargar').attr("href", '@Url.Content("/Uploads/VehiculosDocumentos/")' + aData.documento);
+            }
+            else {
+                $('#lblDescargar').hide();
+                $('#divDescargar').hide();
+            }
+
+            if (aData.verificados == true)
+                $('#btnVerificar').hide();
+            else
+                $('#btnVerificar').show();
+
+            if (aData.generarAlerta == 'SI')
+                $("[name='generarAlertaEdit']").bootstrapSwitch('state', true, true);
+            else
+                $("[name='generarAlertaEdit']").bootstrapSwitch('state', false, true);
+        });
+
+        $('body').off('click', '.verificar').on('click', '.verificar', function () {
+            $.ajax({
+                url: '@Url.Action("DocumentosVerificar")',
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro actualizado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#confirmEdit, #confirmDelete, #confirmVerificar').modal('hide');
+                        id = null;
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+
+         $('#generarAlerta').on("switchChange.bootstrapSwitch", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaVigencia', 'NOT_VALIDATED', null).validateField('fechaVigencia');
+
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaAviso', 'NOT_VALIDATED', null).validateField('fechaAviso');
+         });
+
+        $('#fechaVigencia').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaVigencia', 'NOT_VALIDATED', null).validateField('fechaVigencia');
+
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaAviso', 'NOT_VALIDATED', null).validateField('fechaAviso');
+        });
+
+        $('#fechaAviso').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaAviso', 'NOT_VALIDATED', null).validateField('fechaAviso');
+        });
+
+        $('#fechaAprobado').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaAprobado', 'NOT_VALIDATED', null).validateField('fechaAprobado');
+        });
+        $('#tipoClase').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('tipoClase', 'NOT_VALIDATED', null).validateField('tipoClase');
+        });
+
+        $.fn.bootstrapValidator.validators.datesMayorActual = {
+            validate: function (validator, $field, options) {
+
+                if ($('[name="generarAlerta"]').bootstrapSwitch('state') == true )
+                {
+                    if ($('#fechaVigencia').val() != '')
+                    {
+                        var d2 = $('#fechaVigencia').val();
+                        var d1 = "@DateTime.Now.ToString("dd/MM/yyyy")";
+                        d1 = d1.split('/');
+                        d2 = d2.split('/');
+                        d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                        d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                        return d2 > d1;
+                    }
+                     else
+                           return false;
+                }
+                else
+                {
+                    return true;
+                }
+
+
+
+            }
+        };
+
+        $.fn.bootstrapValidator.validators.datesMenorVigencia = {
+            validate: function (validator, $field, options) {
+
+                if ($('[name="generarAlerta"]').bootstrapSwitch('state') == true  || $('#fechaVigencia').val() != '' )
+                {
+                    if ($('#fechaAviso').val() != '')
+                    {
+                        var d2 = $('#fechaVigencia').val();
+                        var d1 = $('#fechaAviso').val();
+                        d1 = d1.split('/');
+                        d2 = d2.split('/');
+                        d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                        d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                        return d2 > d1;
+                    }
+                     else
+                           return false;
+                }
+                else
+                {
+                    return true;
+                }
+
+
+
+            }
+        };
+
+         $('#generarAlertaEdit').on("switchChange.bootstrapSwitch", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaVigenciaEdit', 'NOT_VALIDATED', null).validateField('fechaVigenciaEdit');
+
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaAvisoEdit', 'NOT_VALIDATED', null).validateField('fechaAvisoEdit');
+         });
+
+        $('#generarNotificacionEdit').on("switchChange.bootstrapSwitch", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaVigenciaEdit', 'NOT_VALIDATED', null).validateField('fechaVigenciaEdit');
+
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaAviso', 'NOT_VALIDATED', null).validateField('fechaAviso');
+        });
+        $('#fechaVigenciaEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaVigenciaEdit', 'NOT_VALIDATED', null).validateField('fechaVigenciaEdit');
+
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaAvisoEdit', 'NOT_VALIDATED', null).validateField('fechaAvisoEdit');
+        });
+
+        $('#fechaAvisoEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaAvisoEdit', 'NOT_VALIDATED', null).validateField('fechaAvisoEdit');
+        });
+
+        $('#fechaAprobadoEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaAprobadoEdit', 'NOT_VALIDATED', null).validateField('fechaAprobadoEdit');
+        });
+
+        $('#tipoClaseEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('tipoClaseEdit', 'NOT_VALIDATED', null).validateField('tipoClaseEdit');
+        });
+
+        $.fn.bootstrapValidator.validators.datesMayorActualEdit = {
+            validate: function (validator, $field, options) {
+
+                if ($('[name="generarAlertaEdit"]').bootstrapSwitch('state') == true || $('[name="generarNotificacionEdit"]').bootstrapSwitch('state') == true )
+                {
+                    if ($('#fechaVigenciaEdit').val() != '')
+                    {
+                        var d2 = $('#fechaVigenciaEdit').val();
+                        var d1 = "@DateTime.Now.ToString("dd/MM/yyyy")";
+                        d1 = d1.split('/');
+                        d2 = d2.split('/');
+                        d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                        d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                        return d2 > d1;
+                    }
+                     else
+                           return false;
+                }
+                else
+                {
+                    return true;
+                }
+
+
+
+            }
+        };
+
+        $.fn.bootstrapValidator.validators.datesMenorVigenciaEdit = {
+            validate: function (validator, $field, options) {
+
+                if ($('[name="generarAlertaEdit"]').bootstrapSwitch('state') == true || $('[name="generarNotificacionEdit"]').bootstrapSwitch('state') == true || $('#fechaVigenciaEdit').val() != '' )
+                {
+                    if ($('#fechaAvisoEdit').val() != '')
+                    {
+                        var d2 = $('#fechaVigenciaEdit').val();//fechaAvisoEdit
+                        var d1 = $('#fechaAvisoEdit').val();
+                        d1 = d1.split('/');
+                        d2 = d2.split('/');
+                        d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                        d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                        return d2 > d1;
+                    }
+                     else
+                           return false;
+                }
+                else
+                {
+                    return true;
+                }
+
+
+
+            }
+        };
+
+        $('#formEdit').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnEditar',
+            fields: {
+                tipoClaseEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                fechaAprobadoEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: "La fecha no puede ser superior a hoy" + '<br />',
+                            max: "@DateTime.Now.ToString("dd/MM/yyyy")"
+                        }
+                    }
+                },
+                fechaVigenciaEdit: {
+                    validators: {
+                        //notEmpty: {
+                        //    message: 'campo requerido'
+                        //},
+                        datesMayorActualEdit: {
+                            message: 'La fecha no puede ser superior a hoy' + '<br />',
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: "Formato incorrecto" + '<br />',
+                        },
+                    }
+                },
+                fechaAvisoEdit: {
+                    validators: {
+                        //notEmpty: {
+                        //    message: 'campo requerido'
+                        //},
+                        datesMenorVigenciaEdit: {
+                            message: 'La fecha de aviso debe ser inferior a la de vigencia' + '<br />',
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: "Formato incorrecto" + '<br />',
+                        },
+                    }
+                },
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var sessionData = {
+                "VehDoc_Id": id,
+                "Veh_Id": $("#vehiculoId").val(),
+                "Clas_TipoDocumento_Id": $("#tipoClaseEdit").val(),
+                "VehDoc_FechaAprobado": $("#fechaAprobadoEdit").val(),
+                "VehDoc_FechaVencimiento": $("#fechaVigenciaEdit").val(),
+                "VehDoc_FechaAviso": $("#fechaAvisoEdit").val(),
+                "GeneraAlerta": $('[name="generarAlertaEdit"]').bootstrapSwitch('state'),
+                "VehDoc_ArchivoAdjunto": $("#adjuntoEdit").val(),
+                "VehDoc_Obs": $("#observacionEdit").val(),
+
+            };
+            $.ajax({
+                url: '@Url.Action("Documentos")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                         if($("#inputEdit-id").val() != "")
+                            uploadfileEdit(results.msg);
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro actualizado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000,
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'bounceOutRight'
+                            }
+                        });
+
+                         $("[name='generarNotificacionEdit']").bootstrapSwitch('state', false, true);
+                        $("[name='generarAlertaEdit']").bootstrapSwitch('state', false, true);
+                        $('#tipoClaseEdit').select2('data', null);
+                        $('#observacionEdit,#fechaAprobadoEdit,#fechaVigenciaEdit,#fechaAvisoEdit,#adjuntoEdit').val('');
+                        $('#formEdit').bootstrapValidator('resetForm');
+                        id = null;
+
+                        $('#confirmEdit').modal('hide');
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+
+
+        $('#formPrincipal').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnGuardar',
+            fields: {
+                tipoClase: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                fechaAprobado: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: "La fecha no puede ser superior a hoy" + '<br />',
+                            max: "@DateTime.Now.ToString("dd/MM/yyyy")"
+                        }
+                    }
+                },
+                fechaVigencia: {
+                    validators: {
+                        //notEmpty: {
+                        //    message: 'campo requerido'
+                        //},
+                        datesMayorActual: {
+                            message: 'La fecha debe ser mayor a hoy' + '<br />',
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: "Formato incorrecto" + '<br />',
+                        },
+                    }
+                },
+                fechaAviso: {
+                    validators: {
+                        //notEmpty: {
+                        //    message: 'campo requerido'
+                        //},
+                        datesMenorVigencia: {
+                            message: 'La fecha de aviso debe ser inferior a la de vigencia' + '<br />',
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: "Formato incorrecto" + '<br />',
+                        },
+                    }
+                },
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var sessionData = {
+                //"VehDoc_Id": id,
+                "Veh_Id": $("#vehiculoId").val(),
+                "Clas_TipoDocumento_Id": $("#tipoClase").val(),
+                "VehDoc_FechaAprobado": $("#fechaAprobado").val(),
+                "VehDoc_FechaVencimiento": $("#fechaVigencia").val(),
+                "VehDoc_FechaAviso": $("#fechaAviso").val(),
+                "GeneraAlerta": $('[name="generarAlerta"]').bootstrapSwitch('state'),
+                "VehDoc_ArchivoAdjunto": $("#adjunto").val(),
+                "VehDoc_Obs": $("#observacion").val(),
+                "VehDoc_DatosVerificados": false,
+            };
+            $.ajax({
+                url: '@Url.Action("Documentos")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        if($("#input-id").val() != "")
+                            uploadfile(results.msg);
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro guardado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000,
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'bounceOutRight'
+                            }
+                        });
+
+
+                        $('#tabDocumentos').removeClass('sinInfo text-info');
+                        $('#tabDocumentos i').remove();
+                        $("[name='generarAlerta']").bootstrapSwitch('state', false, false);
+                        $('#tipoClase').select2('data', null);
+                        $('#observacion,#fechaAprobado,#fechaVigencia,#fechaAviso,#adjunto').val('');
+                        $('#formPrincipal').bootstrapValidator('resetForm');
+                        generarTabla();
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        $('body').off('click', '.deleteRegistro').on('click', '.deleteRegistro', function () {
+            $.ajax({
+                url: '@Url.Action("DocumentosDelete")',
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro eliminado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#confirmEdit, #confirmDelete').modal('hide');
+                        id = null;
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+
+        generarTabla();
+    });
+</script>

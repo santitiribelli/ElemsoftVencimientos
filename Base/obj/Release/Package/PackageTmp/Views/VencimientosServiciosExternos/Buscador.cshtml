@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "Buscador";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="@(ViewBag.Alta == true ? "col-lg-10" : "col-lg-12")">
+        <h4 class="page-header">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Auxiliares - Venc. Externos").IdiPal_Texto)</h4>
+    </div>
+    @if (ViewBag.Alta == true && ViewBag.EsAdmin == true)
+        {
+    <div class="col-lg-2">
+        <button type="button" class="btn btn-info  btn-block" onclick="location.href='@Url.Action("Index", new {tab = "VencimientosServiciosExternos"})'"><i class="fa fa-plus"></i>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Agregar").IdiPal_Texto)</button>
+    </div>
+    }
+</div>
+<style>
+    .colHidden {
+        display: none;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example" width="100%">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var oTable;
+    var id;
+    $(function() {
+        generarTabla();
+    });
+
+
+    function generarTabla(){
+           oTable =  $('#dataTables-example').dataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Paginado").IdiPal_Texto)",
+                "sZeroRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscar sin resultados").IdiPal_Texto)",
+                "sEmptyTable": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - No hay datos").IdiPal_Texto)",
+                "sInfo": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info").IdiPal_Texto)",
+                "sInfoEmpty": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info sin datos").IdiPal_Texto)",
+                "sInfoFiltered": "(@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info Filtro").IdiPal_Texto))",
+                "sInfoPostFix": "",
+                "sSearch": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscador").IdiPal_Texto): ",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Cargando").IdiPal_Texto)",
+                "oPaginate": {
+                    "sFirst": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Primero").IdiPal_Texto)",
+                    "sLast": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Ultimo").IdiPal_Texto)",
+                    "sNext": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Siguiente").IdiPal_Texto)",
+                    "sPrevious": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Anterior").IdiPal_Texto)"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "destroy": true,
+            "ajax": {
+                "type": "GET",
+                "url": '@Url.Action("BuscadorGrilla")',
+                "data": "",
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+
+            "autoWidth": true,
+            "columns": [
+                    {
+                        "data": "proveedor",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Venc. Externos - Proveedor").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="proveedorGrid">' + data + '</span>';
+                        //return '<a style="cursor: pointer;" title="Ver Producto" href="/Productos/Index?tab=Productos&id=' + full['id'] + '" id="productoGrid">' + data + '</a><input type="hidden" id="hiddenProducto" value="' + full['id'] + '"/>';
+                    },
+                        },
+                     {
+                        "data": "identificacion",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Venc. Externos - Identificacion").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="identificacionGrid">' + data + '</span>';
+                        }
+                    },
+                      {
+                        "data": "descripcion",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Venc. Externos - Descripcion").IdiPal_Texto)',
+                          "render": function (data, type, full, meta) {
+                              //console.log(full['rubroId']);
+
+                              var algo = "";
+                              var dato = "" + data;
+
+                              if (dato.length > 30) {
+                                  algo += '<span id="descripcionGrid">' + dato.substr(0, 30) + '...</span><span type="button" id="' + full['id'] + '" title="' + full['descripcion'] +'"><span class="far fa-eye btn-xs"></span></span>';
+                              } else {
+                                  algo += '<span id="descripcionGrid">' + data + '</span>';
+                              }
+
+                              return algo;
+                        }
+                    },
+                   {
+                       "data": "fechaProxVen",
+                       "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Venc. Externos - Fecha Prox. Venc.").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            //console.log(full['rubroId']);
+                            return '<span id="fechaProxVennGrid">' + data + '</span><input type="hidden" id="hiddenRubro" value="' + full['rubroId'] + '"/>';
+                        }
+                    },
+                    {
+                        "data": "",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Acciones").IdiPal_Texto)',
+                        "class": "claseAlign",
+                        "render": function (data, type, full, meta) {
+                            var algo = "";
+                            if ('@ViewBag.EsAdmin' == 'True') {
+                                algo += '<button type="button" class="btn btn-success btn-xs" title="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Editar").IdiPal_Texto)"  onclick="location.href=\'@Url.Action("Index", new {tab = "VencimientosServiciosExternos" })' + '&id=' + full['id'] + '\'" id="' + full['id'] + '"><span class="glyphicon glyphicon-pencil"></span></button>';
+                             @*algo += '<button type="button" class="btn btn-success btn-xs editarRegistro" title="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Editar").IdiPal_Texto)" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmEdit"><span class="glyphicon glyphicon-pencil"></span></button>';*@
+                            }
+                            return algo;
+                        }
+                    }
+            ],
+        });
+
+            $('.dataTables_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+        }
+</script>
+
+
+

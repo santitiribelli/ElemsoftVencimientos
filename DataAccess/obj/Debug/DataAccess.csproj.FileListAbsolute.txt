@@ -1,0 +1,114 @@
+C:\Proyectos\TresPrimos\TresPrimos\DataAccess\bin\Debug\DataAccess.dll.config
+C:\Proyectos\TresPrimos\TresPrimos\DataAccess\bin\Debug\DataAccess.dll
+C:\Proyectos\TresPrimos\TresPrimos\DataAccess\bin\Debug\DataAccess.pdb
+C:\Proyectos\TresPrimos\TresPrimos\DataAccess\bin\Debug\Entities.dll
+C:\Proyectos\TresPrimos\TresPrimos\DataAccess\bin\Debug\EntityFramework.dll
+C:\Proyectos\TresPrimos\TresPrimos\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Proyectos\TresPrimos\TresPrimos\DataAccess\bin\Debug\FacturaElectronicaProd.dll
+C:\Proyectos\TresPrimos\TresPrimos\DataAccess\bin\Debug\Entities.pdb
+C:\Proyectos\TresPrimos\TresPrimos\DataAccess\bin\Debug\EntityFramework.xml
+C:\Proyectos\TresPrimos\TresPrimos\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Proyectos\TresPrimos\TresPrimos\DataAccess\bin\Debug\es\EntityFramework.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\DataAccess\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\DataAccess\obj\Debug\DataAccess.csprojResolveAssemblyReference.cache
+C:\Proyectos\TresPrimos\TresPrimos\DataAccess\obj\Debug\DataAccess.dll
+C:\Proyectos\TresPrimos\TresPrimos\DataAccess\obj\Debug\DataAccess.pdb
+C:\Proyectos\Terramar\Terramar\DataAccess\bin\Debug\DataAccess.dll.config
+C:\Proyectos\Terramar\Terramar\DataAccess\bin\Debug\DataAccess.dll
+C:\Proyectos\Terramar\Terramar\DataAccess\bin\Debug\DataAccess.pdb
+C:\Proyectos\Terramar\Terramar\DataAccess\bin\Debug\Entities.dll
+C:\Proyectos\Terramar\Terramar\DataAccess\bin\Debug\EntityFramework.dll
+C:\Proyectos\Terramar\Terramar\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Proyectos\Terramar\Terramar\DataAccess\bin\Debug\FacturaElectronicaProd.dll
+C:\Proyectos\Terramar\Terramar\DataAccess\bin\Debug\Entities.pdb
+C:\Proyectos\Terramar\Terramar\DataAccess\bin\Debug\EntityFramework.xml
+C:\Proyectos\Terramar\Terramar\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Proyectos\Terramar\Terramar\DataAccess\bin\Debug\es\EntityFramework.resources.dll
+C:\Proyectos\Terramar\Terramar\DataAccess\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\Terramar\Terramar\DataAccess\obj\Debug\DataAccess.csprojResolveAssemblyReference.cache
+C:\Proyectos\Terramar\Terramar\DataAccess\obj\Debug\DataAccess.dll
+C:\Proyectos\Terramar\Terramar\DataAccess\obj\Debug\DataAccess.pdb
+C:\Proyectos\Sealand\Sealand\DataAccess\bin\Debug\DataAccess.dll.config
+C:\Proyectos\Sealand\Sealand\DataAccess\bin\Debug\DataAccess.dll
+C:\Proyectos\Sealand\Sealand\DataAccess\bin\Debug\DataAccess.pdb
+C:\Proyectos\Sealand\Sealand\DataAccess\bin\Debug\Entities.dll
+C:\Proyectos\Sealand\Sealand\DataAccess\bin\Debug\EntityFramework.dll
+C:\Proyectos\Sealand\Sealand\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Proyectos\Sealand\Sealand\DataAccess\bin\Debug\Entities.pdb
+C:\Proyectos\Sealand\Sealand\DataAccess\bin\Debug\EntityFramework.xml
+C:\Proyectos\Sealand\Sealand\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Proyectos\Sealand\Sealand\DataAccess\bin\Debug\es\EntityFramework.resources.dll
+C:\Proyectos\Sealand\Sealand\DataAccess\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\Sealand\Sealand\DataAccess\obj\Debug\DataAccess.csprojResolveAssemblyReference.cache
+C:\Proyectos\Sealand\Sealand\DataAccess\obj\Debug\DataAccess.dll
+C:\Proyectos\Sealand\Sealand\DataAccess\obj\Debug\DataAccess.pdb
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\DataAccess.dll.config
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\DataAccess.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\DataAccess.pdb
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\Entities.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\Entities.pdb
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\es\EntityFramework.resources.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\obj\Debug\DataAccess.csprojResolveAssemblyReference.cache
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\obj\Debug\DataAccess.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\obj\Debug\DataAccess.pdb
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\DataAccess.dll.config
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\DataAccess.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\DataAccess.pdb
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\Entities.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\Entities.pdb
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\es\EntityFramework.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\obj\Debug\DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\obj\Debug\DataAccess.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\DataAccess\obj\Debug\DataAccess.pdb
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\DataAccess.dll.config
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\DataAccess.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\DataAccess.pdb
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\Entities.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\Microsoft.Data.Tools.Components.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\Entities.pdb
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\Entities.dll.config
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\es\Microsoft.Data.Tools.Components.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\obj\Debug\DataAccess.csproj.AssemblyReference.cache
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\obj\Debug\DataAccess.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\obj\Debug\DataAccess.pdb
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\es\EntityFramework.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\DataAccess\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\bin\Debug\DataAccess.dll.config
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\bin\Debug\DataAccess.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\bin\Debug\DataAccess.pdb
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\bin\Debug\Entities.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\bin\Debug\Microsoft.Data.Tools.Components.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\bin\Debug\Entities.pdb
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\bin\Debug\Entities.dll.config
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\bin\Debug\es\EntityFramework.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\bin\Debug\es\Microsoft.Data.Tools.Components.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\obj\Debug\DataAccess.csproj.AssemblyReference.cache
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\obj\Debug\DataAccess.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\DataAccess\obj\Debug\DataAccess.pdb

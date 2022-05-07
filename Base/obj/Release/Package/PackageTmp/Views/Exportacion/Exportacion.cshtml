@@ -1,0 +1,253 @@
+﻿@using BusinessLogic
+@model Entities.Exportaciones
+<form class="form-horizontal rowAlt" role="form" id="formExportacion">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Nombre").IdiPal_Texto)</label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control input-sm" name="nombre" id="nombre" maxlength="25" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Descripcion").IdiPal_Texto)</label>
+                            <div class="col-lg-8">
+                                <textarea rows="3" class="form-control input-sm" name="desc" id="desc" maxlength="300"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Archivo").IdiPal_Texto)</label>
+                            <div class="col-lg-9">
+                                <select class="form-control input-sm" style="width: 100%;" id="archivo" name="archivo">
+                                    <option></option>
+                                    @foreach (var item in ClasificadoresIdiomasAdmin.GetList("Exportaciones Archivos"))
+                                    {
+                                        <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label style="display: block;">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Activo").IdiPal_Texto)</label>
+                                <input type="checkbox" name="activo" id="activo" data-on-color="success" data-on-text="@(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Control Switch - SI").IdiPal_Texto)" data-off-text="@(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Control Switch - NO").IdiPal_Texto)" checked tabindex=""/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Instruccion SQL").IdiPal_Texto)</label>
+                            <label class="col-lg-10 control-label labelResult" id="instruccion"></label>
+                        </div>
+                    </div>
+                </div>
+
+                @if (ViewBag.Alta == true)
+                {
+                    <div class="pull-right btn-Cont">
+                        <button type="submit" class="btn btn-success btn-rounded" id="btnGuardar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                    </div>
+                    <div class="pull-left btn-Cont">
+                        @*<button type="button" class="btn btn-success" id="btnGenerar">Generar Inst. SQL</button>*@
+                        <button type="button" class="btn btn-info btn-rounded" data-toggle="modal" data-target="#confirmInstSQL" id="btnGenerarManual">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Boton Generar Inst. SQL").IdiPal_Texto)</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</form>
+<div class="modal fade" id="confirmInstSQL" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 100%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Boton Generar Inst. SQL").IdiPal_Texto)</h4>
+                </div>
+                <form class="form-horizontal" id="formEdit" method="post">
+                    <div class="modal-body rowAlt">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Instruccion SQL").IdiPal_Texto)</label>
+                                    <div class="col-lg-10">
+                                        <textarea rows="10" class="form-control input-sm" name="instSQL" id="instSQL"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-footer">
+                        @if (ViewBag.Alta == true)
+                        {
+                            <button type="button" class="btn btn-primary btn-rounded" id="btnEditar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                        }
+                        <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<script>
+    $(function () {
+        $("[name='activo']").bootstrapSwitch('state', true, true);
+        $('#archivo').select2();
+        $('#formExportacion').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnGuardar',
+            fields: {
+                nombre: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                desc: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                //archivo: {
+                //    validators: {
+                //        notEmpty: {
+                //            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                //        }
+                //    }
+                //}
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+
+            var sessionData = {
+                "Exp_Id": $("#exportacionId").val(),
+                "Exp_Nom": $("#nombre").val(),
+                "Exp_Desc": $('#desc').val(),
+                "Clas_ExpArc_Id": $("#archivo").select2("val"),
+                "Exp_Act": $('[name="activo"]').bootstrapSwitch('state')
+            };
+
+            $.ajax({
+                url: '@Url.Action("Exportacion")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        window.location.href = '@Url.Action("Index")/' + results.msg;
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        $('#btnGenerar').on('click', function () {
+            $.ajax({
+                url: '@Url.Action("GenerarSQL")',
+                type: 'POST',
+                data: {id: $('#exportacionId').val() },
+                success: function (results) {
+                    if (results.success) {
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'success',
+                            texto: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Texto Inst. Generada").IdiPal_Texto)',
+                        });
+
+                        $('#link').load('@Url.Action("Exportacion")');
+                    } else {
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'danger',
+                            texto: results.msg,
+                        });
+                    }
+                }
+            });
+        });
+
+        $('#btnGenerarManual').on('click', function () {
+            $('#instSQL').val($('#instruccion').text());
+        });
+
+        $('#btnEditar').on('click', function () {
+            $.ajax({
+                url: '@Url.Action("GenerarSQL")',
+                type: 'POST',
+                data: { id: $('#exportacionId').val(), instruccion: $('#instSQL').val() },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Texto Inst. Generada").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000,
+                            animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+
+                        $('#instruccion').text($('#instSQL').val());
+
+                        $('#confirmInstSQL').modal('hide');
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
+@if (Model != null)
+{
+    <script>
+        $(function () {
+            //Tipo
+            if ('@Model.Exp_Act' == 'True') {
+                $('#activo').bootstrapSwitch('state', true);
+            }
+            else {
+                $('#activo').bootstrapSwitch('state', false);
+            }
+
+            //Descripcion
+            $('#desc').val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Exp_Desc))');
+
+            //Nombre
+            $('#nombre').val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Exp_Nom))');
+
+            //Instrucción SQL
+            $('#instruccion').text('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Exp_SQL))');
+
+            $("#archivo").select2('val', '@Model.Clas_ExpArc_Id');
+        });
+    </script>
+}

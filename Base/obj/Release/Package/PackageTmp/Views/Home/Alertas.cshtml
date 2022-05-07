@@ -1,0 +1,196 @@
+﻿ @if (ViewBag.HayAlertas == true)
+{
+    <div class="modal fade" id="confirmNotif" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" style="width: 90%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" id="btnX" style="display: none;"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Alertas - Titulo Emergente").IdiPal_Texto)</h4>
+                </div>
+                <form class="form-horizontal" id="formAntecedenteEdit" method="post">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover" id="dataTables-alertas">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-rounded" id="btnCerrarAlertas" style="display:none;" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirmAlertaDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Alertas - Desestimar Alerta").IdiPal_Texto)</h4>
+                </div>
+                <div class="modal-body">
+                    @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Alertas - Confirmar Desestimar").IdiPal_Texto)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary desestimarAlerta">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                    <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var _alertaId;
+        var _alertaFila;
+        var id;
+        $(function () {
+
+            $('#dataTables-alertas').dataTable({
+                "bPaginate": false,
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Paginado").IdiPal_Texto)",
+                    "sZeroRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscar sin resultados").IdiPal_Texto)",
+                    "sEmptyTable": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - No hay datos").IdiPal_Texto)",
+                    "sInfo": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info").IdiPal_Texto)",
+                    "sInfoEmpty": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info sin datos").IdiPal_Texto)",
+                    "sInfoFiltered": "(@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info Filtro").IdiPal_Texto))",
+                    "sInfoPostFix": "",
+                    "sSearch": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscador").IdiPal_Texto): ",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Cargando").IdiPal_Texto)",
+                    "oPaginate": {
+                        "sFirst": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Primero").IdiPal_Texto)",
+                        "sLast": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Ultimo").IdiPal_Texto)",
+                        "sNext": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Siguiente").IdiPal_Texto)",
+                        "sPrevious": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Anterior").IdiPal_Texto)"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                "ajax": {
+                    "type": "GET",
+                    "url": '@Url.Action("AlertasGrilla")',
+                    "dataType": 'json',
+                    "async":true,
+                    "dataSrc": ""
+                },
+                "ordering": false,
+                "columns": [
+                    {
+                        "data": "fechaAlertaString",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Alertas - Grilla Alertas - Fecha").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="usuarioGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "area",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Alertas - Grilla Alertas - Area").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="areaGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "dato",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Alertas - Grilla Alertas - Dato").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<a class="linkFamiliar" target="_blank" href="' +
+                                full['url'] +
+                                '" id="parienteGrid">' +
+                                data +
+                                '</a>';
+                        }
+                    },
+                    {
+                        "data": "usuario",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Alertas - Usuario").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="usuarioGrid">' + data + '</span>';
+                        }
+                    },
+                    @*{
+                        "data": "texto",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Alertas - Grilla Alertas - Texto").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="textoGrid">' + data + '</span>';
+                        }
+                    },*@
+                    @*{
+                        "data": "",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Acciones").IdiPal_Texto)',
+                        "class": "claseAlign",
+                        "render": function (data, type, full, meta) {
+
+                            var algo = "";
+                            if (full['prefijo'] == "per" || full['prefijo'] == "proy")
+                                algo += '<button type="button" class="btn btn-info btn-xs preDesestimarAlerta" title="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Alertas - Desestimar Alerta").IdiPal_Texto)" prefijo="' + full['prefijo'] + '" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmAlertaDelete"><span class="fa fa-external-link-alt"></span></button>';
+                            return algo;
+                        }
+                    }*@
+                ],
+                initComplete: function () {
+                    $('#btnCerrarAlertas,#btnX').show();
+                }
+            });
+
+            $('#dataTables-alertas_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+
+            $('body').on('click', 'button.preDesestimarAlerta', function () {
+                _alertaId = this.id;
+                _alertaFila = $(this).parents('tr');
+                $(this).parent().parent().find('td').css('background-color', 'red');
+            });
+
+            $('body').off('click', '.desestimarAlerta').on('click', '.desestimarAlerta', function () {
+
+                $.ajax({
+                    url: '@Url.Action("DesestimarAlerta", "Home")',
+                    type: 'GET',
+                    data: { id: _alertaId, origen: _alertaFila.find('#areaGrid').text() },
+                    //contentType: "application/json",
+                    success: function (results) {
+                        if (results.success) {
+                            new PNotify({
+                                title: ':)',
+                                text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Actualizar").IdiPal_Texto)',
+                                type: 'success',
+                                hide: true,
+                                styling: 'bootstrap3',
+                                delay: 2000,
+                                animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                            });
+
+                            if ($('#alerta-' + _alertaFila.find('.desestimarAlerta').attr('prefijo') + '-' + _alertaId).length > 0) {
+                                $('#badgeAlertas').text(parseInt($('#badgeAlertas').text()) - 1);
+                                $('#alerta-' + _alertaFila.find('.desestimarAlerta').attr('prefijo') + '-' + _alertaId).remove();
+                            }
+
+                            _alertaId = null;
+                            $('#confirmAlertaDelete').modal('hide');
+                            var table = $('#dataTables-alertas').DataTable();
+                            table.row(_alertaFila).remove().draw();
+
+                        } else {
+                            new PNotify({
+                                title: 'Error!',
+                                text: results.msg,
+                                type: 'danger',
+                                hide: false,
+                                styling: 'bootstrap3',
+                                animation: 'slide'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

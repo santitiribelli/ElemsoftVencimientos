@@ -1,0 +1,839 @@
+﻿@using BusinessLogic
+@using Entities
+<style>
+    .colHidden {
+        display: none;
+    }
+</style>
+@if (ViewBag.Alta == true)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="button" class="btn btn-info  btn-block" id="btnAgregarForm"><i class="fa fa-plus"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Agregar").IdiPal_Texto)</button>
+        </div>
+    </div>
+    <form class="form-horizontal rowAlt" role="form" id="formPrincipal" style="display: none;">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Titulo").IdiPal_Texto)</label>
+                                <select class="form-control input-sm" style="width: 100%;" id="proveedor" name="proveedor">
+                                    <option></option>
+                                    @foreach (var item in ProveedoresAdmin.GetList())
+                                    {
+                                        <option value="@item.Prov_Id">@item.Personas.NombreCompleto</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Titulo").IdiPal_Texto)</label>
+                                <input type="text" class="form-control input-sm" id="productos" name="productos" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Fecha").IdiPal_Texto)</label>
+                                <input type="text" class="input-sm form-control bfh-phone datepicker" autocomplete="off" id="fecha" name="fecha" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Tarifas - Costos").IdiPal_Texto)</label>
+                                <input id="valorUno" name="valorUno" type="text" class="form-control input-sm" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Tarifas - Valor Mostrador").IdiPal_Texto)</label>
+                                <input id="valorDos" name="valorDos" type="text" class="form-control input-sm" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Tarifas - Otros").IdiPal_Texto)</label>
+                                <input id="valorTres" name="valorTres" type="text" class="form-control input-sm" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Observacion").IdiPal_Texto)</label>
+                                <textarea rows="3" class="input-sm form-control" id="observacion" name="observacion"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="pull-right btn-Cont">
+                    <button type="submit" class="btn btn-success btn-rounded" id="btnGuardar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example" style="min-width: 100%;">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Editar").IdiPal_Texto)</h4>
+            </div>
+            <form class="form-horizontal" id="formEdit" method="post">
+                <div class="modal-body rowAlt">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Titulo").IdiPal_Texto)</label>
+                                    <select class="form-control input-sm" style="width: 100%;" id="proveedorEdit" name="proveedorEdit">
+                                        <option></option>
+                                        @foreach (var item in ProveedoresAdmin.GetList())
+                                        {
+                                            <option value="@item.Prov_Id">@item.Personas.NombreCompleto</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Titulo").IdiPal_Texto)</label>
+                                    <input type="text" class="form-control input-sm" id="productosEdit" name="productosEdit" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Fecha").IdiPal_Texto)</label>
+                                    <input type="text" class="input-sm form-control bfh-phone datepicker" autocomplete="off" id="fechaEdit" name="fechaEdit" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Tarifas - Costos").IdiPal_Texto)</label>
+                                    <input id="valorUnoEdit" name="valorUnoEdit" type="text" class="form-control input-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Tarifas - Valor Mostrador").IdiPal_Texto)</label>
+                                    <input id="valorDosEdit" name="valorDosEdit" type="text" class="form-control input-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Tarifas - Otros").IdiPal_Texto)</label>
+                                    <input id="valorTresEdit" name="valorTresEdit" type="text" class="form-control input-sm" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Observacion").IdiPal_Texto)</label>
+                                    <textarea rows="3" class="input-sm form-control" id="observacionEdit" name="observacionEdit"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    @if (ViewBag.Alta == true)
+                    {
+                        <button type="submit" class="btn btn-primary btn-rounded" id="btnEditar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                        <button type="button" class="btn btn-danger btn-rounded borrarRegistro" title="Borrar" data-toggle="modal" data-target="#confirmDelete"><i class="fa fa-trash"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Eliminar").IdiPal_Texto)</button>
+                    }
+                    <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Eliminar").IdiPal_Texto)</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+            </div>
+            <div class="modal-body">
+                @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Confirmar Eliminar").IdiPal_Texto)
+            </div>
+            <div class="modal-footer">
+                @if (ViewBag.Alta == true)
+                {
+                    <button type="button" class="btn btn-primary btn-rounded delete"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                }
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmHistoricos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Historico").IdiPal_Texto)</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTablesHistoricos-example" style="min-width: 100%;">
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var id;
+    var oTable;
+    var oTableHistoricos;
+    $(function () {
+
+       function generarTablaHistoricos() {
+           oTableHistoricos = $('#dataTablesHistoricos-example').dataTable({
+                "scrollX": true,
+                  "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Paginado").IdiPal_Texto)",
+                "sZeroRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscar sin resultados").IdiPal_Texto)",
+                "sEmptyTable": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - No hay datos").IdiPal_Texto)",
+                "sInfo": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info").IdiPal_Texto)",
+                "sInfoEmpty": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info sin datos").IdiPal_Texto)",
+                "sInfoFiltered": "(@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info Filtro").IdiPal_Texto))",
+                "sInfoPostFix": "",
+                "sSearch": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscador").IdiPal_Texto): ",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Cargando").IdiPal_Texto)",
+                "oPaginate": {
+                    "sFirst": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Primero").IdiPal_Texto)",
+                    "sLast": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Ultimo").IdiPal_Texto)",
+                    "sNext": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Siguiente").IdiPal_Texto)",
+                    "sPrevious": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Anterior").IdiPal_Texto)"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+                "destroy": true,
+                "ajax": {
+                    "type": "GET",
+                    "url": '@Url.Action("BuscadorTarifasHistoricasGrilla")',
+                    "data": { id: id },
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+                "ordering": false,
+                "autoWidth": false,
+                "columns": [
+                    {
+                        "data": "provNombre",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Titulo").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="nombreGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "provCodigo",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Proveedores - Codigo").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="codigoGrid">' + data + '</span';
+                        }
+                    },
+                    {
+                        "data": "fecha",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Fecha").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="fechaGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "producto",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Titulo").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="productoGrid">' + data + '</span>';
+                        }
+                    },
+                     {
+                        "data": "valorUno",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Tarifas - Costos").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="valorUnoGrid">' + data + '</span>';
+                        }
+                    },
+                     {
+                        "data": "valorDos",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Tarifas - Valor Mostrador").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="valorDosGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "valorTres",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Tarifas - Otros").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="valorTresGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "observacion",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Observacion").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="observacionGrid">' + data + '</span>';
+                        }
+                    },
+                ],
+            });
+
+            $('#dataTables-example_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+        }
+
+        function generarTabla() {
+            oTable = $('#dataTables-example').dataTable({
+                "scrollX": true,
+                  "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Paginado").IdiPal_Texto)",
+                "sZeroRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscar sin resultados").IdiPal_Texto)",
+                "sEmptyTable": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - No hay datos").IdiPal_Texto)",
+                "sInfo": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info").IdiPal_Texto)",
+                "sInfoEmpty": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info sin datos").IdiPal_Texto)",
+                "sInfoFiltered": "(@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info Filtro").IdiPal_Texto))",
+                "sInfoPostFix": "",
+                "sSearch": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscador").IdiPal_Texto): ",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Cargando").IdiPal_Texto)",
+                "oPaginate": {
+                    "sFirst": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Primero").IdiPal_Texto)",
+                    "sLast": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Ultimo").IdiPal_Texto)",
+                    "sNext": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Siguiente").IdiPal_Texto)",
+                    "sPrevious": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Anterior").IdiPal_Texto)"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+                "destroy": true,
+                "ajax": {
+                    "type": "GET",
+                    "url": '@Url.Action("BuscadorTarifasGrilla")',
+                    "data": { id: $('#clienteId').val() },
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+                "ordering": false,
+                "autoWidth": false,
+                "columns": [
+                    {
+                        "data": "provNombre",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Titulo").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="nombreGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "provCodigo",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Proveedores - Codigo").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="codigoGrid">' + data + '</span';
+                        }
+                    },
+                    {
+                        "data": "fecha",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Fecha").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="fechaGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "producto",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Titulo").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="productoGrid">' + data + '</span>';
+                        }
+                    },
+                     {
+                        "data": "valorUno",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Tarifas - Costo").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="valorUnoGrid">' + data + '</span>';
+                        }
+                    },
+                     {
+                        "data": "valorDos",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Tarifas - Valor Mostrador").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="valorDosGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "valorTres",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Tarifas - Otros").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="valorTresGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "observacion",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Observacion").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="observacionGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "",
+                        "title": 'Acciones',
+                        "class": "claseAlign",
+                        "render": function (data, type, full, meta) {
+
+                            var algo = "";
+                            if ('@ViewBag.Alta' == 'True')
+                                algo += '<button type="button" class="btn btn-success btn-xs editarRegistro" title="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Editar").IdiPal_Texto)" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmEdit"><span class="glyphicon glyphicon-pencil"></span></button>';
+                            algo += '<button type="button" class="btn btn-success btn-xs historicos" title="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Historico").IdiPal_Texto)" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmHistoricos"><span class="fa fa-history"></span></button>';
+                            return algo;
+                        }
+                    }
+                ],
+            });
+
+            $('#dataTables-example_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+        }
+
+        $('#proveedor').select2();
+        $('#productos').select2({ data: [] });
+        $('#proveedor').on("change", function () {
+             $.ajax({
+                    url: '@Url.Action("GetProductos")',
+                    data: { id: $('#proveedor').select2("val") },
+                    dataType: 'json',
+                    type: 'GET',
+                 success: function (data) {
+                     console.log(data);
+                        $('#productos').select2('data', null);
+                     $('#productos').select2('destroy').select2({
+                            data: data,
+                            placeholder: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Titulo").IdiPal_Texto)'
+                        });
+                    }
+                });
+        });
+
+        $('#fecha').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fecha', 'NOT_VALIDATED', null).validateField('fecha');
+        });
+        $('#valorUno').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('valorUno', 'NOT_VALIDATED', null).validateField('valorUno');
+        });
+        $('#valorDos').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('valorDos', 'NOT_VALIDATED', null).validateField('valorDos');
+        });
+        $('#valorTres').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('valorTres', 'NOT_VALIDATED', null).validateField('valorTres');
+        });
+        $('#proveedor').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('proveedor', 'NOT_VALIDATED', null).validateField('proveedor');
+        });
+        $('#productos').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('productos', 'NOT_VALIDATED', null).validateField('productos');
+        });
+
+        $('#formPrincipal').bootstrapValidator({
+            submitButtons: '#btnGuardar',
+            fields: {
+                proveedor: {
+                        validators: {
+                            notEmpty: {
+                                message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                            }
+                        }
+                    },
+                productos: {
+                        validators: {
+                            notEmpty: {
+                                message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                            }
+                        }
+                    },
+                fecha: {
+                        validators: {
+                            notEmpty: {
+                                message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                            },
+                            date: {
+                                format: 'DD/MM/YYYY',
+                                message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Formato incorrecto").IdiPal_Texto)'
+                            }
+                        }
+                    },
+                valorUno: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                        numeric: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Solo Numeros").IdiPal_Texto)'
+                        }
+                    }
+                },
+                valorDos: {
+                    validators: {
+                        numeric: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Solo Numeros").IdiPal_Texto)'
+                        }
+                    }
+                },
+                valorTres: {
+                    validators: {
+                        numeric: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Solo Numeros").IdiPal_Texto)'
+                        }
+                    }
+                },
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var sessionData = {
+                //"CliProvTar_Id": id,
+                "Cli_Id": $("#clienteId").val(),
+                "Prov_Id": $("#proveedor").select2("val"),
+                "Prod_Id": $("#productos").select2("val"),
+                "CliProvTar_Fecha": $("#fecha").val(),
+                "CliProvTar_Valor1": parseCurrency($("#valorUno").val()),
+                "CliProvTar_Valor2": parseCurrency($("#valorDos").val()),
+                "CliProvTar_Valor3": parseCurrency($("#valorTres").val()),
+                "CliProvTar_Obs": $("#observacion").val(),
+            };
+            $.ajax({
+                url: '@Url.Action("Tarifas")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Nuevo").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000,
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'bounceOutRight'
+                            }
+                        });
+
+                        $('#tabTarifas').removeClass('sinInfo text-info');
+                        $('#tabTarifas i').remove();
+                        $('#proveedor,#productos').select2('data', null);
+                        $('#fecha').datepicker('update', '');
+                        $('#valorUno,#valorDos,#valorTres,#observacion').val('');
+                        $('#formPrincipal').bootstrapValidator('resetForm');
+                        generarTabla();
+                    } else {
+                        new PNotify({
+                            title: ':(',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        $('#proveedorEdit').select2();
+        $('#productosEdit').select2({ data: [] });
+        $('#proveedorEdit').on("change", function () {
+             $.ajax({
+                    url: '@Url.Action("GetProductos")',
+                 data: { id: $('#proveedorEdit').select2("val") },
+                    dataType: 'json',
+                    type: 'GET',
+                 success: function (data) {
+                     $('#productosEdit').select2('data', null);
+                     $('#productosEdit').select2('destroy').select2({
+                            data: data,
+                            placeholder: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Titulo").IdiPal_Texto)'
+                        });
+                    }
+                });
+        });
+
+        $('#fechaEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaEdit', 'NOT_VALIDATED', null).validateField('fechaEdit');
+        });
+        $('#valorUnoEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('valorUnoEdit', 'NOT_VALIDATED', null).validateField('valorUnoEdit');
+        });
+        $('#valorDosEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('valorDosEdit', 'NOT_VALIDATED', null).validateField('valorDosEdit');
+        });
+        $('#valorTresEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('valorTresEdit', 'NOT_VALIDATED', null).validateField('valorTresEdit');
+        });
+        $('#proveedorEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('proveedorEdit', 'NOT_VALIDATED', null).validateField('proveedorEdit');
+        });
+        $('#productosEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('productosEdit', 'NOT_VALIDATED', null).validateField('productosEdit');
+        });
+
+
+        $('#formEdit')
+            .bootstrapValidator({
+                submitButtons: '#btnEditar',
+                fields: {
+                proveedorEdit: {
+                        validators: {
+                            notEmpty: {
+                                message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                            }
+                        }
+                    },
+                    productosEdit: {
+                        validators: {
+                            notEmpty: {
+                                message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                            }
+                        }
+                    },
+                    fechaEdit: {
+                        validators: {
+                            notEmpty: {
+                                message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                            },
+                            date: {
+                                format: 'DD/MM/YYYY',
+                                message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Formato incorrecto").IdiPal_Texto)'
+                            }
+                        }
+                    },
+                    valorUnoEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                        numeric: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Solo Numeros").IdiPal_Texto)'
+                        }
+                    }
+                },
+                    valorDosEdit: {
+                    validators: {
+                        numeric: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Solo Numeros").IdiPal_Texto)'
+                        }
+                    }
+                },
+                    valorTresEdit: {
+                    validators: {
+                        numeric: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Solo Numeros").IdiPal_Texto)'
+                        }
+                    }
+                },
+            }
+            }).on('success.form.bv', function (e) {
+                e.preventDefault();
+                var sessionData = {
+                    "CliProvTar_Id": id,
+                    "Cli_Id": $("#clienteId").val(),
+                    "Prov_Id": $("#proveedorEdit").select2("val"),
+                    "Prod_Id": $("#productosEdit").select2("val"),
+                    "CliProvTar_Fecha": $("#fechaEdit").val(),
+                    "CliProvTar_Valor1": parseCurrency($("#valorUnoEdit").val()),
+                    "CliProvTar_Valor2": parseCurrency($("#valorDosEdit").val()),
+                    "CliProvTar_Valor3": parseCurrency($("#valorTresEdit").val()),
+                    "CliProvTar_Obs": $("#observacionEdit").val(),
+                };
+
+                $.ajax({
+                    url: '@Url.Action("Tarifas")',
+                    type: 'POST',
+                    data: JSON.stringify(sessionData),
+                    contentType: "application/json",
+                    success: function (results) {
+                        if (results.success) {
+                            new PNotify({
+                                title: ':)',
+                                text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Actualizar").IdiPal_Texto)',
+                                type: 'success',
+                                hide: true,
+                                styling: 'bootstrap3',
+                                delay: 3000,
+                                animate: {
+                                    animate: true,
+                                    in_class: 'bounceInDown',
+                                    out_class: 'bounceOutRight'
+                                }
+                            });
+
+                            $('#proveedorEdit,#productosEdit').select2('data', null);
+                            $('#fechaEdit').datepicker('update', '');
+                            $('#valorUnoEdit,#valorDosEdit,#valorTresEdit,#observacionEdit').val('');
+                            $('#formEdit').bootstrapValidator('resetForm');
+                            id = null;
+                            $('#confirmEdit').modal('hide');
+                            generarTabla();
+                        } else {
+                            new PNotify({
+                                title: ':(',
+                                text: results.msg,
+                                type: 'danger',
+                                hide: false,
+                                styling: 'bootstrap3',
+                                animation: 'slide'
+                            });
+                        }
+                    }
+                });
+            });
+
+        $('body').off('click', '.editarRegistro').on('click', '.editarRegistro', function () {
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row($(this).parents('tr')).data();
+            id = aData.id;
+            $(this).parent().parent().find('td').css('background-color', 'yellow');
+            $("#proveedorEdit").select2("val", aData.provId);
+            $("#fechaEdit").val(aData.fecha);
+            $("#valorUnoEdit").val(aData.valorUno);
+            $("#valorDosEdit").val(aData.valorDos);
+            $("#valorTresEdit").val(aData.valorTres);
+            $("#observacionEdit").val(aData.observacion);
+             $.ajax({
+                    url: '@Url.Action("GetProductos")',
+                 data: { id: aData.provId },
+                    dataType: 'json',
+                    type: 'GET',
+                 success: function (data) {
+                     $('#productosEdit').select2('data', null);
+                     $('#productosEdit').select2('destroy').select2({
+                            data: data,
+                            placeholder: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Productos - Titulo").IdiPal_Texto)'
+                     });
+                     $("#productosEdit").select2("val", aData.prodId);
+                    }
+                });
+
+        });
+
+        $('body').off('click', '.historicos').on('click', '.historicos', function () {
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row($(this).parents('tr')).data();
+            id = aData.id;
+            $(this).parent().parent().find('td').css('background-color', 'yellow');
+            generarTablaHistoricos();
+        });
+
+        $('#confirmEdit, #confirmDelete, #confirmHistoricos').on('hidden.bs.modal', function (e) {
+            id = null;
+            $('td').css('background-color', '');
+        });
+
+
+        $('body').off('click', '.delete').on('click', '.delete', function () {
+            $.ajax({
+                url: '@Url.Action("TarifasDelete")',
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Eliminar").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#confirmEdit, #confirmDelete').modal('hide');
+                        id = null;
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: ':(',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+
+        generarTabla();
+    });
+
+</script>
+

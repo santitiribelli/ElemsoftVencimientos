@@ -1,0 +1,696 @@
+﻿@using Entities
+@model Personas
+<form class="form-horizontal rowAlt" role="form" id="formPrincipal">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                @*<div class="col-md-2">
+                        <div class="form-group kv-avatar center-block" style="width: 100%">
+                            <input id="foto" type="file" class="file-loading input-sm" name="imagen" accept="image/*" />
+                        </div>
+                    </div>*@
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(Model != null && Model.Per_PersonaFisica ? ((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Apellido").IdiPal_Texto : ((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Razon Social").IdiPal_Texto)</label>
+                                    <input type="text" class="form-control input-sm" name="apellido" id="apellido" maxlength="50" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(Model != null && Model.Per_PersonaFisica ? ((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Nombre").IdiPal_Texto : ((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Alias").IdiPal_Texto)</label>
+                                    <input type="text" class="form-control input-sm" name="nombre" id="nombre" maxlength="50" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - CUIL").IdiPal_Texto)</label>
+                                    <input type="text" class="form-control input-sm" maxlength="13" placeholder="xx-xxxxxxxx-x" id="cuil" name="cuil">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Doc. Extranjero").IdiPal_Texto)</label>
+                                    <input type="text" class="form-control input-sm" id="docExt" name="docExt">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Telefono").IdiPal_Texto)</label>
+                                    <input type="text" class="input-sm form-control" id="telefono" name="telefono" maxlength="50" disabled />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Email").IdiPal_Texto)</label>
+                                    <input type="text" class="input-sm form-control" id="email" name="email" maxlength="50" disabled />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(Model.Per_PersonaFisica ? ((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Fecha Nac.").IdiPal_Texto : ((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Fecha Desde").IdiPal_Texto)</label>
+                                    <input type="text" class="input-sm form-control bfh-phone datepicker" autocomplete="off" id="fechaDesde" name="fechaDesde" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(Model.Per_PersonaFisica ? ((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Fecha Fall.").IdiPal_Texto : ((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Fecha Hasta").IdiPal_Texto)</label>
+                                    <input type="text" class="input-sm form-control bfh-phone datepicker" autocomplete="off" id="fechaHasta" name="fechaHasta" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        @if (Model != null && Model.Per_PersonaFisica)
+                        {
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label style="display: block;">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Sexo").IdiPal_Texto)</label>
+                                        <select type="text" class="input-sm form-control" id="sexo" name="sexo">
+                                            <option></option>
+                                            @foreach (var item in BusinessLogic.ClasificadoresIdiomasAdmin.GetList("Personas Sexos"))
+                                            {
+                                                <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                        @if (Model != null && Model.Per_PersonaFisica)
+                        {
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Nacionalidad").IdiPal_Texto)</label>
+                                        <select type="text" class="input-sm form-control" id="nacionalidad" name="nacionalidad">
+                                            <option></option>
+                                            @foreach (var item in BusinessLogic.ClasificadoresIdiomasAdmin.GetList("Localidades").Where(x => x.Clasificadores.Clas_Padre == null))
+                                            {
+                                                <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Domicilio").IdiPal_Texto)</label>
+                                    <input type="text" class="input-sm form-control" id="domicilio" name="domicilio" maxlength="50" disabled />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="@(Model != null && Model.Per_PersonaFisica ? "col-md-4":"col-md-5")">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Localidad").IdiPal_Texto)</label>
+                                    <input type="text" style="width: 100% !important" required class="form-control input-sm" id="localidad" name="localidad" disabled />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label style="display:block;">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Datos Completos").IdiPal_Texto)</label>
+                                    <input type="checkbox" name="datosCompletos" id="datosCompletos" data-on-color="success" data-on-text="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Control Switch - SI").IdiPal_Texto)" data-off-text="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Control Switch - NO").IdiPal_Texto)" checked tabindex="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Observacion").IdiPal_Texto)</label>
+                                    <textarea rows="3" class="input-sm form-control" id="observacion" name="observacion"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            @if (ViewBag.Alta == true)
+            {
+                <div class="pull-right btn-Cont">
+                    <button type="submit" class="btn btn-success btn-rounded" id="btnGuardar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                </div>
+
+            }
+            @if (Model != null)
+            {
+                if (Model.Per_DatosVerificados == false && ViewBag.EsAdmin == true && ViewBag.Alta == true)
+                {
+                    <div class="pull-left btn-Cont">
+                        <button type="button" class="btn btn-warning btn-rounded" id="btnVerificar" data-toggle="modal" data-target="#confirmVerificar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Verificar").IdiPal_Texto)</button>
+                    </div>
+                }
+
+                if (Model.Empleados.Count == 0 && Model.Tripulantes.Count == 0)
+                {
+                    <div class="pull-right btn-Cont">
+                        @if (Model.Clientes.Count > 0)
+                        {
+                            <button type="button" class="btn btn-success btn-rounded" title="@(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Titulo").IdiPal_Texto)" onclick="location.href = '@Url.Action("Index", "Clientes", new {tab = "Clientes"})&id=@Model.Per_Id.ToString()'" id="btnClientes"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Titulo").IdiPal_Texto)</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-danger btn-rounded" title="@(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Titulo").IdiPal_Texto)" onclick="location.href = '@Url.Action("Index", "Clientes", new {tab = "Clientes"})&id=@Model.Per_Id.ToString()'" id="btnClientes"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Titulo").IdiPal_Texto)</button>
+                        }
+                    </div>
+                }
+                if (Model.Per_PersonaFisica && Model.Clientes.Count == 0 && Model.Tripulantes.Count == 0)
+                {
+                    <div class="pull-right btn-Cont">
+                        @if (Model.Empleados.Count > 0)
+                        {
+                            <button type="button" class="btn btn-success btn-rounded" title="@(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Empleados - Titulo").IdiPal_Texto)" onclick="location.href = '@Url.Action("Index", "Empleados", new {tab = "Empleados"})&id=@Model.Per_Id.ToString()'" id="btnEmpleados"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Empleados - Titulo").IdiPal_Texto)</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-danger btn-rounded" title="@(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Empleados - Titulo").IdiPal_Texto)" onclick="location.href = '@Url.Action("Index", "Empleados", new {tab = "Empleados"})&id=@Model.Per_Id.ToString()'" id="btnEmpleados"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Empleados - Titulo").IdiPal_Texto)</button>
+                        }
+                    </div>
+                }
+
+                <div class="pull-right btn-Cont">
+                    @if (Model.Proveedores.Count > 0)
+                    {
+                        <button type="button" class="btn btn-success btn-rounded" title="@(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Titulo").IdiPal_Texto)" onclick="location.href = '@Url.Action("Index", "Proveedores", new {tab = "Proveedores"})&id=@Model.Per_Id.ToString()'" id="btnProveedores"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Titulo").IdiPal_Texto)</button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-danger btn-rounded" title="@(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Titulo").IdiPal_Texto)" onclick="location.href = '@Url.Action("Index", "Proveedores", new {tab = "Proveedores"})&id=@Model.Per_Id.ToString()'" id="btnProveedores"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Titulo").IdiPal_Texto)</button>
+                    }
+
+                </div>
+                if (Model.Per_PersonaFisica && Model.Clientes.Count == 0 && Model.Empleados.Count == 0)
+                {
+                    <div class="pull-right btn-Cont">
+                        @if (Model.Tripulantes.Count > 0)
+                        {
+                            <button type="button" class="btn btn-success btn-rounded" title="@(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Titulo").IdiPal_Texto)" onclick="location.href = '@Url.Action("Index", "Tripulantes", new {tab = "Tripulantes"})&id=@Model.Per_Id.ToString()'" id="btnTripulantes"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Titulo").IdiPal_Texto)</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-danger btn-rounded" title="@(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Titulo").IdiPal_Texto)" onclick="location.href = '@Url.Action("Index", "Tripulantes", new {tab = "Tripulantes"})&id=@Model.Per_Id.ToString()'" id="btnTripulantes"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Titulo").IdiPal_Texto)</button>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</form>
+<div class="modal fade" id="confirmVerificar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Verificar").IdiPal_Texto)*@
+                <h4 class="modal-title" id="myModalLabel">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Verificar").IdiPal_Texto)</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+
+            </div>
+            <div class="modal-body">
+                @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Confirmar Verificar").IdiPal_Texto)
+            </div>
+            <div class="modal-footer">
+                @if (ViewBag.Alta == true)
+                {
+                    <button type="button" class="btn btn-primary btn-rounded verificar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                }
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        @*function uploadfile(id) {
+
+            var bannerImage = $("#foto").val();
+            if (bannerImage) {
+                var file = document.getElementById('foto').files[0];
+                var formData = new FormData();
+                formData.append(file.name, file);
+                var xhr = new XMLHttpRequest();
+                var url = "@Url.Action("UploadFoto")/" + id;
+                xhr.open('POST', url, true);
+                xhr.onload = function (e) {
+                    //var response = $.parseJSON(e.target.response);
+                    //                if (response.success)
+                };
+                xhr.send(formData); // multipart/form-data
+
+            }
+        }
+
+        $("#foto").fileinput({
+            overwriteInitial: true,
+            //maxFileSize: 1500,
+            showClose: false,
+            showCaption: false,
+            showBrowse: false,
+            browseOnZoneClick: true,
+            elErrorContainer: '#kv-avatar-errors-2',
+            msgErrorClass: 'alert alert-block alert-danger',
+            defaultPreviewContent: '<img src="@Url.Content("/images/default_avatar_male.jpg")" alt="Su Imagen" style="width:100%"><h6 class="text-muted">Click para seleccionar</h6>',
+            layoutTemplates: { main2: '{preview} {browse}' },
+            allowedFileExtensions: ["jpg", "jpeg", "png", "gif"]
+        });*@
+
+
+          
+
+         $('body').off('click', '.verificar').on('click', '.verificar', function () {
+            $.ajax({
+                url: '@Url.Action("Verificar")',
+                data: { id: $('#personaId').val() },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Actualizar").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#btnVerificar').hide();
+                        $('#confirmEdit, #confirmDelete, #confirmVerificar').modal('hide');
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+
+
+        $('#sexo,#nacionalidad').select2();
+        $("[name='datosCompletos']").bootstrapSwitch();
+        //$("[name='datosVerificados']").bootstrapSwitch();
+        $('#fechaDesde').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaDesde', 'NOT_VALIDATED', null).validateField('fechaDesde');
+        });
+        $('#cuil').mask('00-00000000-0');
+
+
+        $("#cuil").keyup(function (e) {
+           if (e.keyCode != 9) {
+               $("#docExt").val(null);
+           }
+        });
+
+        $("#docExt").keyup(function(e) {
+           if (e.keyCode != 9) {
+               $("#cuil").val(null);
+           }
+        });
+
+
+         $('#fechaDesde').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaDesde', 'NOT_VALIDATED', null).validateField('fechaDesde');
+         });
+
+         $('#fechaDesde').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaDesde', 'NOT_VALIDATED', null).validateField('fechaDesde');
+
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null).validateField('fechaHasta');
+
+        });
+
+        $('#fechaHasta').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null).validateField('fechaHasta');
+        });
+
+        $('#cuil').on("keyup", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('docExt', 'NOT_VALIDATED', null).validateField('docExt');
+        });
+
+        $('#docExt').on("keyup", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('cuil', 'NOT_VALIDATED', null).validateField('cuil');
+        });
+
+        $.fn.bootstrapValidator.validators.dates = {
+            validate: function (validator, $field, options) {
+                if ($('#fechaDesde').val() == '' || $('#fechaHasta').val() == '')
+                    return true;
+
+                var d1 = $('#fechaDesde').val();
+                var d2 = $('#fechaHasta').val();
+                d1 = d1.split('/');
+                d2 = d2.split('/');
+                d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                return d2 >= d1;
+            }
+        };
+
+
+        clasificador('localidad', 'Localidades', 'formPrincipal', true);
+
+         $('#formPrincipal').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnGuardar',
+            fields: {
+                nombre: {
+                    validators: {
+                        @*notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)' + '<br />'
+                        },*@
+                        callback: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)' + '<br />',
+                            callback: function (value, validator) {
+                                if ($('#perFis').val() == 'False')
+                                    return true;
+                                else
+                                    return $('#nombre').val() != '';
+                            }
+                        }
+                    }
+                },
+                apellido: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)' + '<br />'
+                        },
+
+                    }
+                },
+                cuil: {
+                    validators: {
+                        @*notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)' + '<br />'
+                        },*@
+                        regexp: {
+                            regexp: /^[0-9]{2}-[0-9]{8}-[0-9]$/,
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Formato incorrecto").IdiPal_Texto)' + '<br />'
+                        },
+                        callback: {
+                            message: 'CUIT incorrecto' + '<br />',
+                            callback: function (value, validator) {
+                                var mensaje = '';
+                                var estado = true;
+
+                                if ($('#docExt').val().length > 0) {
+                                    return true;
+                                }
+
+                                var cuil = $('#cuil').val().split('-');
+                                if ($('#perFis').val() === 'True') {
+                                     if (cuil[0] > 27)
+                                    return {
+                                        valid: false,
+                                        message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Personas - CUIT Personas Fisicas").IdiPal_Texto)' + '<br />'
+                                    };
+                                }
+                                else {
+                                    if (cuil[0] < 30)
+                                    return {
+                                        valid: false,
+                                        message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Personas - CUIT Empresas").IdiPal_Texto)' + '<br />'
+                                    };
+
+                                    return true;
+                                }
+
+                                if ($('#cuil').val().length == 0 && $('#docExt').val().length == 0)
+                                {
+                                    return {
+                                        valid: false,
+                                        message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Personas - Doc. Extranjero o CUIL").IdiPal_Texto)' + '<br />'
+                                    };
+                                }
+
+                                if ($('#cuil').val().length == 13) {
+                                    $.ajax({
+                                        type: "POST",
+                                        async: false,
+                                        url: '@Url.Action("ValidarCUIT", "Personas")',
+                                        dataType: 'json',
+                                        data: { cuit: $('#cuil').val(), sexo: $('#sexo').select2('val'), id: $('#personaId').val() },
+                                        success: function (data) {
+                                            if (data.msgExisteNombre != '') {
+                                                new PNotify({
+                                                    title: '',
+                                                    text: "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Personas - CUIT Existente").IdiPal_Texto) <a href='@Url.Action("Index", "Personas")/?id=" + data.msgExisteId + "' style='color: blue; text - decoration: underline; '>" + data.msgExisteNombre + "</a>",
+                                                    type: 'warning',
+                                                    hide: true,
+                                                    delay: 3000,
+                                                    styling: 'bootstrap3',
+                                                    animation: 'slide'
+                                                });
+                                            }
+                                            mensaje = data.msg + '<br />';
+                                            estado = data.success;
+                                        }
+                                    });
+
+                                    return {
+                                        valid: estado,
+                                        message: mensaje
+                                    };
+
+                                } else {
+                                    return {
+                                        valid: false,
+                                        //message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Personas - Doc. Extranjero o CUIL").IdiPal_Texto)' + '<br />'
+                                    };
+                                }
+                            }
+                        }
+                    }
+                },
+                docExt: {
+                    validators: {
+                        callback: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)' + '<br />',
+                            callback: function (value, validator) {
+                                var mensaje = '';
+                                var estado = true;
+
+
+                                if ($('#cuil').val().length == 0 && $('#docExt').val().length == 0)
+                                {
+                                    return {
+                                        valid: false,
+                                        message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Personas - Doc. Extranjero o CUIL").IdiPal_Texto)' + '<br />'
+                                    };
+                                }
+
+                                return {
+                                    valid: true,
+                                    message: mensaje
+                                };
+                            }
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        emailAddress: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Formato incorrecto").IdiPal_Texto)'
+                        },
+                    }
+                },
+                 fechaDesde: {
+                    validators: {
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Formato incorrecto").IdiPal_Texto)'
+                        },
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                fechaHasta: {
+                    validators: {
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Formato incorrecto").IdiPal_Texto)'
+                        },
+                        dates: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Fecha Hasta Menor").IdiPal_Texto)',
+                        }
+                    }
+                },
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var cuil = $('#cuil').val().split('-');
+
+
+            var Personas = {
+                "Per_Id": $('#personaId').val(),
+                "Per_SoloApe": $('#apellido').val(),
+                "Per_SoloNom": $('#nombre').val(),
+                "Per_Alias": ($('#perFis').val() === 'True') ? '' : $('#nombre').val(),
+                "Per_CUIL_Cod": cuil[0],
+                "Per_CUIL_Doc": cuil[1],
+                "Per_CUIL_Con": cuil[2],
+                "Per_Doc_Extranjero": $('#docExt').val(),
+                "Clas_Sexo_Id": ($('#perFis').val() === 'True') ? $("#sexo").val() : null,
+                "Clas_Nacionalidad_Id": $('#nacionalidad').val(),
+                "Per_FecDes": $('#fechaDesde').val(),
+                "Per_FecHas": $('#fechaHasta').val(),
+                "Per_Domicilio": $('#domicilio').val(),
+                "Clas_Localidad_Id": $("#localidad").select2("val")[$("#localidad").select2("val").length - 1],
+                "Per_Te_Celular": $('#telefono').val(),
+                "Per_MAIL": $('#email').val(),
+                "Per_PersonaFisica": ($('#perFis').val() === 'True') ? true : false,
+                "Per_DatosCompletos": $('[name="datosCompletos"]').bootstrapSwitch('state'),
+                "Per_DatosVerificados": false,
+                "Per_Obs": $('#observacion').val(),
+            };
+            $.ajax({
+                url: '@Url.Action("Personas")',
+                type: 'POST',
+                data: JSON.stringify(Personas),
+                contentType: "application/json",
+                success: function(results) {
+                    if (results.success) {
+                        if ($("#foto").val() != '')
+                            uploadfile($('#perId').val());
+                        var Text = '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Actualizar").IdiPal_Texto) \n';
+                        if (results.msgExisteNombre != '' && results.msgExisteNombre != null)
+                            Text += '!!!! ' + results.msgExisteNombre;
+                        new PNotify({
+                            title: ':)',
+                            text: Text,
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000,
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'bounceOutRight'
+                            }
+                        });
+                        $('#formPrincipal').bootstrapValidator('resetForm');
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+
+    });
+</script>
+
+@if (Model != null)
+{
+
+    <script>
+        $(function () {
+
+            var nomAli = "";
+            var perFis = "@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_PersonaFisica.ToString()))";
+
+                if(perFis == "True")
+                {
+                     $('#apellido').val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_SoloApe))');
+                    nomAli = '@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_SoloNom))';
+                     $('#nacionalidad').select2('val', '@Html.Raw(Ajax.JavaScriptStringEncode(Model.Clas_Nacionalidad_Id.HasValue ? Model.Clas_Nacionalidad_Id.Value.ToString() :""))');
+                    $('#sexo').select2('val', '@Html.Raw(Ajax.JavaScriptStringEncode(Model.Clas_Sexo_Id.HasValue? Model.Clas_Sexo_Id.Value.ToString() : ""))');
+
+                }
+                else
+                {
+                     $('#apellido').val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_Ape))');
+                    nomAli = '@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_Alias))';
+                }
+                 $('#nombre').val(nomAli);
+
+                    $('#fechaDesde').val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_FecDes.HasValue ? Model.Per_FecDes.Value.ToString("dd/MM/yyyy") :""))');
+                    $('#fechaHasta').val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_FecHas.HasValue ? Model.Per_FecHas.Value.ToString("dd/MM/yyyy") :""))');
+
+            clasificadorById('localidad','@Model.Clas_Localidad_Id');
+
+            var datosCompletos = '@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_DatosCompletos.ToString()))';
+            if (datosCompletos == "True")
+                    $("[name='datosCompletos']").bootstrapSwitch('state', true, false);
+                else
+                    $("[name='datosCompletos']").bootstrapSwitch('state', false, false);
+            @*var datosVerificados = '@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_DatosVerificados.ToString()))';
+            if (datosVerificados == "True")
+                    $("[name='datosVerificados']").bootstrapSwitch('state', true, false);
+                else
+                    $("[name='datosVerificados']").bootstrapSwitch('state', false, false);*@
+
+            var dni = '@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_Cuil_Doc.ToString()))';
+            var cod = '@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_Cuil_Cod.HasValue ? Model.Per_Cuil_Cod.Value.ToString(): ""))';
+            var con = '@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_Cuil_Con.HasValue ? Model.Per_Cuil_Con.Value.ToString(): ""))';
+            var output = "";
+            if (dni != "") {
+                if ((cod != "") && (con != "")) {
+                    output = cod + "-" + dni + "-" + con;
+                }
+                else {
+                    output = dni;
+                }
+            }
+            $('#docExt').val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_Doc_Extranjero))');
+            $('#cuil').val(output);
+            $('#domicilio').val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_Direccion))');
+            $('#telefono').val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_TE_Celular))');
+            $('#email').val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_MAIL))');
+            $('#observacion').val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Per_Obs))');
+            @*if ('@ViewBag.Foto' == 'True') {
+                $('#foto').fileinput('refresh', { defaultPreviewContent: '<img src="@Url.Content("~/uploads/personas/" + Model.Per_Id + ".jpg")" alt="Su Imagen" style="width:100%"><h6 class="text-muted">Click para seleccionar</h6>' });
+            }*@
+
+        });
+    </script>
+}

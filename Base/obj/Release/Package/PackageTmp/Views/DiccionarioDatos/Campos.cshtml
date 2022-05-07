@@ -1,0 +1,543 @@
+﻿@if (ViewBag.Alta == true)
+{
+    <form class="form-horizontal rowAlt" role="form" id="formCampos" style="display: none;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Descripción</label>
+                        <div class="col-lg-8">
+                            <textarea class="form-control input-sm" name="camposDescripcion" id="camposDescripcion" maxlength="50"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Nombre</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control input-sm" name="camposNombre" id="camposNombre" maxlength="50" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Nombre Interno</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control input-sm" name="camposNombreInterno" id="camposNombreInterno" maxlength="20" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Visible</label>
+                        <div class="col-lg-4" style="height: 30px;">
+                            <input type="checkbox" id="camposVisible" data-on-color="success" data-off-color="success" data-on-text="Si" data-off-text="No" checked>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Activo</label>
+                        <div class="col-lg-4" style="height: 30px;">
+                            <input type="checkbox" id="camposActivo" data-on-color="success" data-off-color="success" data-on-text="Si" data-off-text="No" checked>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Filtro</label>
+                        <div class="col-lg-4" style="height: 30px;">
+                            <input type="checkbox" id="camposFiltro" data-on-color="success" data-off-color="success" data-on-text="Si" data-off-text="No" checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Tipo</label>
+                        <div class="col-lg-8">
+                            <select class="select form-control input-sm" style="width: 100%;" id="camposTipos" name="camposTipos">
+                                <option></option>
+                                <option value="Combo">Combo</option>
+                                <option value="Alfanumerico">Alfanumérico</option>
+                                <option value="Numero">Numero</option>
+                                <option value="Fecha">Fecha</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Query</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control input-sm" style="width: 100%;" id="camposQuery" name="camposQuery" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right btn-Cont">
+                <button type="submit" class="btn btn-success" id="btnGuardar">Guardar</button>
+            </div>
+        </div>
+    </form>
+}
+<div class="row">
+    <div class="col-lg-10">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-campos">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="well">
+            <button type="button" class="btn btn-info  btn-block" id="btnAgregarForm"><i class="fa fa-plus"></i>Agregar</button>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Editar</h4>
+            </div>
+            <form class="form-horizontal" id="formEdit" method="post">
+                <div class="modal-body rowAlt">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-lg-4 control-label">Descripción</label>
+                                <div class="col-lg-8">
+                                    <textarea class="form-control input-sm" name="camposDescripcionEdit" id="camposDescripcionEdit" maxlength="50"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-lg-4 control-label">Nombre</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" name="camposNombreEdit" id="camposNombreEdit" maxlength="20" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-lg-4 control-label">Nombre Interno</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" name="camposNombreInternoEdit" id="camposNombreInternoEdit" maxlength="20" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-lg-4 control-label">Visible</label>
+                                <div class="col-lg-4" style="height: 30px;">
+                                    <input type="checkbox" id="camposVisibleEdit" data-on-color="success" data-off-color="success" data-on-text="Si" data-off-text="No" checked>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-lg-4 control-label">Activo</label>
+                                <div class="col-lg-4" style="height: 30px;">
+                                    <input type="checkbox" id="camposActivoEdit" data-on-color="success" data-off-color="success" data-on-text="Si" data-off-text="No" checked>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Filtro</label>
+                                <div class="col-lg-4" style="height: 30px;">
+                                    <input type="checkbox" id="camposFiltroEdit" data-on-color="success" data-off-color="success" data-on-text="Si" data-off-text="No" checked>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Tipo</label>
+                                <div class="col-lg-8">
+                                    <select class="select form-control input-sm" style="width: 100%;" id="camposTiposEdit" name="camposTiposEdit">
+                                        <option></option>
+                                        <option value="Combo">Combo</option>
+                                        <option value="Alfanumerico">Alfanumérico</option>
+                                        <option value="Numero">Numero</option>
+                                        <option value="Fecha">Fecha</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Query</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control input-sm" style="width: 100%;" id="camposQueryEdit" name="camposQueryEdit" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    @if (ViewBag.Alta == true)
+                    {
+                        <button type="submit" class="btn btn-primary" id="btnEditar">Confirmar</button>
+                    }
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var id;
+    $(function() {
+        function generarTabla(){
+        $('#dataTables-campos').dataTable({
+            "scrollX": true,
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar: ",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "destroy": true,
+            "ajax": {
+                "type": "GET",
+                "url": '/DiccionarioDatos/CamposGrilla',
+                "data": {id: $('#tablaId').val() },
+                "dataType": 'json',
+                "dataSrc": ""
+            },
+            "ordering": false,
+            "autoWidth": true,
+            "columns": [
+                {
+                    "data": "nombre",
+                    "title": 'Nombre',
+                    "render": function(data, type, full, meta) {
+                        return '<span id="nomGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "desc",
+                    "title": 'Descripción',
+                    "render": function(data, type, full, meta) {
+                        return '<span id="descGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "interno",
+                    "title": 'Nombre Interno',
+                    "render": function(data, type, full, meta) {
+                        return '<span id="nomIntGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "visible",
+                    "title": 'Visible',
+                    "render": function(data, type, full, meta) {
+                        return '<span id="visibleGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "filtro",
+                    "title": 'Filtro',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="filtroGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "tipo",
+                    "title": 'Tipo',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="tipoGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "query",
+                    "title": 'Query',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="queryGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "activo",
+                    "title": 'Activo',
+                    "render": function(data, type, full, meta) {
+                        return '<span id="activoGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "",
+                    "title": 'Acciones',
+                    "class": "claseAlign",
+                    "render": function(data, type, full, meta) {
+                        var algo = "";
+                        if ('@ViewBag.Alta' == 'True')
+                                algo += '<button type="button" class="btn btn-success btn-xs editarRegistro" title="Editar" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmEdit"><span class="glyphicon glyphicon-pencil"></span></button>';
+                            return algo;
+                        }
+                    }
+                ]
+        });
+
+        $('.dataTables_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+    }
+
+        $("#camposActivo,#camposVisible,#camposFiltro").bootstrapSwitch('state', true, true);
+        $('#camposTipos').select2();
+        $('#formCampos').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnGuardar',
+            fields: {
+                camposDescripcion: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+
+                    }
+                },
+                camposNombre: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                camposNombreInterno: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                camposVisible: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                camposActivo: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                camposTipos: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+
+            var sessionData = {
+                "Tab_Id": $("#tablaId").val(),
+                "Cam_Descr": $('#camposDescripcion').val(),
+                "Cam_Nom": $('#camposNombre').val(),
+                "Cam_NomInt": $('#camposNombreInterno').val(),
+                "Cam_Query": $('#camposQuery').val(),
+                "Cam_Visible": $('#camposVisible').bootstrapSwitch('state'),
+                "Cam_Filtro": $('#camposFiltro').bootstrapSwitch('state'),
+                "Cam_EnUso": $('#camposActivo').bootstrapSwitch('state'),
+                "Cam_Tipo": $('#camposTipos').select2('val')
+            };
+
+            $.ajax({
+                url: '/DiccionarioDatos/Campos',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'success',
+                            texto: 'Campo guardado exitosamente',
+                        });
+                        
+                        $('#camposDescripcion, #camposNombre,#camposNombreInterno,#camposTipos,#camposQuery').val('');
+                        $('#camposVisible,#camposActivo,#camposFiltro').bootstrapSwitch('state', true, true);
+                        $('#formCampos').bootstrapValidator('resetForm');
+                        generarTabla();
+                    } else {
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'danger',
+                            texto: results.msg,
+                        });
+                    }
+                }
+            });
+        });
+
+        $('body').on('click', '#dataTables-campos .editarRegistro', function () {
+            id = this.id;
+            $(this).parent().parent().find('td').css('background-color', 'yellow');
+
+            $("#camposDescripcionEdit").focus();
+
+            $('#camposDescripcionEdit').val($(this).parents('tr').find('#descGrid').text());
+            $('#camposNombreEdit').val($(this).parents('tr').find('#nomGrid').text());
+            $('#camposNombreInternoEdit').val($(this).parents('tr').find('#nomIntGrid').text());
+            $('#camposQueryEdit').val($(this).parents('tr').find('#queryGrid').text());
+            $('#camposTiposEdit').select2('val', $(this).parents('tr').find('#tipoGrid').text());
+
+            if ($(this).parents('tr').find('#activoGrid').text() == 'SI')
+                $("#camposActivoEdit").bootstrapSwitch('state', true, true);
+            else
+                $("#camposActivoEdit").bootstrapSwitch('state', false, true);
+
+            if ($(this).parents('tr').find('#visibleGrid').text() == 'SI')
+                $("#camposVisibleEdit").bootstrapSwitch('state', true, true);
+            else
+                $("#camposVisibleEdit").bootstrapSwitch('state', false, true);
+
+            if ($(this).parents('tr').find('#filtroGrid').text() == 'SI')
+                $("#camposFiltroEdit").bootstrapSwitch('state', true, true);
+            else
+                $("#camposFiltroEdit").bootstrapSwitch('state', false, true);
+        });
+
+        $("#camposActivoEdit,#camposVisibleEdit,#camposFiltroEdit").bootstrapSwitch('state', true, true);
+        $('#camposTiposEdit').select2();
+        $('#formEdit').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnEditar',
+            fields: {
+                camposDescripcionEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                camposNombreEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                camposNombreInternoEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                camposTipos: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+
+            var sessionData = {
+                "Tab_Id": $("#tablaId").val(),
+                "Cam_Id": id,
+                "Cam_Descr": $('#camposDescripcionEdit').val(),
+                "Cam_Nom": $('#camposNombreEdit').val(),
+                "Cam_NomInt": $('#camposNombreInternoEdit').val(),
+                "Cam_Query": $('#camposQueryEdit').val(),
+                "Cam_Visible": $('#camposVisibleEdit').bootstrapSwitch('state'),
+                "Cam_Filtro": $('#camposFiltroEdit').bootstrapSwitch('state'),
+                "Cam_EnUso": $('#camposActivoEdit').bootstrapSwitch('state'),
+                "Cam_Tipo": $('#camposTiposEdit').select2('val')
+            };
+
+            $.ajax({
+                url: '/DiccionarioDatos/Campos',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'success',
+                            texto: 'Campo actualizado exitosamente',
+                        });
+
+                        $('#camposDescripcionEdit, #camposNombreEdit,#camposNombreInternoEdit,#camposTiposEdit,#camposQueryEdit').val('');
+                        $('#camposVisibleEdit,#camposActivoEdit,#camposFiltroEdit').bootstrapSwitch('state', true, true);
+                        $('#formEdit').bootstrapValidator('resetForm');
+                        id = null;
+
+                        $('#confirmEdit').modal('hide');
+                    } else {
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'danger',
+                            texto: results.msg,
+                        });
+                    }
+                }
+            });
+        });
+        $('#confirmEdit').on('hidden.bs.modal', function (e) {
+            $('td').css('background-color', '');
+            if (id == null)
+                generarTabla();
+        });
+
+        generarTabla();
+    });
+
+</script>

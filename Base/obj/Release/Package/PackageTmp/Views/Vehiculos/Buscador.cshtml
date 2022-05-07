@@ -1,0 +1,130 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="@(ViewBag.Alta == true ? "col-lg-10" : "col-lg-12")">
+        <h4 class="page-header">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Vehiculos").IdiPal_Texto)</h4>
+    </div>
+    @if (ViewBag.Alta == true)
+    {
+        <div class="col-lg-2">
+            <button type="button" class="btn btn-info  btn-block" onclick="location.href='@Url.Action("Index")'"><i class="fa fa-plus"></i>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Agregar").IdiPal_Texto)</button>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" style="cursor: pointer" id="dataTables-example" width="100%">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        var oTable = $('#dataTables-example').dataTable({
+            "stateSave": true,
+            "scrollX": true,
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Paginado").IdiPal_Texto)",
+                "sZeroRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscar sin resultados").IdiPal_Texto)",
+                "sEmptyTable": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - No hay datos").IdiPal_Texto)",
+                "sInfo": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info").IdiPal_Texto)",
+                "sInfoEmpty": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info sin datos").IdiPal_Texto)",
+                "sInfoFiltered": "(@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info Filtro").IdiPal_Texto))",
+                "sInfoPostFix": "",
+                "sSearch": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscador").IdiPal_Texto): ",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Cargando").IdiPal_Texto)",
+                "oPaginate": {
+                    "sFirst": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Primero").IdiPal_Texto)",
+                    "sLast": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Ultimo").IdiPal_Texto)",
+                    "sNext": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Siguiente").IdiPal_Texto)",
+                    "sPrevious": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Anterior").IdiPal_Texto)"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "destroy": true,
+            "ajax": {
+                "type": "GET",
+                "url": '@Url.Action("BuscadorGrilla")',
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+            "ordering": false,
+            "autoWidth": true,
+            "columns": [
+                {
+                    "data": "patente",
+                    "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Vehiculos - Vehiculos - Patente").IdiPal_Texto)',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="nombreGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "proveedor",
+                    "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Titulo").IdiPal_Texto)',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="proveedorGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "fechaDesde",
+                    "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Fecha Desde").IdiPal_Texto)',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="estadoGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "fechaHasta",
+                    "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Fecha Hasta").IdiPal_Texto)',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="estadoGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "cantidad",
+                    "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Vehiculos - Vehiculos - Cantidad").IdiPal_Texto)',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="cantidadGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "observacion",
+                    "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Observacion").IdiPal_Texto)',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="estadoGrid">' + data + '</span>';
+                    }
+                },
+                {
+                        "data": "",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Acciones").IdiPal_Texto)',
+                        "class": "claseAlign",
+                        "render": function(data, type, full, meta) {
+                            var botones = "";
+                            if ('@ViewBag.Alta' == 'True') {
+                                botones += '<button type="button" class="btn ' + (full['verificados'] == true ? "btn-success" : "btn-warning") + ' btn-xs editarRegistro" title="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Editar").IdiPal_Texto)" id="' + full['id'] + '" onclick="location.href=\'@Url.Action("Index")/?id=' + full['id'] + '\'"><span class="glyphicon glyphicon-pencil"></span></button>';
+                            }
+                            return botones;
+                        }
+                    }
+
+                ],
+        });
+        $('#dataTables-example_length').css('width', '100%');
+        $('#dataTables-example_filter').css('width', '100%');
+    });
+</script>
+
+

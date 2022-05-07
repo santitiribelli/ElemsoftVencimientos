@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="page-header">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Solapa Exportacion").IdiPal_Texto)</h4>
+    </div>
+</div>
+
+@if (ViewBag.Id != null)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="well well-sm overflowWell">
+                <input type="hidden" value="@ViewBag.Id" name="exportacionId" id="exportacionId"/>
+                <h5 class="text-info pull-left">
+                    <small>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Nombre").IdiPal_Texto):</small><span>@ViewBag.Nombre</span>
+                    <small>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Descripcion").IdiPal_Texto):</small><span>@ViewBag.Desc</span>
+                    <small>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Activo").IdiPal_Texto):</small><span>@ViewBag.Activo</span>
+                    <small>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Archivo").IdiPal_Texto):</small><span>@ViewBag.Archivo</span>
+                </h5>
+            
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <ul class="nav nav-tabs" role="tablist" id="myTab">
+            <li class="active"><a href="#" id="paso" data-toggle="tab" role-section="/Exportacion/Exportacion/@(ViewBag.Id != null ? ViewBag.Id.ToString() : "")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Solapa Exportacion").IdiPal_Texto)</a></li>
+            @if (ViewBag.Id != null)
+            {
+                <li><a href="#" id="seleccionTab" data-toggle="tab" role-section="@Url.Action("Seleccion", new { id = ViewBag.Id })">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Solapa Seleccion").IdiPal_Texto)</a></li>
+                <li><a href="#" id="calculoTab" data-toggle="tab" role-section="@Url.Action("Campos", new { id = ViewBag.Id })">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Solapa Campos").IdiPal_Texto)</a></li>
+                <li><a href="#" id="filtrosTab" data-toggle="tab" role-section="@Url.Action("Filtros", new { id = ViewBag.Id })">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Exportaciones - Solapa Filtros").IdiPal_Texto)</a></li>
+            }
+        </ul>
+        <div class="tab-content tabsContainer" id="">
+            <div id="link">@Html.Action("Exportacion")</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+        //codigo para cargar las partialview de cada solapa
+        $('#myTab a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+
+            var id = this.id;
+            if (id != "") {
+                $.ajax({
+                    url: $(this).attr('role-section'),
+                    data: { data: id },
+                    success: function (mydata) {
+                        $("#link").empty().append(mydata);
+                    },
+                    type: "GET"
+                });
+            }
+        });
+
+    });
+</script>

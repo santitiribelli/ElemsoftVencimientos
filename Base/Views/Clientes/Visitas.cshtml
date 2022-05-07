@@ -1,0 +1,496 @@
+﻿@{
+    Layout = null;
+}
+@if (ViewBag.TieneDomicilio)
+{
+    if (ViewBag.Alta == true)
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" class="btn btn-info  btn-block" id="btnAgregarForm"><i class="fa fa-plus"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Agregar").IdiPal_Texto)</button>
+            </div>
+        </div>
+        <form class="form-horizontal rowAlt" role="form" id="formPrincipal" style="display: none;">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Día</label>
+                                    <select class="form-control input-sm" style="width: 100%;" id="dia" name="dia">
+                                        <option></option>
+                                        <option value="1">Lunes</option>
+                                        <option value="2">Martes</option>
+                                        <option value="3">Miercoles</option>
+                                        <option value="4">Jueves</option>
+                                        <option value="5">Viernes</option>
+                                        <option value="6">Sabado</option>
+                                        <option value="0">Domingo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Acomodar Antes de</label>
+                                    <input type="text" class="form-control input-sm" name="antes" id="antes" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-right btn-Cont">
+                        <button type="submit" class="btn btn-success btn-rounded" id="btnGuardar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    }
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example" style="min-width: 100%;">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Desasignar</h4>
+                </div>
+                <div class="modal-body">
+                    ¿Confirma que desea sacar  al cliente del recorrido?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary delete">Confirmar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirmClientes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 90%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Recorrido: <b><span id="tituloSector"></span></b></h4>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover" id="dataTables-clientes" style="width: 100%;">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    var id;
+    $(function () {
+        function generarTablaClientes(diaId) {
+
+            $('#dataTables-clientes').dataTable({
+                //"scrollX": false,
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar: ",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                "destroy": true,
+                "ajax": {
+                    "type": "GET",
+                    "url": '@Url.Action("ClientesVisitasGrilla")',
+                    "data": { vendedorId: '@ViewBag.Vendedor', dia: diaId },
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+                "ordering": false,
+                "bSort": false,
+                "autoWidth": true,
+                "columns": [
+                    {
+                        "data": "domicilio",
+                        "title": 'Domicilio',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="domicilioGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "nombre",
+                        "title": 'Cliente',
+                        "render": function (data, type, full, meta) {
+                            return '<a class="linkFamiliar" href="@Url.Action("Index", "Personas")/' + full['personaId'] + '" id="personaGrid">' + data + '</a><input type="hidden" id="hiddenSector" value="' + full['id'] + '"/>';
+                        }
+                    },
+                    {
+                        "data": "",
+                        "title": 'Ordenar',
+                        "class": "claseAlign",
+                        "render": function (data, type, full, meta) {
+                            var algo = '';
+
+                            if ('@ViewBag.Alta' == 'True') {
+                                if (full['primero'] == false)
+                                    algo += '<button type="button" class="btn btn-success btn-xs subirCliente" title="Subir Cliente" id="' + full['id'] + '"><span class="glyphicon glyphicon-chevron-up"></span></button>';
+                                if (full['ultimo'] == false)
+                                    algo += '<button type="button" class="btn btn-success btn-xs bajarCliente" title="Bajar Cliente" id="' + full['id'] + '"><span class="glyphicon glyphicon-chevron-down"></span></button>';
+                            }
+                            return algo;
+                        }
+                    },
+                ]
+            });
+
+                    $('#dataTables-clientes_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+                }
+        $('#confirmClientes').on('hidden.bs.modal', function (e) {
+            $('td').css('background-color', '');
+            id = null;
+        });
+
+        $('body').off('click', '.recorrido').on('click', '.recorrido', function () {
+            id = this.id;
+            $(this).parent().parent().find('td').css('background-color', 'yellow');
+            $('#tituloSector').text($(this).parents('tr').find('#diaGrid').text());
+            generarTablaClientes($(this).parents('tr').find('#hiddenDia').val());
+        });
+
+        $('body').off('click', '.subirCliente').on('click', '.subirCliente', function () {
+            $.ajax({
+                url: '@Url.Action("VisitasReordenar")',
+                type: 'POST',
+                data: JSON.stringify({ id: this.id, accion: 'S' }),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: 'Exito!',
+                            text: 'Cliente reordenado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+
+                        generarTablaClientes();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        $('body').off('click', '.bajarCliente').on('click', '.bajarCliente', function () {
+            $.ajax({
+                url: '@Url.Action("VisitasReordenar")',
+                type: 'POST',
+                data: JSON.stringify({ id: this.id, accion: 'B' }),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: 'Exito!',
+                            text: 'Cliente reordenado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+
+                        generarTablaClientes();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        $('#dia').select2();
+
+        $('#dia').on("change", function() {
+            $.ajax({
+                url: '@Url.Action("ClientesByDiaVendedor")',
+                type: 'POST',
+                data: { vendedorId: '@ViewBag.Vendedor', dia: $('#dia').select2('val') },
+                success: function(results2) {
+                    if (results2.success) {
+                        $('#antes').select2('destroy').select2({
+                            allowClear: true,
+                            data: results2.msg
+                        });
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results2.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        function generarTabla() {
+            $('#dataTables-example').dataTable({
+                "scrollX": true,
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar: ",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                "destroy": true,
+                "ajax": {
+                    "type": "GET",
+                    "url": '@Url.Action("VisitasGrilla")',
+                    "data": { id: $('#clienteId').val(), vendedorId: '@ViewBag.Vendedor' },
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+                //"order": [],
+                "autoWidth": true,
+                "bSort": false,
+                "columns": [
+                {
+                    "data": "dia",
+                    "title": 'Día',
+                    "render": function(data, type, full, meta) {
+                        return '<span id="diaGrid">' + data + '</span><input type="hidden" id="hiddenDia" value="' + full['diaId'] + '"/>';
+                    }
+                },
+                {
+                    "sClass": "textAlignRight",
+                    "data": "orden",
+                    "title": 'Orden',
+                    "render": function(data, type, full, meta) {
+                        return '<span id="ordenGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "antesDe",
+                    "title": 'Antes de',
+                    "render": function(data, type, full, meta) {
+                        return '<span id="antesDeGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "despuesDe",
+                    "title": 'Después de',
+                    "render": function(data, type, full, meta) {
+                        return '<span id="despuesDeGrid">' + data + '</span>';
+                    }
+                },
+                    {
+                        "data": "",
+                        "title": 'Acciones',
+                        "class": "claseAlign",
+                        "render": function(data, type, full, meta) {
+                            var algo = '';
+                            if ('@ViewBag.Alta' == 'True')
+                                {
+                            algo += '<button type="button" class="btn btn-success btn-xs preDelete" title="Eliminar" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmDelete"><span class="glyphicon glyphicon-trash"></span></button>';
+                            //algo += '<button type="button" class="btn btn-success btn-xs editarRegistro" title="Editar" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmEdit"><span class="glyphicon glyphicon-pencil"></span></button>';
+                            }
+                            algo += '<button type="button" class="btn btn-success btn-xs recorrido" title="Recorrido" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmClientes"><span class="glyphicon glyphicon-list"></span></button>';
+                            return algo;
+
+                        }
+                    }
+                ]
+            });
+
+            $('.dataTables_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+        }
+
+        $('#formPrincipal').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnGuardar',
+            fields: {
+                dia: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+
+            var sessionData = {
+                //"Rut_Id": $("#rutinaId").val(),
+                "Cli_Id": $("#clienteId").val(),
+                "CliVi_Dia": $("#dia").select2('val'),
+            };
+            
+            var parametro = { "model": sessionData, "despuesId": $("#antes").select2('val') };
+
+            $.ajax({
+                url: '@Url.Action("Visitas")',
+                type: 'POST',
+                data: JSON.stringify(parametro),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: 'Exito!',
+                            text: 'Dato guardado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000,
+                            animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        //**************************
+        //JAVASCRIPT DE ELIMINAR
+        //**************************
+
+        $('body').on('click', 'button.preDelete', function () {
+            id = this.id;
+            $(this).parent().parent().find('td').css('background-color', 'red');
+        });
+
+        $('body').off('click', 'button.delete').on('click', 'button.delete', function () {
+            $.ajax({
+                url: '@Url.Action("VisitasDelete")',
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: 'Exito!',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Eliminar").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                    id = null;
+                    $('#confirmDelete').modal('hide');
+
+                },
+                type: "POST"
+            });
+        });
+
+        $('#confirmDelete').on('hidden.bs.modal', function (e) {
+            $('td').css('background-color', '');
+            if (id == null)
+                generarTabla();
+        });
+
+        //**************************
+        //FIN JAVASCRIPT DE ELIMINAR
+        //**************************
+
+        generarTabla();
+    });
+</script>
+}
+else
+{
+    <div class="alert alert-info alert-dismissible" id="tabInfo" role="alert">
+        <strong>Información:</strong> No puede asignar un cliente a un recorrido si el mismo no tiene domicilio cargado.
+    </div>
+}

@@ -1,0 +1,353 @@
+﻿@*  Alta Registro  *@
+        @*  Listado  *@
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-example" style="min-width: 100%;"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+    var id;
+    //---------------------------------
+    //Generación de la tabla principal : Listado
+    //---------------------------------
+    function generarTabla() {
+        $('#dataTables-example').dataTable({
+            "stateSave": true,
+            "scrollX": true,
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar: ",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "destroy": true,
+            "ajax": {
+                "type": "GET",
+                "url": '@Url.Action("ClientesGrilla")',
+                    "data": { id: $('#empleadoId').val() },
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+                "ordering": false,
+                "autoWidth": true,
+                "columns": [
+                    {
+                        "data": "cliente",
+                        "title": 'Cliente',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="clienteGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "principal",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Clientes - Asesor Principal").IdiPal_Texto)',
+                        "class": "claseAlign",
+                        "render": function (data, type, full, meta) {
+                            var botones = "";
+                            if (data == true)
+                                botones += '<button type="button" class="btn btn-success btn-xs"><span class="fa fa-check"></span></button>';
+                            else
+                                botones += '<button type="button" class="btn btn-danger btn-xs"><span class="fa fa-times"></span></button>';
+                            return botones;
+
+                        }
+                    },
+                    {
+                        "data": "secundario",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Clientes - Asesor Secundario").IdiPal_Texto)',
+                        "class": "claseAlign",
+                        "render": function (data, type, full, meta) {
+                            var botones = "";
+                            if (data == true)
+                                botones += '<button type="button" class="btn btn-success btn-xs"><span class="fa fa-check"></span></button>';
+                            else
+                                botones += '<button type="button" class="btn btn-danger btn-xs"><span class="fa fa-times"></span></button>';
+                            return botones;
+
+                        }
+                    },
+                    {
+                        "data": "guardia",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Clientes - Asesor Guardia").IdiPal_Texto)',
+                        "class": "claseAlign",
+                        "render": function (data, type, full, meta) {
+                            var botones = "";
+                            if (data == true)
+                                botones += '<button type="button" class="btn btn-success btn-xs"><span class="fa fa-check"></span></button>';
+                            else
+                                botones += '<button type="button" class="btn btn-danger btn-xs"><span class="fa fa-times"></span></button>';
+                            return botones;
+
+                        }
+                    },
+                ],
+            });
+
+                $('#dataTables-example_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+            }
+
+    $(function () {
+        bootstrapHelper();
+
+        //---------------------------------
+        //Campos de Alta Registro
+        //Validators
+        //---------------------------------
+        clasificador('movimientoEdit', 'Empleados - Diferencias', 'formEdit', true);
+
+        $('#movimientoEdit').select2('readonly', true);
+
+        $('#fecha').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator').updateStatus('fecha', 'NOT_VALIDATED', null).validateField('fecha');
+        });
+
+        //---------------------------------
+        //Insert Submit Registro
+        //Validators
+        //---------------------------------
+        $('#formPrincipal').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnGuardar',
+            fields: {
+                movimiento: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                fecha: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Formato incorrecto").IdiPal_Texto)'
+                        }
+                    }
+                },
+                importe: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                        //greaterThan: {
+                        //    value: '0',
+                        //    inclusive: false,
+                        //    message: "El importe debe ser mayor a 0"
+                        //}
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            //----------------------
+            //Submit del Form Insert
+            //----------------------
+            e.preventDefault();
+            var sessionData = {
+                "Clas_Mov_Id": 0,//$("#movimiento").select2("val")[$("#movimiento").select2("val").length - 1],
+                "Emp_Id": $("#empleadoId").val(),
+                "EmpDif_Fecha": $("#fecha").val(),
+                "EmpDif_Importe": parseCurrency($("#importe").val()),
+            };
+            $.ajax({
+                url: '@Url.Action("Diferencias")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: 'Exito!',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Nuevo").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000,
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'bounceOutRight'
+                            }
+                        });
+
+                        $('#tabDiferencias').removeClass('sinInfo text-info');
+                        $('#tabDiferencias i').remove();
+
+                        //$('#movimiento').select2('data', null);
+                        $('#fecha').datepicker('update', '');
+                        $('#importe').val('');
+                        $('#formPrincipal').bootstrapValidator('resetForm');
+
+                        generarTabla();
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        //---------------------------------
+        //Campos de Edición Registro
+        //Validators
+        //---------------------------------
+
+        $('#fechaEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaEdit', 'NOT_VALIDATED', null).validateField('fechaEdit');
+        });
+
+        //---------------------------------
+        //Edición Submit Registro
+        //Validators
+        //---------------------------------
+        $('#formEdit').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnEditar',
+            fields: {
+                movimientoEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                fechaEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Formato incorrecto").IdiPal_Texto)'
+                        }
+                    }
+                },
+                importeEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                        //greaterThan: {
+                        //    value: '0',
+                        //    inclusive: false,
+                        //    message: "El importe debe ser mayor a 0"
+                        //}
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            //----------------------
+            //Submit del Form Edit
+            //----------------------
+            e.preventDefault();
+            var sessionData = {
+                "EmpDif_Id": id,
+                "Clas_Mov_Id": $("#movimientoEdit").select2("val")[$("#movimientoEdit").select2("val").length - 1],
+                "Emp_Id": $("#empleadoId").val(),
+                "EmpDif_Fecha": $("#fechaEdit").val(),
+                "EmpDif_Importe": parseCurrency($("#importeEdit").val()),
+            };
+            $.ajax({
+                url: '@Url.Action("Diferencias")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: 'Exito!',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Actualizar").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000,
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'bounceOutRight'
+                            }
+                        });
+
+                        $('#movimientoEdit').select2('data', null);
+                        $('#fechaEdit').datepicker('update', '');
+                        $('#importeEdit').val('');
+                        $('#formEdit').bootstrapValidator('resetForm');
+                        id = null;
+
+                        $('#confirmEdit').modal('hide');
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        //-------------------------
+        //Editar btn Grilla
+        //-------------------------
+        $('body').off('click', '.editarRegistro').on('click', '.editarRegistro', function () {
+            id = this.id;
+            $(this).parent().parent().find('td').css('background-color', 'yellow');
+
+            $('#fechaEdit').val($(this).parents('tr').find('#desdefechaGrid').text());
+            $('#importeEdit').val($(this).parents('tr').find('#hastaimporteGrid').text());
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetClasificadorById", "Clasificadores")',
+                dataType: 'json',
+                data: { id: $(this).parents('tr').find('#hiddenMovimiento').val() },
+                success: function (data) {
+                    $('#movimientoEdit').select2('data', data);
+                }
+            }).done(function () {
+                $('.select2-search-choice-close').css("display", "none");
+                $('.select2-search-field').prev().find('.select2-search-choice-close').css("display", "block");
+            });
+        });
+
+        generarTabla();
+    });
+        </script>
+        @Html.Action("Editar", "Componentes")
+        @Html.Action("Eliminar", "Componentes")

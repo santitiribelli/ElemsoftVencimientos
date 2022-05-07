@@ -1,0 +1,171 @@
+﻿@using DataAccess
+@{
+    ViewBag.Title = "Registro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="page-header">Auditoría por Registro</h4>
+    </div>
+</div>
+
+<form class="form-horizontal rowAlt" role="form" id="formRegistro">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Período Desde</label>
+                        <div class="col-lg-3">
+                            <input type="text" class="input-sm form-control datepicker" id="periodoDesde" name="periodoDesde" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Período Hasta</label>
+                        <div class="col-lg-3">
+                            <input type="text" class="input-sm form-control datepicker" id="periodoHasta" name="periodoHasta" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Tabla</label>
+                        <div class="col-lg-8">
+                                <select id="tabla" name="tabla" class="form-control">
+                                    @foreach (var item in new Dic_Tablas().GetListAuditoria())
+                                    { 
+                                    <option value="@item.Tab_Id" >@item.Tab_Nom</option>
+                                    }
+                                </select>                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Usuario</label>
+                        <div class="col-lg-8">
+                            <select id="usuario" name="usuario" class="form-control">
+                                <option></option>
+                                   @foreach (var item in new SeguridadUsuarios().GetList())
+                                    { 
+                                    <option value="@item.SegUsu_Id" >@item.SegUsu_Nom</option>
+                                    }
+                                </select>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right btn-Cont">
+                <button type="submit" class="btn btn-success" id="btnBuscar">Buscar</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+<div  id="gridRegistro" class="row"></div>
+<script>
+
+    $(function () {
+
+        $('#usuario').select2({ allowClear: true });
+        $('#tabla').select2({ allowClear: false });
+
+        $('#periodoDesde').on("change", function () {
+            $('#formRegistro').data('bootstrapValidator')
+                // Mark the field as not validated, so it'll be re-validated when the user change date
+                .updateStatus('periodoDesde', 'NOT_VALIDATED', null)
+                // Validate the field
+                .validateField('periodoDesde');
+
+            $('#formRegistro').data('bootstrapValidator')
+                // Mark the field as not validated, so it'll be re-validated when the user change date
+                .updateStatus('periodoHasta', 'NOT_VALIDATED', null)
+                // Validate the field
+                .validateField('periodoHasta');
+        });
+
+        $('#periodoHasta').on("change", function () {
+
+            $('#formRegistro').data('bootstrapValidator')
+                // Mark the field as not validated, so it'll be re-validated when the user change date
+                .updateStatus('periodoHasta', 'NOT_VALIDATED', null)
+                // Validate the field
+                .validateField('periodoHasta');
+        });
+
+        $.fn.bootstrapValidator.validators.dates = {
+            validate: function (validator, $field, options) {
+                var d1 = $('#periodoDesde').val();
+                var d2 = $('#periodoHasta').val();
+                d1 = d1.split('/');
+                d2 = d2.split('/');
+                d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                return d2 >= d1;
+            }
+        };
+
+        $('#formRegistro').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnBuscar',
+            fields: {                                          
+                periodoDesde: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: 'Formato incorrecto'
+                        }
+                    }
+                },
+                periodoHasta: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: 'Formato incorrecto'
+                        },
+                        dates: {
+                            message: 'La fecha debe ser superior a la fecha desde.'
+                        }
+                    }
+                },
+                tabla: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                    }
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+
+            var user = $('#usuario').select2('data') != null ? $('#usuario').select2('data').text : "";
+
+            $("#gridRegistro").load('/Auditoria/RegistroGrilla', { fechaDesde: $('#periodoDesde').val(), fechaHasta: $('#periodoHasta').val(), tabla: $('#tabla').select2('data').text, usuario: user });
+            //$.ajax({
+            //    url: '/Auditoria/RegistroGrilla',
+            //    type: 'POST',
+            //    data: { fechaDesde: $('#periodoDesde').val(), fechaHasta: $('#periodoHasta').val(), tabla: $('#tabla').select2('data').text, usuario: user },
+            //    success: function (mydata) {                    
+            //        $("#gridRegistro").empty().append(mydata);                  
+            //        $("#gridRegistro").show();                 
+            //    }
+            //});
+        });
+
+    });
+
+</script>

@@ -1,0 +1,373 @@
+﻿@using Entities
+@model BuquesViajes
+<form class="form-horizontal rowAlt" role="form" id="formPrincipal">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Viajes - Temporada").IdiPal_Texto)</label>
+                            <select class="form-control input-sm" style="width: 100%;" id="temporada" name="temporada">
+                                @foreach (var item in BusinessLogic.ClasificadoresIdiomasAdmin.GetList("Buques Viajes Temporadas"))
+                                {
+                                    <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Viajes - Codigo").IdiPal_Texto)</label>
+                            <input id="codigo" name="codigo" type="text" class="form-control input-sm" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Viajes - ETA").IdiPal_Texto)</label>
+                            <input type="text" class="input-sm form-control bfh-phone datepicker" autocomplete="off" id="fechaDesde" name="fechaDesde" data-format="hh:mm"  placeholder="xx/xx/xxxx" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Hora").IdiPal_Texto)</label>
+                            <input type="text" class="input-sm form-control bfh-phone" autocomplete="off" data-format="hh:mm" placeholder="HH:MM" id="horaDesde" name="horaDesde" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Viajes - ETD").IdiPal_Texto)</label>
+                            <input type="text" class="input-sm form-control bfh-phone datepicker" autocomplete="off" id="fechaHasta" name="fechaHasta" data-format="hh:mm"  placeholder="xx/xx/xxxx" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Hora").IdiPal_Texto)</label>
+                            <input type="text" class="input-sm form-control bfh-phone" autocomplete="off" data-format="hh:mm" placeholder="HH:MM" id="horaHasta" name="horaHasta" />
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Viajes - Origen").IdiPal_Texto)</label>
+                            <input id="origen" name="origen" type="text" class="form-control input-sm" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Viajes - Destino").IdiPal_Texto)</label>
+                            <input id="destino" name="destino" type="text" class="form-control input-sm" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Empleados - Titulo").IdiPal_Texto)</label>
+                            <select class="form-control input-sm" style="width: 100%;" id="empleado" name="empleado">
+                                <option></option>
+                                @foreach (var item in BusinessLogic.EmpleadosAdmin.GetListVerificados().Where(x => x.Cli_Id == null))
+                                {
+                                    <option value="@item.Emp_Id">@item.Personas.NombreCompleto</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Observacion").IdiPal_Texto)</label>
+                            <textarea rows="3" class="input-sm form-control" id="observacion" name="observacion"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (ViewBag.Alta == true)
+            {
+                if (Model != null)
+                {
+                    if (Model.BuqVia_DatosVerificados == false && ViewBag.EsAdmin == true)
+                    {
+                        <div class="pull-left btn-Cont">
+                            <button type="button" class="btn btn-warning btn-rounded" id="btnVerificar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Verificar").IdiPal_Texto)</button>
+                        </div>
+                    }
+                }
+                <div class="pull-right btn-Cont">
+                    <button type="submit" class="btn btn-success btn-rounded" id="btnGuardar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                </div>
+            }
+        </div>
+    </div>
+</form>
+<script>
+    $(function () {
+
+        $('#horaDesde,#horaHasta').mask('00:00');
+
+        $('#horaDesde').timepicker({
+            showMeridian: false,
+            defaultTime: false,
+            template: true
+        }).on('changeTime.timepicker', function (e) {
+            $('#formPrincipal').data('bootstrapValidator').updateStatus('horaDesde', 'NOT_VALIDATED', null).validateField('horaDesde');
+
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaDesde', 'NOT_VALIDATED', null).validateField('fechaDesde');
+
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null).validateField('fechaHasta');
+        }).on('keyup', function (e) {
+            $('#formPrincipal').data('bootstrapValidator').updateStatus('horaDesde', 'NOT_VALIDATED', null).validateField('horaDesde');
+        
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaDesde', 'NOT_VALIDATED', null).validateField('fechaDesde');
+        
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null).validateField('fechaHasta');
+        });
+
+        $('#horaHasta').timepicker({
+            showMeridian: false,
+            defaultTime: false,
+            template: true
+        }).on('changeTime.timepicker', function (e) {
+            $('#formPrincipal').data('bootstrapValidator').updateStatus('horaHasta', 'NOT_VALIDATED', null).validateField('horaHasta');
+
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaDesde', 'NOT_VALIDATED', null).validateField('fechaDesde');
+
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null).validateField('fechaHasta');
+        }).on('keyup', function (e) {
+            $('#formPrincipal').data('bootstrapValidator').updateStatus('horaHasta', 'NOT_VALIDATED', null).validateField('horaHasta');
+        
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaDesde', 'NOT_VALIDATED', null).validateField('fechaDesde');
+        
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null).validateField('fechaHasta');
+        });
+        $('#temporada').select2({});
+        $('#empleado').select2({});
+
+        $('#fechaDesde').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaDesde', 'NOT_VALIDATED', null).validateField('fechaDesde');
+
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null).validateField('fechaHasta');
+
+        });
+
+        $('#fechaHasta').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null).validateField('fechaHasta');
+        });
+
+        $.fn.bootstrapValidator.validators.dates = {
+            validate: function (validator, $field, options) {
+                if ($('#fechaDesde').val() == '' || $('#fechaHasta').val() == '')
+                    return true;
+
+
+                var d = new moment($('#fechaDesde').val() + " " + $("#horaDesde").val(), 'DD/MM/YYYY HH:mm', true);
+                if (!d.isValid()) {
+                    return false;
+                }
+                var h = new moment($('#fechaHasta').val() + " " + $("#horaHasta").val(), 'DD/MM/YYYY HH:mm', true);
+
+                return h.isAfter(d);// && m.isBefore('2020/12/30');
+
+                var d1 = $('#fechaDesde').val() + " " + $("#horaDesde").val();
+                var d2 = $('#fechaHasta').val() + " " + $("#horaHasta").val();
+                d1 = d1.split('/');
+                d2 = d2.split('/');
+                d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                return d2 >= d1;
+            }
+        };
+
+        $('#formPrincipal').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnGuardar',
+            fields: {
+                temporada: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                fechaDesde: {
+                    validators: {
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Formato incorrecto").IdiPal_Texto)'
+                        },
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                fechaHasta: {
+                    validators: {
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Formato incorrecto").IdiPal_Texto)'
+                        },
+                        dates: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Fecha Hasta Menor").IdiPal_Texto)'
+                        },
+                         notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                horaDesde: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                horaHasta: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                codigo: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                    }
+                },
+            }
+        }).on('success.form.bv', function(e) {
+            e.preventDefault();
+
+            var sessionData = {
+                "BuqVia_Id": $("#buquesViajesId").val(),
+                "Buq_Id": $('#buquesId').val(),
+                "Clas_Temporada_Id": $('#temporada').select2("val"),
+                "BuqVia_Codigo": $('#codigo').val(),
+                "BuqVia_Origen": $('#origen').val(),
+                "BuqVia_Destino": $('#destino').val(),
+                "Emp_Id": $("#empleado").select2("val"),
+                "BuqVia_Obs": $('#observacion').val(),
+                "BuqVia_ETA": $('#fechaDesde').val() + " " + $("#horaDesde").val(),
+                "BuqVia_ETD": $('#fechaHasta').val() + " " + $("#horaHasta").val(),
+            };
+
+            $.ajax({
+                url: '@Url.Action("BuquesViajes")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function(results) {
+                    if (results.success) {
+                        if ($('#buquesViajesId').val() > 0) {
+                            new PNotify({
+                                title: ':)',
+                                text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Actualizar").IdiPal_Texto)',
+                                type: 'success',
+                                hide: true,
+                                styling: 'bootstrap3',
+                                delay: 3000,
+                                animate: {
+                                    animate: true,
+                                    in_class: 'bounceInDown',
+                                    out_class: 'bounceOutRight'
+                                }
+                            });
+
+                        } else {
+                            window.location.href = '@Url.Action("Index")?tab=BuquesViajes&buqId=' + $('#buquesId').val() +"&id="+ results.msg;
+                        }
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        $('body').off('click', '#btnVerificar').on('click', '#btnVerificar', function () {
+            $.ajax({
+                url: '@Url.Action("BuquesViajesVerificar")',
+                data: { id: $('#buquesViajesId').val() },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Verificar").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+
+                        $('#btnVerificar').hide();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+
+    });
+</script>
+@if (Model != null)
+{
+    <script>
+        $(function () {
+            $("#fechaDesde").val('@Model.BuqVia_ETA.ToString("dd/MM/yyyy")');
+            $("#fechaHasta").val('@Model.BuqVia_ETD.ToString("dd/MM/yyyy")');
+            $("#horaDesde").val('@Model.BuqVia_ETA.ToString("HH:mm")');
+            $("#horaHasta").val('@Model.BuqVia_ETD.ToString("HH:mm")');
+            $("#observacion").val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.BuqVia_Obs))');
+            $("#temporada").select2('val', @Model.Clas_Temporada_Id);
+            $("#empleado").select2('val', '@(Model.Emp_Id.HasValue ? Model.Emp_Id.Value.ToString() : null)');
+            $("#origen").val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.BuqVia_Origen))');
+            $("#destino").val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.BuqVia_Destino))');
+            $("#codigo").val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.BuqVia_Codigo))');
+        });
+    </script>
+}
+

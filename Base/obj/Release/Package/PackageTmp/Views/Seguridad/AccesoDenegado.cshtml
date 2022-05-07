@@ -1,0 +1,6 @@
+﻿@{
+    ViewBag.Title = "AccesoDenegado";
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Seguridad - Acceso Denegado").IdiPal_Texto)</h2>

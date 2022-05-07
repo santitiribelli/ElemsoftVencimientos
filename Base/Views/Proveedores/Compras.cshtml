@@ -1,0 +1,144 @@
+﻿<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label style="display: block;">Solo Pendiente</label>
+                <input type="checkbox" name="pendiente" id="pendiente" data-on-color="success" data-off-color="success" data-on-text="Si" data-off-text="No" checked>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" style="cursor: pointer" title="Visualizar Compra" id="dataTables-example" width="100%"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("[name='pendiente']").bootstrapSwitch('state', true, true);
+
+        $('#pendiente').on('switchChange.bootstrapSwitch', function (event, state) {
+            generarTabla();
+        });
+
+        function generarTabla() {
+
+            var oTable = $('#dataTables-example').dataTable({
+                "stateSave": true,
+                "scrollX": true,
+                dom: 'fBlrtip',
+                buttons: [
+                    {
+                        extend: 'excel',
+                        text: 'Excel',
+                        messageTop: 'Proveedor ' + $('#tituloNombre').text(),
+                        title: 'Compras',
+                    }
+                ],
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar: ",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                "destroy": true,
+                "ajax": {
+                    "type": "GET",
+                    "url": '@Url.Action("ComprasGrilla")',
+                    "data": { id: $('#proveedorId').val(), soloPendiente: $('[name="pendiente"]').bootstrapSwitch('state') },
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+                "ordering": false,
+                "autoWidth": true,
+                "columns": [
+                    {
+                        "data": "fechaPedido",
+                        "title": 'Fecha Pedido',
+                        "render": function(data, type, full, meta) {
+                            return '<span id="fechaGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "fechaRecibido",
+                        "title": 'Fecha Recepción',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="fechaRecepcionGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "detalle",
+                        "title": 'Detalle',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="detalleGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "sClass": "textAlignRight",
+                        "data": "importe",
+                        "title": 'Importe',
+                        "render": function(data, type, full, meta) {
+                            return '<span  id="estadoGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "sClass": "textAlignRight",
+                        "data": "pagado",
+                        "title": 'Pagado',
+                        "render": function (data, type, full, meta) {
+                            return '<span  id="pagadoGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "sClass": "textAlignRight",
+                        "data": "saldo",
+                        "title": 'Saldo Pendiente',
+                        "render": function(data, type, full, meta) {
+                            return '<span  id="estadoGrid">' + data + '</span>';
+                        }
+                    },
+                ],
+                "createdRow": function(row, data, dataIndex) {
+                    //$('input.number').number(true, 2);
+                },
+                "fnInitComplete": function(oSettings) {
+                    //On click in row, redirect to page Product of ID
+                    $(oTable.fnGetNodes()).click(function() {
+                        var iPos = oTable.fnGetPosition(this);
+                        var aData = oSettings.aoData[iPos]._aData;
+                        //redirect
+                        document.location.href = "@Url.Action("Index","Compras")/?id=" + aData.id;
+                    });
+                },
+        });
+    }
+        generarTabla();
+    });
+</script>
+
+
+

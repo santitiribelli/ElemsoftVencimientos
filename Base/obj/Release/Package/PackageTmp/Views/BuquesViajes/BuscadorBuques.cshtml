@@ -1,0 +1,674 @@
+﻿@using Entities
+@{
+    ViewBag.Title = "Buques";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="@(ViewBag.Alta == true ? "col-lg-10" : "col-lg-12")">
+        <h4 class="page-header">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Buques").IdiPal_Texto)</h4>
+    </div>
+    @if (ViewBag.Alta == true)
+    {
+        <div class="col-lg-2">
+            <button type="button" class="btn btn-info  btn-block" id="btnAgregarForm"><i class="fa fa-plus"></i>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Agregar").IdiPal_Texto)</button>
+        </div>
+    }
+</div>
+
+@if (ViewBag.Alta == true)
+{
+    <form class="form-horizontal rowAlt" role="form" id="formPrincipal" style="display: none;">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="container-fluid">
+                    <div class="col-md-3">
+                        <div class="form-group kv-avatar center-block" style="width: 100%">
+                            <input id="foto" type="file" class="file-loading input-sm" name="imagen" accept="image/*" />
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques - Nombre").IdiPal_Texto)</label>
+                                        <input type="text" class="form-control input-sm" name="nombre" id="nombre" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques - Bandera").IdiPal_Texto)</label>
+                                        <select type="text" class="input-sm form-control" id="bandera" name="bandera">
+                                            <option></option>
+                                            @foreach (var item in BusinessLogic.ClasificadoresIdiomasAdmin.GetList("Localidades").Where(x => x.Clasificadores.Clas_Padre == null))
+                                            {
+                                                <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Observacion").IdiPal_Texto)</label>
+                                        <textarea rows="2" class="input-sm form-control" id="observacion" name="observacion"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pull-right btn-Cont">
+                        <button type="submit" class="btn btn-success" id="btnGuardar">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example" style="width: 100%;"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Editar").IdiPal_Texto)</h4>
+            </div>
+            <form class="form-horizontal" id="formEdit" method="post">
+                <div class="modal-body rowAlt">
+                    <div class="col-md-3">
+                        <div class="form-group kv-avatar center-block" style="width: 100%">
+                            <input id="fotoEdit" type="file" class="file-loading input-sm" name="imagenEdit" accept="image/*" />
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques - Nombre").IdiPal_Texto)</label>
+                                        <input type="text" class="form-control input-sm" name="nombreEdit" id="nombreEdit" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques - Bandera").IdiPal_Texto)</label>
+                                        <select type="text" class="input-sm form-control" id="banderaEdit" name="banderaEdit">
+                                            <option></option>
+                                            @foreach (var item in BusinessLogic.ClasificadoresIdiomasAdmin.GetList("Localidades").Where(x => x.Clasificadores.Clas_Padre == null))
+                                            {
+                                                <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Observacion").IdiPal_Texto)</label>
+                                        <textarea rows="2" class="input-sm form-control" id="observacionEdit" name="observacionEdit"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+
+                    @if (ViewBag.Alta == true)
+                    {
+                        <div class="pull-left btn-Cont">
+                            <button type="button" class="btn btn-warning btn-rounded" id="btnVerificar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Verificar").IdiPal_Texto)</button>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="btnEditar">@(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                        <button type="button" class="btn btn-danger btn-rounded borrarRegistro" title="Borrar" data-toggle="modal" data-target="#confirmDelete"><i class="fa fa-trash"></i> @(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Eliminar").IdiPal_Texto)</button>
+                    }
+                    <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Eliminar").IdiPal_Texto)</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+
+            </div>
+            <div class="modal-body">
+                @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Confirmar Eliminar").IdiPal_Texto)
+            </div>
+            <div class="modal-footer">
+                @if (ViewBag.Alta == true)
+                {
+                    <button type="button" class="btn btn-primary btn-rounded delete"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                }
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmVerificar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Verificar").IdiPal_Texto)*@
+                <h4 class="modal-title" id="myModalLabel">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Verificar").IdiPal_Texto)</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+
+            </div>
+            <div class="modal-body">
+                @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Confirmar Verificar").IdiPal_Texto)
+            </div>
+            <div class="modal-footer">
+                @if (ViewBag.Alta == true)
+                {
+                    <button type="button" class="btn btn-primary btn-rounded verificar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                }
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="visualizarFoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 50%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Foto Persona").IdiPal_Texto)</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+            </div>
+            <!-- Modal -->
+            <div class="modal-body rowAlt">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group kv-avatar center-block" style="width: 100%">
+                            <input id="fotoView" type="file" class="file-loading input-sm" name="imagenView" accept="image/*" />
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var id;
+    $(function() {
+        $('#bandera').select2();
+        $('#formPrincipal').bootstrapValidator({
+            submitButtons: '#btnGuardar',
+            live: 'enabled',
+            fields: {
+                nombre: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                bandera: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function(e) {
+            e.preventDefault();
+            var sessionData = {
+                //"Buq_Id": id,
+                "Buq_Nombre": $("#nombre").val(),
+                "Clas_Bandera_Id": $("#bandera").select2('val'),
+                "Buq_DatosVerificados": false,
+                "Buq_Obs": $("#observacion").val(),
+            };
+            $.ajax({
+                url: '@Url.Action("Buques")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function(results) {
+                    if (results.success) {
+                        if ($("#foto").val() != '')
+                            uploadfile(results.msg); //devolver el id
+                        new PNotify({
+                            title: ':)',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Nuevo").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+
+                        $('#banderas').select2('data', null);
+                        $('#nombre,#observacion').val('');
+                        $('#formPrincipal').bootstrapValidator('resetForm');
+
+                        generarTabla();
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        //CODIGO PARA LA EDICIÓN
+        $('body').off('click', '#dataTables-example .editarRegistro').on('click', '#dataTables-example .editarRegistro', function () {
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row($(this).parents('tr')).data();
+            id = aData.id;
+            $(this).parent().parent().find('td').css('background-color', 'yellow');
+            $('#nombreEdit').val(aData.nombre);
+            $('#observacionEdit').val(aData.observacion);
+            $('#banderaEdit').select2('val', aData.banderaId);
+
+            $('#fotoEdit').fileinput('destroy');
+            $("#fotoEdit").fileinput({
+                   overwriteInitial: true,
+                   //maxFileSize: 1500,
+                   showClose: false,
+                   showCaption: false,
+                   showBrowse: false,
+                   browseOnZoneClick: true,
+                   elErrorContainer: '#kv-avatar-errors-2',
+                   msgErrorClass: 'alert alert-block alert-danger',
+                   defaultPreviewContent: '<img src="@Url.Content("/images/default_avatar_male.jpg")" alt="" style="width:100%">',
+                   layoutTemplates: {
+                       main2: '{preview} {browse}'
+                   },
+                   allowedFileExtensions: ["jpg", "jpeg", "png", "gif"]
+               });
+            if (aData.foto == "True")
+                $('#fotoEdit').fileinput('refresh', { defaultPreviewContent: '<img src="../uploads/buques/' + id + '.jpg" alt="Su Imagen" style="width:100%">' });
+
+            if (aData.delete == "True")
+                $('.borrarRegistro').hide();
+            else
+                $('.borrarRegistro').show();
+
+            if (aData.verificados == true)
+                $('#btnVerificar').hide();
+            else
+                $('#btnVerificar').show();
+        });
+
+        $('#confirmEdit, #confirmDelete, #confirmVerificar, #visualizarFoto').on('hidden.bs.modal', function(e) {
+            $('td').css('background-color', '');
+            if (id == null)
+                generarTabla();
+        });
+
+        $('#banderaEdit').select2();
+
+        $('#formEdit').bootstrapValidator({
+            submitButtons: '#btnEditar',
+            fields: {
+                nombreEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                banderaEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function(e) {
+            e.preventDefault();
+            var sessionData = {
+                "Buq_Id": id,
+                "Buq_Nombre": $("#nombreEdit").val(),
+                "Clas_Bandera_Id": $("#banderaEdit").select2('val'),
+                "Buq_DatosVerificados": false,
+                "Buq_Obs": $("#observacionEdit").val(),
+            };
+            $.ajax({
+                url: '@Url.Action("Buques")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function(results) {
+                    if (results.success) {
+                        if ($("#fotoEdit").val() != '')
+                            uploadfileEdit(results.msg); //devolver el id
+                        new PNotify({
+                            title: ':)',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Actualizar").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+
+                        $('#banderaEdit').select2('data', null);
+                        $('#nombreEdit, #observacionEdit').val('');
+                        $('#formEdit').bootstrapValidator('resetForm');
+
+                        id = null;
+                        $('#confirmEdit').modal('hide');
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+
+        //CODIGO PARA ELIMINAR
+         $('body').off('click', '.delete').on('click', '.delete', function () {
+            $.ajax({
+                url: '@Url.Action("BuquesDelete")',
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Eliminar").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#confirmEdit, #confirmDelete, #confirmVerificar').modal('hide');
+                        id = null;
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+         });
+
+        //CODIGO PARA VERIFICAR REGISTRO
+        $('body').off('click', '#dataTables-example .verificarRegistro').on('click', '#dataTables-example .verificarRegistro', function () {
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row($(this).parents('tr')).data();
+            id = aData.id;
+        });
+        $('body').off('click', '.verificar').on('click', '.verificar', function () {
+            $.ajax({
+                url: '@Url.Action("BuquesVerificar")',
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Actualizar").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#confirmEdit, #confirmDelete, #confirmVerificar').modal('hide');
+                        id = null;
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+
+        $('body').off('click', '.verFoto').on('click', '.verFoto', function () {
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row($(this).parents('tr')).data();
+            id = aData.id;
+            $('#fotoView').fileinput('refresh', { defaultPreviewContent: '<img src="../uploads/buques/' + id + '.jpg" alt="Su Imagen" style="width:100%">' });
+        });
+
+        function generarTabla() {
+            $('#dataTables-example').dataTable({
+                "stateSave":true,
+                //"scrollX": true,
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Paginado").IdiPal_Texto)",
+                    "sZeroRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscar sin resultados").IdiPal_Texto)",
+                    "sEmptyTable": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - No hay datos").IdiPal_Texto)",
+                    "sInfo": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info").IdiPal_Texto)",
+                    "sInfoEmpty": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info sin datos").IdiPal_Texto)",
+                    "sInfoFiltered": "(@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info Filtro").IdiPal_Texto))",
+                    "sInfoPostFix": "",
+                    "sSearch": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscador").IdiPal_Texto): ",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Cargando").IdiPal_Texto)",
+                    "oPaginate": {
+                        "sFirst": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Primero").IdiPal_Texto)",
+                        "sLast": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Ultimo").IdiPal_Texto)",
+                        "sNext": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Siguiente").IdiPal_Texto)",
+                        "sPrevious": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Anterior").IdiPal_Texto)"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                "destroy": true,
+                "ajax": {
+                    "type": "GET",
+                    "url": '@Url.Action("BuscadorBuquesGrilla")',
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+                "autoWidth": true,
+                "columns": [
+                    {
+                        "data": "nombre",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques - Nombre").IdiPal_Texto)',
+                        "render": function(data, type, full, meta) {
+                            return '<span id="nombreGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "bandera",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques - Bandera").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="banderaGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "observacion",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Observacion").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="observacionGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Acciones").IdiPal_Texto)',
+                        "class": "claseAlign",
+                        "render": function(data, type, full, meta) {
+                            var botones = "";
+                            if (full['foto'] != 'True')
+                                botones += '<button type="button" class="btn btn-danger btn-xs" title="" id="' + full['id'] + '" ><span class="fa fa-camera"></span></button>';
+                            botones += '<button type="button" class="btn btn-success btn-xs" title="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Buques Viajes").IdiPal_Texto)" onclick="location.href=\'@Url.Action("BuscadorBuquesViajes")/?id=' + full['id'] + '\'"><span class="fa fa-ship"></span></button>';
+                            if ('@ViewBag.Alta' == 'True') {
+                                botones += '<button type="button" class="btn ' + (full['verificados'] == true ? "btn-success" : "btn-warning") + ' btn-xs editarRegistro" title="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Editar").IdiPal_Texto)" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmEdit"><span class="glyphicon glyphicon-pencil"></span></button>';
+                                //if (full['datosVerificados'] == 'NO') {
+                                    @*@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques - Verificar").IdiPal_Texto)*@
+                                    //botones += '<button type="button" class="btn btn-success btn-xs verificarRegistro" title="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Verificar").IdiPal_Texto)" data-toggle="modal" data-target="#confirmVerificar"><span class="fa fa-check"></span></button>';
+                                //}
+                            }
+
+                            return botones;
+                        }
+                    }
+                ],
+            });
+            $('.dataTables_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+        }
+
+        generarTabla();
+
+        $('body').off('click', '#btnVerificar').on('click', '#btnVerificar', function () {
+            $.ajax({
+                url: '@Url.Action("BuquesVerificar")',
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Verificar").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+
+                        $('#confirmEdit, #confirmDelete, #confirmVerificar').modal('hide');
+                        id = null;
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+
+        function uploadfile(id) {
+
+           var bannerImage = $("#foto").val();
+           if (bannerImage) {
+               var file = document.getElementById('foto').files[0];
+               var formData = new FormData();
+               formData.append(file.name, file);
+               var xhr = new XMLHttpRequest();
+               var url = "@Url.Action("UploadFoto")/" + id;
+               xhr.open('POST', url, true);
+               xhr.onload = function(e) {
+                   //var response = $.parseJSON(e.target.response);
+                   //                if (response.success)
+               };
+               xhr.send(formData); // multipart/form-data
+
+           }
+       }
+
+       $("#foto").fileinput({
+           overwriteInitial: true,
+           //maxFileSize: 1500,
+           showClose: false,
+           showCaption: false,
+           showBrowse: false,
+           browseOnZoneClick: true,
+           elErrorContainer: '#kv-avatar-errors-2',
+           msgErrorClass: 'alert alert-block alert-danger',
+           defaultPreviewContent: '<img src="@Url.Content("/images/default_avatar_male.jpg")" alt="" style="width:100%">',
+           layoutTemplates: {
+               main2: '{preview} {browse}'
+           },
+           allowedFileExtensions: ["jpg", "jpeg", "png", "gif"]
+       });
+
+        function uploadfileEdit(id) {
+
+           var bannerImage = $("#fotoEdit").val();
+           if (bannerImage) {
+               var file = document.getElementById('fotoEdit').files[0];
+               var formData = new FormData();
+               formData.append(file.name, file);
+               var xhr = new XMLHttpRequest();
+               var url = "@Url.Action("UploadFoto")/" + id;
+               xhr.open('POST', url, true);
+               xhr.onload = function(e) {
+                   //var response = $.parseJSON(e.target.response);
+                   //                if (response.success)
+               };
+               xhr.send(formData); // multipart/form-data
+
+           }
+       }
+
+       $("#fotoEdit").fileinput({
+           overwriteInitial: true,
+           //maxFileSize: 1500,
+           showClose: false,
+           showCaption: false,
+           showBrowse: false,
+           browseOnZoneClick: true,
+           elErrorContainer: '#kv-avatar-errors-2',
+           msgErrorClass: 'alert alert-block alert-danger',
+           defaultPreviewContent: '<img src="@Url.Content("/images/default_avatar_male.jpg")" alt="" style="width:100%">',
+           layoutTemplates: {
+               main2: '{preview} {browse}'
+           },
+           allowedFileExtensions: ["jpg", "jpeg", "png", "gif"]
+       });
+    });
+
+</script>

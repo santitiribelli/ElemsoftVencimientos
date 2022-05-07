@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "OptimaClientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="~/Scripts/isotope.pkgd.min.js"></script>
+<script type="text/javascript" src="~/Scripts/imagesloaded.pkgd.min.js"></script>
+<style>
+    img:hover {
+        opacity: 0.5;
+    }
+
+    img:hover {
+        opacity: 0.5;
+    }
+
+    .buques {
+        width: 19.5%;
+        /*width: 250px;*/
+    }
+
+    .isotopo {
+        margin: 0 auto;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="page-header">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Titulo").IdiPal_Texto)</h4>
+    </div>
+</div>
+<form class="form-horizontal rowAlt" role="form" id="formClientes">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                @*<div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <button type="button" class="btn btn-info btn-large btn-block cliente" data-filter="*">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Todos").IdiPal_Texto)</button>
+                        </div>
+                    </div>
+                </div>*@
+                @{
+                    var num = Model.Clientes.Count;
+                    var son3 = Model.Clientes.Count / 3 == 0;
+
+                    foreach (var item in Model.Clientes)
+                    {
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                                <div class="col-lg-12">
+                                                    @if (!System.IO.File.Exists(Server.MapPath("~/Uploads/Personas/" + item.Per_Id + ".jpg")))
+                                                    {
+                                                        @*<button type="button" class="btn btn-info btn-large btn-block cliente" data-filter=".@item.Cli_Id">@item.Personas.Per_Ape</button>*@
+                                                        <a class="btn btn-info btn-large btn-block cliente" href="@Url.Action("OptimaBuques", "Servicios", new { id = item.Cli_Id })" role="form">
+                                                            <label style="cursor: pointer;">@item.Personas.Per_Ape</label>
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="@Url.Action("OptimaBuques", "Servicios", new { id = item.Cli_Id })" class="cliente" data-filter=".@item.Cli_Id"><img style="width: 100%; border-radius: 10px; border: solid #3498db 1px; height: 45px;" src="/uploads/personas/@(item.Per_Id).jpg" /></a>
+                                                    }
+                                                </div>
+                            </div>
+                        </div>
+                        num--;
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(function () {
+        var mainContainer = jQuery(".isotopo");
+        mainContainer.isotope({
+            transitionDuration: "0.7s",
+            itemSelector: '.buques',
+            masonry: {
+                columnWidth: 10,
+                //fitWidth: true
+            }
+        });
+
+        $('body').on('click', 'a.cliente', function () {
+            var filterValue = $(this).attr('data-filter');
+            mainContainer.isotope({ filter: filterValue });
+
+            //$('.cliente').children().css('border', 'solid #3498db 1px');
+            //$('button.cliente').css('border', 'solid #3498db 1px');
+            //$(this).children().css('border', 'solid green 2px');
+            //$(this).css('border', 'solid green 2px');
+        });
+
+        $('body').on('click', 'button.cliente', function () {
+            var filterValue = $(this).attr('data-filter');
+            mainContainer.isotope({ filter: filterValue });
+
+            //$('.cliente').children().css('border', 'solid #3498db 1px');
+            //$('button.cliente').css('border', 'solid #3498db 1px');
+            //$(this).children().css('border', 'solid green 2px');
+            //$(this).css('border', 'solid green 2px');
+        });
+
+    });
+</script>

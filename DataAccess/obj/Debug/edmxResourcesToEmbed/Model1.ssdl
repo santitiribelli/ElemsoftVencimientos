@@ -1,0 +1,622 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GestionProcesosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Clasificadores">
+    <Key>
+      <PropertyRef Name="Clas_Id" />
+    </Key>
+    <Property Name="Clas_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Clas_Desc" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Clas_Abrev" Type="varchar" MaxLength="5" />
+    <Property Name="Clas_Tabla" Type="varchar" MaxLength="35" Nullable="false" />
+    <Property Name="Clas_Detalle" Type="varchar(max)" />
+    <Property Name="Clas_DatoOblig" Type="bit" Nullable="false" />
+    <Property Name="Clas_Padre" Type="int" />
+    <Property Name="Clas_FecAlta" Type="datetime" Nullable="false" />
+    <Property Name="Clas_FecBaja" Type="datetime" />
+    <Property Name="Clas_Interno" Type="bit" Nullable="false" />
+    <Property Name="AudFecha" Type="datetime" Nullable="false" />
+    <Property Name="AudUser" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Personas">
+    <Key>
+      <PropertyRef Name="Per_Id" />
+    </Key>
+    <Property Name="Per_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Per_SoloApe" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Per_SoloNom" Type="varchar" MaxLength="50" />
+    <Property Name="Per_Ape" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Per_Alias" Type="varchar" MaxLength="50" />
+    <Property Name="Per_Cuil_Cod" Type="int" />
+    <Property Name="Per_Cuil_Doc" Type="int" />
+    <Property Name="Per_Cuil_Con" Type="int" />
+    <Property Name="Per_Doc_Extranjero" Type="varchar" MaxLength="25" />
+    <Property Name="Clas_Sexo_Id" Type="int" />
+    <Property Name="Clas_Nacionalidad_Id" Type="int" />
+    <Property Name="Per_FecDes" Type="date" />
+    <Property Name="Per_FecHas" Type="date" />
+    <Property Name="Per_Direccion" Type="varchar" MaxLength="500" />
+    <Property Name="Clas_Localidad_Id" Type="int" />
+    <Property Name="Per_TE_Celular" Type="varchar" MaxLength="50" />
+    <Property Name="Per_MAIL" Type="varchar" MaxLength="50" />
+    <Property Name="Per_PersonaFisica" Type="bit" Nullable="false" />
+    <Property Name="Per_DatosCompletos" Type="bit" Nullable="false" />
+    <Property Name="Per_DatosVerificados" Type="bit" Nullable="false" />
+    <Property Name="Per_RegistroComodin" Type="bit" Nullable="false" />
+    <Property Name="Per_Obs" Type="varchar(max)" />
+    <Property Name="Per_Foto" Type="varchar" MaxLength="50" />
+    <Property Name="AudFecha" Type="datetime" Nullable="false" />
+    <Property Name="AudUser" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Proveedores">
+    <Key>
+      <PropertyRef Name="Prov_Id" />
+    </Key>
+    <Property Name="Prov_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Per_Id" Type="int" Nullable="false" />
+    <Property Name="Prov_Codigo" Type="varchar" MaxLength="5" />
+    <Property Name="Clas_ProEst_Id" Type="int" Nullable="false" />
+    <Property Name="Prov_CtaCorriente" Type="bit" Nullable="false" />
+    <Property Name="Prov_Propio" Type="bit" Nullable="false" />
+    <Property Name="Prov_DatosVerificados" Type="bit" Nullable="false" />
+    <Property Name="Prov_Obs" Type="varchar(max)" />
+    <Property Name="AudFecha" Type="datetime" Nullable="false" />
+    <Property Name="AudUser" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadPaginas">
+    <Key>
+      <PropertyRef Name="SegPag_Id" />
+    </Key>
+    <Property Name="SegPag_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SegPag_Nom" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SegPag_NomDesc" Type="varchar" MaxLength="100" />
+    <Property Name="SegPag_Act" Type="bit" Nullable="false" />
+    <Property Name="SegPag_Cod" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="SeguridadRoles">
+    <Key>
+      <PropertyRef Name="SegRol_Id" />
+    </Key>
+    <Property Name="SegRol_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SegRol_Descr" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="SeguridadRolesPaginas">
+    <Key>
+      <PropertyRef Name="SegRolPag_Id" />
+    </Key>
+    <Property Name="SegRolPag_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SegRol_Id" Type="int" Nullable="false" />
+    <Property Name="SegPag_Id" Type="int" Nullable="false" />
+    <Property Name="SegRolPag_Ver" Type="bit" Nullable="false" />
+    <Property Name="SegRolPag_Alta" Type="bit" Nullable="false" />
+    <Property Name="SegRolPag_Expo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeguridadUsuarios">
+    <Key>
+      <PropertyRef Name="SegUsu_Id" />
+    </Key>
+    <Property Name="SegUsu_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Per_Id" Type="int" />
+    <Property Name="SegUsu_Pass" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="SegRol_Id" Type="int" />
+    <Property Name="SegUsu_FecAlta" Type="datetime" Nullable="false" />
+    <Property Name="SegUsu_FecBaja" Type="datetime" />
+    <Property Name="Salt" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="SeguridadUsuariosPaginas">
+    <Key>
+      <PropertyRef Name="SegUsuPag_Id" />
+    </Key>
+    <Property Name="SegUsuPag_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SegUsu_Id" Type="int" Nullable="false" />
+    <Property Name="SegPag_Id" Type="int" Nullable="false" />
+    <Property Name="SegPagUsu_Ver" Type="bit" Nullable="false" />
+    <Property Name="SegPagUsu_Alta" Type="bit" Nullable="false" />
+    <Property Name="SegPagUsu_Expo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Vehiculos">
+    <Key>
+      <PropertyRef Name="Veh_Id" />
+    </Key>
+    <Property Name="Veh_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Veh_Patente" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Prov_Id" Type="int" />
+    <Property Name="Veh_FechaDesde" Type="datetime" Nullable="false" />
+    <Property Name="Veh_FechaHasta" Type="datetime" />
+    <Property Name="Veh_PasajerosCantidad" Type="int" Nullable="false" />
+    <Property Name="Veh_DatosVerificados" Type="bit" Nullable="false" />
+    <Property Name="Veh_Obs" Type="varchar" MaxLength="500" />
+    <Property Name="AudFecha" Type="datetime" Nullable="false" />
+    <Property Name="AudUser" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VehiculosDocumentos">
+    <Key>
+      <PropertyRef Name="VehDoc_Id" />
+    </Key>
+    <Property Name="VehDoc_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Veh_Id" Type="int" Nullable="false" />
+    <Property Name="Clas_TipoDocumento_Id" Type="int" Nullable="false" />
+    <Property Name="VehDoc_FechaAprobado" Type="datetime" Nullable="false" />
+    <Property Name="VehDoc_FechaVencimiento" Type="datetime" />
+    <Property Name="VehDoc_FechaAviso" Type="datetime" />
+    <Property Name="GeneraAlerta" Type="bit" Nullable="false" />
+    <Property Name="VehDoc_ArchivoAdjunto" Type="varchar" MaxLength="50" />
+    <Property Name="VehDoc_DatosVerificados" Type="bit" Nullable="false" />
+    <Property Name="VehDoc_Obs" Type="varchar(max)" />
+    <Property Name="AudFecha" Type="datetime" Nullable="false" />
+    <Property Name="AudUser" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VehiculosLicencias">
+    <Key>
+      <PropertyRef Name="VehLic_Id" />
+    </Key>
+    <Property Name="VehLic_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Veh_Id" Type="int" Nullable="false" />
+    <Property Name="Clas_TipoLicencia_Id" Type="int" Nullable="false" />
+    <Property Name="VehLic_FechaDesde" Type="datetime" Nullable="false" />
+    <Property Name="VehLic_FechaHasta" Type="datetime" />
+    <Property Name="GeneraAlerta" Type="bit" Nullable="false" />
+    <Property Name="VehLic_DatosVerificados" Type="bit" Nullable="false" />
+    <Property Name="VehLic_Obs" Type="varchar(max)" />
+    <Property Name="AudFecha" Type="datetime" Nullable="false" />
+    <Property Name="AudUser" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VencimientosServiciosExternos">
+    <Key>
+      <PropertyRef Name="VenSerExt_Id" />
+    </Key>
+    <Property Name="VenSerExt_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VenSerExt_Proveedor" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="VenSerExt_Identificacion" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="VenSerExt_Descripcion" Type="varchar(max)" Nullable="false" />
+    <Property Name="AudFecha" Type="datetime" Nullable="false" />
+    <Property Name="AudUser" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VencimientosServiciosExternosDetalles">
+    <Key>
+      <PropertyRef Name="VenSerExtDet_Id" />
+    </Key>
+    <Property Name="VenSerExtDet_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VenSerExt_Id" Type="int" Nullable="false" />
+    <Property Name="VenSerExtDet_FechaPagado" Type="datetime" />
+    <Property Name="VenSerExtDet_ValorPagado" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Clas_MonedasTipos_Id" Type="int" />
+    <Property Name="VenSerExtDet_FechaVencimiento" Type="datetime" Nullable="false" />
+    <Property Name="VenSerExtDet_Obs" Type="varchar(max)" />
+    <Property Name="AudFecha" Type="datetime" Nullable="false" />
+    <Property Name="AudUser" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Clasificadores_Clasificadores">
+    <End Role="Clasificadores" Type="Self.Clasificadores" Multiplicity="0..1" />
+    <End Role="Clasificadores1" Type="Self.Clasificadores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificadores">
+        <PropertyRef Name="Clas_Id" />
+      </Principal>
+      <Dependent Role="Clasificadores1">
+        <PropertyRef Name="Clas_Padre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Clasificadores_SeguridadUsuarios">
+    <End Role="SeguridadUsuarios" Type="Self.SeguridadUsuarios" Multiplicity="1" />
+    <End Role="Clasificadores" Type="Self.Clasificadores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeguridadUsuarios">
+        <PropertyRef Name="SegUsu_Id" />
+      </Principal>
+      <Dependent Role="Clasificadores">
+        <PropertyRef Name="AudUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Personas_ClasificadoresLocalidades">
+    <End Role="Clasificadores" Type="Self.Clasificadores" Multiplicity="0..1" />
+    <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificadores">
+        <PropertyRef Name="Clas_Id" />
+      </Principal>
+      <Dependent Role="Personas">
+        <PropertyRef Name="Clas_Localidad_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Personas_ClasificadoresNacionalidad">
+    <End Role="Clasificadores" Type="Self.Clasificadores" Multiplicity="0..1" />
+    <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificadores">
+        <PropertyRef Name="Clas_Id" />
+      </Principal>
+      <Dependent Role="Personas">
+        <PropertyRef Name="Clas_Nacionalidad_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Personas_SeguridadUsuarios">
+    <End Role="SeguridadUsuarios" Type="Self.SeguridadUsuarios" Multiplicity="1" />
+    <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeguridadUsuarios">
+        <PropertyRef Name="SegUsu_Id" />
+      </Principal>
+      <Dependent Role="Personas">
+        <PropertyRef Name="AudUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proveedores_Clasificadores_ProEst">
+    <End Role="Clasificadores" Type="Self.Clasificadores" Multiplicity="1" />
+    <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificadores">
+        <PropertyRef Name="Clas_Id" />
+      </Principal>
+      <Dependent Role="Proveedores">
+        <PropertyRef Name="Clas_ProEst_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proveedores_Personas">
+    <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+    <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personas">
+        <PropertyRef Name="Per_Id" />
+      </Principal>
+      <Dependent Role="Proveedores">
+        <PropertyRef Name="Per_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proveedores_SeguridadUsuarios">
+    <End Role="SeguridadUsuarios" Type="Self.SeguridadUsuarios" Multiplicity="1" />
+    <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeguridadUsuarios">
+        <PropertyRef Name="SegUsu_Id" />
+      </Principal>
+      <Dependent Role="Proveedores">
+        <PropertyRef Name="AudUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SeguridadRolesPaginas_SeguridadPaginas">
+    <End Role="SeguridadPaginas" Type="Self.SeguridadPaginas" Multiplicity="1" />
+    <End Role="SeguridadRolesPaginas" Type="Self.SeguridadRolesPaginas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeguridadPaginas">
+        <PropertyRef Name="SegPag_Id" />
+      </Principal>
+      <Dependent Role="SeguridadRolesPaginas">
+        <PropertyRef Name="SegPag_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SeguridadRolesPaginas_SeguridadRoles">
+    <End Role="SeguridadRoles" Type="Self.SeguridadRoles" Multiplicity="1" />
+    <End Role="SeguridadRolesPaginas" Type="Self.SeguridadRolesPaginas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeguridadRoles">
+        <PropertyRef Name="SegRol_Id" />
+      </Principal>
+      <Dependent Role="SeguridadRolesPaginas">
+        <PropertyRef Name="SegRol_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SeguridadUsuarios_Personas">
+    <End Role="Personas" Type="Self.Personas" Multiplicity="0..1" />
+    <End Role="SeguridadUsuarios" Type="Self.SeguridadUsuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personas">
+        <PropertyRef Name="Per_Id" />
+      </Principal>
+      <Dependent Role="SeguridadUsuarios">
+        <PropertyRef Name="Per_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SeguridadUsuarios_SeguridadRoles">
+    <End Role="SeguridadRoles" Type="Self.SeguridadRoles" Multiplicity="0..1" />
+    <End Role="SeguridadUsuarios" Type="Self.SeguridadUsuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeguridadRoles">
+        <PropertyRef Name="SegRol_Id" />
+      </Principal>
+      <Dependent Role="SeguridadUsuarios">
+        <PropertyRef Name="SegRol_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SeguridadUsuariosPaginas_SeguridadPaginas">
+    <End Role="SeguridadPaginas" Type="Self.SeguridadPaginas" Multiplicity="1" />
+    <End Role="SeguridadUsuariosPaginas" Type="Self.SeguridadUsuariosPaginas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeguridadPaginas">
+        <PropertyRef Name="SegPag_Id" />
+      </Principal>
+      <Dependent Role="SeguridadUsuariosPaginas">
+        <PropertyRef Name="SegPag_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SeguridadUsuariosPaginas_SeguridadUsuarios">
+    <End Role="SeguridadUsuarios" Type="Self.SeguridadUsuarios" Multiplicity="1" />
+    <End Role="SeguridadUsuariosPaginas" Type="Self.SeguridadUsuariosPaginas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeguridadUsuarios">
+        <PropertyRef Name="SegUsu_Id" />
+      </Principal>
+      <Dependent Role="SeguridadUsuariosPaginas">
+        <PropertyRef Name="SegUsu_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vehiculos_Proveedores">
+    <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="0..1" />
+    <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedores">
+        <PropertyRef Name="Prov_Id" />
+      </Principal>
+      <Dependent Role="Vehiculos">
+        <PropertyRef Name="Prov_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vehiculos_SeguridadUsuarios">
+    <End Role="SeguridadUsuarios" Type="Self.SeguridadUsuarios" Multiplicity="1" />
+    <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeguridadUsuarios">
+        <PropertyRef Name="SegUsu_Id" />
+      </Principal>
+      <Dependent Role="Vehiculos">
+        <PropertyRef Name="AudUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehiculosDocumentos_Clasificadores">
+    <End Role="Clasificadores" Type="Self.Clasificadores" Multiplicity="1" />
+    <End Role="VehiculosDocumentos" Type="Self.VehiculosDocumentos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificadores">
+        <PropertyRef Name="Clas_Id" />
+      </Principal>
+      <Dependent Role="VehiculosDocumentos">
+        <PropertyRef Name="Clas_TipoDocumento_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehiculosDocumentos_SeguridadUsuarios">
+    <End Role="SeguridadUsuarios" Type="Self.SeguridadUsuarios" Multiplicity="1" />
+    <End Role="VehiculosDocumentos" Type="Self.VehiculosDocumentos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeguridadUsuarios">
+        <PropertyRef Name="SegUsu_Id" />
+      </Principal>
+      <Dependent Role="VehiculosDocumentos">
+        <PropertyRef Name="AudUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehiculosDocumentos_Vehiculos">
+    <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
+    <End Role="VehiculosDocumentos" Type="Self.VehiculosDocumentos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehiculos">
+        <PropertyRef Name="Veh_Id" />
+      </Principal>
+      <Dependent Role="VehiculosDocumentos">
+        <PropertyRef Name="Veh_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehiculosLicencias_ClasificadoresTipoLicencia">
+    <End Role="Clasificadores" Type="Self.Clasificadores" Multiplicity="1" />
+    <End Role="VehiculosLicencias" Type="Self.VehiculosLicencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificadores">
+        <PropertyRef Name="Clas_Id" />
+      </Principal>
+      <Dependent Role="VehiculosLicencias">
+        <PropertyRef Name="Clas_TipoLicencia_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehiculosLicencias_SeguridadUsuarios">
+    <End Role="SeguridadUsuarios" Type="Self.SeguridadUsuarios" Multiplicity="1" />
+    <End Role="VehiculosLicencias" Type="Self.VehiculosLicencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeguridadUsuarios">
+        <PropertyRef Name="SegUsu_Id" />
+      </Principal>
+      <Dependent Role="VehiculosLicencias">
+        <PropertyRef Name="AudUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehiculosLicencias_Vehiculos">
+    <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
+    <End Role="VehiculosLicencias" Type="Self.VehiculosLicencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehiculos">
+        <PropertyRef Name="Veh_Id" />
+      </Principal>
+      <Dependent Role="VehiculosLicencias">
+        <PropertyRef Name="Veh_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VencimientosServiciosExternos_SeguridadUsuarios">
+    <End Role="SeguridadUsuarios" Type="Self.SeguridadUsuarios" Multiplicity="1" />
+    <End Role="VencimientosServiciosExternos" Type="Self.VencimientosServiciosExternos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeguridadUsuarios">
+        <PropertyRef Name="SegUsu_Id" />
+      </Principal>
+      <Dependent Role="VencimientosServiciosExternos">
+        <PropertyRef Name="AudUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VencimientosServiciosExternosDetalles_Clasificadores">
+    <End Role="Clasificadores" Type="Self.Clasificadores" Multiplicity="0..1" />
+    <End Role="VencimientosServiciosExternosDetalles" Type="Self.VencimientosServiciosExternosDetalles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificadores">
+        <PropertyRef Name="Clas_Id" />
+      </Principal>
+      <Dependent Role="VencimientosServiciosExternosDetalles">
+        <PropertyRef Name="Clas_MonedasTipos_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VencimientosServiciosExternosDetalles_SeguridadUsuarios">
+    <End Role="SeguridadUsuarios" Type="Self.SeguridadUsuarios" Multiplicity="1" />
+    <End Role="VencimientosServiciosExternosDetalles" Type="Self.VencimientosServiciosExternosDetalles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SeguridadUsuarios">
+        <PropertyRef Name="SegUsu_Id" />
+      </Principal>
+      <Dependent Role="VencimientosServiciosExternosDetalles">
+        <PropertyRef Name="AudUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VencimientosServiciosExternosDetalles_VencimientosServiciosExternos">
+    <End Role="VencimientosServiciosExternos" Type="Self.VencimientosServiciosExternos" Multiplicity="1" />
+    <End Role="VencimientosServiciosExternosDetalles" Type="Self.VencimientosServiciosExternosDetalles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VencimientosServiciosExternos">
+        <PropertyRef Name="VenSerExt_Id" />
+      </Principal>
+      <Dependent Role="VencimientosServiciosExternosDetalles">
+        <PropertyRef Name="VenSerExt_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="sp_Alertas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Usuario" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="GestionProcesosModelStoreContainer">
+    <EntitySet Name="Clasificadores" EntityType="Self.Clasificadores" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Personas" EntityType="Self.Personas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadPaginas" EntityType="Self.SeguridadPaginas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadRoles" EntityType="Self.SeguridadRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadRolesPaginas" EntityType="Self.SeguridadRolesPaginas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadUsuarios" EntityType="Self.SeguridadUsuarios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeguridadUsuariosPaginas" EntityType="Self.SeguridadUsuariosPaginas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vehiculos" EntityType="Self.Vehiculos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VehiculosDocumentos" EntityType="Self.VehiculosDocumentos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VehiculosLicencias" EntityType="Self.VehiculosLicencias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VencimientosServiciosExternos" EntityType="Self.VencimientosServiciosExternos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VencimientosServiciosExternosDetalles" EntityType="Self.VencimientosServiciosExternosDetalles" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Clasificadores_Clasificadores" Association="Self.FK_Clasificadores_Clasificadores">
+      <End Role="Clasificadores" EntitySet="Clasificadores" />
+      <End Role="Clasificadores1" EntitySet="Clasificadores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Clasificadores_SeguridadUsuarios" Association="Self.FK_Clasificadores_SeguridadUsuarios">
+      <End Role="SeguridadUsuarios" EntitySet="SeguridadUsuarios" />
+      <End Role="Clasificadores" EntitySet="Clasificadores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Personas_ClasificadoresLocalidades" Association="Self.FK_Personas_ClasificadoresLocalidades">
+      <End Role="Clasificadores" EntitySet="Clasificadores" />
+      <End Role="Personas" EntitySet="Personas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Personas_ClasificadoresNacionalidad" Association="Self.FK_Personas_ClasificadoresNacionalidad">
+      <End Role="Clasificadores" EntitySet="Clasificadores" />
+      <End Role="Personas" EntitySet="Personas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Personas_SeguridadUsuarios" Association="Self.FK_Personas_SeguridadUsuarios">
+      <End Role="SeguridadUsuarios" EntitySet="SeguridadUsuarios" />
+      <End Role="Personas" EntitySet="Personas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proveedores_Clasificadores_ProEst" Association="Self.FK_Proveedores_Clasificadores_ProEst">
+      <End Role="Clasificadores" EntitySet="Clasificadores" />
+      <End Role="Proveedores" EntitySet="Proveedores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proveedores_Personas" Association="Self.FK_Proveedores_Personas">
+      <End Role="Personas" EntitySet="Personas" />
+      <End Role="Proveedores" EntitySet="Proveedores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proveedores_SeguridadUsuarios" Association="Self.FK_Proveedores_SeguridadUsuarios">
+      <End Role="SeguridadUsuarios" EntitySet="SeguridadUsuarios" />
+      <End Role="Proveedores" EntitySet="Proveedores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SeguridadRolesPaginas_SeguridadPaginas" Association="Self.FK_SeguridadRolesPaginas_SeguridadPaginas">
+      <End Role="SeguridadPaginas" EntitySet="SeguridadPaginas" />
+      <End Role="SeguridadRolesPaginas" EntitySet="SeguridadRolesPaginas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SeguridadRolesPaginas_SeguridadRoles" Association="Self.FK_SeguridadRolesPaginas_SeguridadRoles">
+      <End Role="SeguridadRoles" EntitySet="SeguridadRoles" />
+      <End Role="SeguridadRolesPaginas" EntitySet="SeguridadRolesPaginas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SeguridadUsuarios_Personas" Association="Self.FK_SeguridadUsuarios_Personas">
+      <End Role="Personas" EntitySet="Personas" />
+      <End Role="SeguridadUsuarios" EntitySet="SeguridadUsuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SeguridadUsuarios_SeguridadRoles" Association="Self.FK_SeguridadUsuarios_SeguridadRoles">
+      <End Role="SeguridadRoles" EntitySet="SeguridadRoles" />
+      <End Role="SeguridadUsuarios" EntitySet="SeguridadUsuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SeguridadUsuariosPaginas_SeguridadPaginas" Association="Self.FK_SeguridadUsuariosPaginas_SeguridadPaginas">
+      <End Role="SeguridadPaginas" EntitySet="SeguridadPaginas" />
+      <End Role="SeguridadUsuariosPaginas" EntitySet="SeguridadUsuariosPaginas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SeguridadUsuariosPaginas_SeguridadUsuarios" Association="Self.FK_SeguridadUsuariosPaginas_SeguridadUsuarios">
+      <End Role="SeguridadUsuarios" EntitySet="SeguridadUsuarios" />
+      <End Role="SeguridadUsuariosPaginas" EntitySet="SeguridadUsuariosPaginas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vehiculos_Proveedores" Association="Self.FK_Vehiculos_Proveedores">
+      <End Role="Proveedores" EntitySet="Proveedores" />
+      <End Role="Vehiculos" EntitySet="Vehiculos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vehiculos_SeguridadUsuarios" Association="Self.FK_Vehiculos_SeguridadUsuarios">
+      <End Role="SeguridadUsuarios" EntitySet="SeguridadUsuarios" />
+      <End Role="Vehiculos" EntitySet="Vehiculos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehiculosDocumentos_Clasificadores" Association="Self.FK_VehiculosDocumentos_Clasificadores">
+      <End Role="Clasificadores" EntitySet="Clasificadores" />
+      <End Role="VehiculosDocumentos" EntitySet="VehiculosDocumentos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehiculosDocumentos_SeguridadUsuarios" Association="Self.FK_VehiculosDocumentos_SeguridadUsuarios">
+      <End Role="SeguridadUsuarios" EntitySet="SeguridadUsuarios" />
+      <End Role="VehiculosDocumentos" EntitySet="VehiculosDocumentos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehiculosDocumentos_Vehiculos" Association="Self.FK_VehiculosDocumentos_Vehiculos">
+      <End Role="Vehiculos" EntitySet="Vehiculos" />
+      <End Role="VehiculosDocumentos" EntitySet="VehiculosDocumentos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehiculosLicencias_ClasificadoresTipoLicencia" Association="Self.FK_VehiculosLicencias_ClasificadoresTipoLicencia">
+      <End Role="Clasificadores" EntitySet="Clasificadores" />
+      <End Role="VehiculosLicencias" EntitySet="VehiculosLicencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehiculosLicencias_SeguridadUsuarios" Association="Self.FK_VehiculosLicencias_SeguridadUsuarios">
+      <End Role="SeguridadUsuarios" EntitySet="SeguridadUsuarios" />
+      <End Role="VehiculosLicencias" EntitySet="VehiculosLicencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehiculosLicencias_Vehiculos" Association="Self.FK_VehiculosLicencias_Vehiculos">
+      <End Role="Vehiculos" EntitySet="Vehiculos" />
+      <End Role="VehiculosLicencias" EntitySet="VehiculosLicencias" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VencimientosServiciosExternos_SeguridadUsuarios" Association="Self.FK_VencimientosServiciosExternos_SeguridadUsuarios">
+      <End Role="SeguridadUsuarios" EntitySet="SeguridadUsuarios" />
+      <End Role="VencimientosServiciosExternos" EntitySet="VencimientosServiciosExternos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VencimientosServiciosExternosDetalles_Clasificadores" Association="Self.FK_VencimientosServiciosExternosDetalles_Clasificadores">
+      <End Role="Clasificadores" EntitySet="Clasificadores" />
+      <End Role="VencimientosServiciosExternosDetalles" EntitySet="VencimientosServiciosExternosDetalles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VencimientosServiciosExternosDetalles_SeguridadUsuarios" Association="Self.FK_VencimientosServiciosExternosDetalles_SeguridadUsuarios">
+      <End Role="SeguridadUsuarios" EntitySet="SeguridadUsuarios" />
+      <End Role="VencimientosServiciosExternosDetalles" EntitySet="VencimientosServiciosExternosDetalles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VencimientosServiciosExternosDetalles_VencimientosServiciosExternos" Association="Self.FK_VencimientosServiciosExternosDetalles_VencimientosServiciosExternos">
+      <End Role="VencimientosServiciosExternos" EntitySet="VencimientosServiciosExternos" />
+      <End Role="VencimientosServiciosExternosDetalles" EntitySet="VencimientosServiciosExternosDetalles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "ConveniosGrilla";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="col-lg-10">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example" style="min-width: 800px;">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>N°</th>
+                                <th>Letra</th>
+                                <th>Año</th>
+                                <th>Fecha</th>
+                                <th>Reseña</th>
+                                <th>Digitalización</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @*@foreach (var item in Model)
+                            {
+                                <tr class="odd gradeC">
+                                    <td><span id="tipoGrid">@(item.Clasificadores != null ? item.Clasificadores.Clas_Desc : "")</span><input type="hidden" id="hiddenTipo" value="@(item.Clasificadores != null ? item.Clasificadores.Clas_Id.ToString() : "")"/></td>
+                                    <td><span id="calleGrid">@item.PerDom_Calle</span></td>
+                                    <td><span id="numGrid">@item.PerDom_Num</span></td>
+                                    <td><span id="adicGrid">@item.PerDom_Adic</span></td>
+                                    <td><span id="lugarGrid">@(item.Clasificadores1 != null ? item.Clasificadores1.Clas_Desc : "")</span><input type="hidden" id="hiddenLugar" value="@(item.Clasificadores1 != null ? item.Clasificadores1.Clas_Id.ToString() : "")"/></td>
+                                    <td><span id="cpGrid">@item.PerDom_CP</span></td>
+                                    <td><span id="fechaDesdeGrid">@item.PerDom_FecDes.ToShortDateString()</span></td>
+                                    <td><span id="fechaHastaGrid">@(item.PerDom_FecHas.HasValue ? item.PerDom_FecHas.Value.ToShortDateString() : "")</span></td>
+                                    <td align="center"><span id="activoGrid">@(item.PerDom_Activo ? "SI" : "NO")</span></td>
+                                    <td align="center" width="100px">
+                                        <button type="button" class="btn btn-success btn-xs" id="@item.PerDom_Id"><span class="glyphicon glyphicon-file"></span></button>
+                                        <button type="button" class="btn btn-success btn-xs editarRegistro" id="@item.PerDom_Id" data-toggle="modal" data-target="#confirmEdit"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    </td>
+                                </tr>
+                            }*@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-2">
+            <div class="well">
+                <button type="button" class="btn btn-info  btn-block" id="btnAgregarFormDoc"><i class="fa fa-plus"></i>Agregar</button>
+            </div>
+        </div>
+    
+    <script>
+        $(function() {
+
+                $('#dataTables-example').dataTable({
+                    "scrollX": true,
+                    "language": {                    
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Paginado").IdiPal_Texto)",
+                        "sZeroRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscar sin resultados").IdiPal_Texto)",
+                        "sEmptyTable": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - No hay datos").IdiPal_Texto)",
+                        "sInfo": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info").IdiPal_Texto)",
+                        "sInfoEmpty": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info sin datos").IdiPal_Texto)",
+                        "sInfoFiltered": "(@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info Filtro").IdiPal_Texto))",
+                        "sInfoPostFix": "",
+                        "sSearch": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscador").IdiPal_Texto): ",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Cargando").IdiPal_Texto)",
+                        "oPaginate": {
+                            "sFirst": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Primero").IdiPal_Texto)",
+                            "sLast": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Ultimo").IdiPal_Texto)",
+                            "sNext": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Siguiente").IdiPal_Texto)",
+                            "sPrevious": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Anterior").IdiPal_Texto)"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    }
+                });
+
+                $('.dataTables_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+        });
+    </script>
+
+
+

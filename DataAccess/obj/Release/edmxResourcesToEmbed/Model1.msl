@@ -1,0 +1,1056 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GestionProcesosModelStoreContainer" CdmEntityContainer="GestionProcesosEntities">
+    <EntitySetMapping Name="Alertas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Alertas">
+        <MappingFragment StoreEntitySet="Alertas">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Aler_Activo" ColumnName="Aler_Activo" />
+          <ScalarProperty Name="Aler_Dias" ColumnName="Aler_Dias" />
+          <ScalarProperty Name="Aler_Detalle" ColumnName="Aler_Detalle" />
+          <ScalarProperty Name="Aler_Nombre" ColumnName="Aler_Nombre" />
+          <ScalarProperty Name="Aler_Id" ColumnName="Aler_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlertasUsuarios">
+      <EntityTypeMapping TypeName="GestionProcesosModel.AlertasUsuarios">
+        <MappingFragment StoreEntitySet="AlertasUsuarios">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="SegUsu_Id" ColumnName="SegUsu_Id" />
+          <ScalarProperty Name="Aler_Id" ColumnName="Aler_Id" />
+          <ScalarProperty Name="AlerUsu_Id" ColumnName="AlerUsu_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clasificadores">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Clasificadores">
+        <MappingFragment StoreEntitySet="Clasificadores">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Clas_Interno" ColumnName="Clas_Interno" />
+          <ScalarProperty Name="Clas_FecBaja" ColumnName="Clas_FecBaja" />
+          <ScalarProperty Name="Clas_FecAlta" ColumnName="Clas_FecAlta" />
+          <ScalarProperty Name="Clas_Padre" ColumnName="Clas_Padre" />
+          <ScalarProperty Name="Clas_DatoOblig" ColumnName="Clas_DatoOblig" />
+          <ScalarProperty Name="Clas_Detalle" ColumnName="Clas_Detalle" />
+          <ScalarProperty Name="Clas_Tabla" ColumnName="Clas_Tabla" />
+          <ScalarProperty Name="Clas_Abrev" ColumnName="Clas_Abrev" />
+          <ScalarProperty Name="Clas_Desc" ColumnName="Clas_Desc" />
+          <ScalarProperty Name="Clas_Id" ColumnName="Clas_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmpleadosGuardias">
+      <EntityTypeMapping TypeName="GestionProcesosModel.EmpleadosGuardias">
+        <MappingFragment StoreEntitySet="EmpleadosGuardias">
+          <ScalarProperty Name="EmpGua_DatosVerificados" ColumnName="EmpGua_DatosVerificados" />
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="EmpGua_Obs" ColumnName="EmpGua_Obs" />
+          <ScalarProperty Name="GeneraNotificacion" ColumnName="GeneraNotificacion" />
+          <ScalarProperty Name="GeneraAlerta" ColumnName="GeneraAlerta" />
+          <ScalarProperty Name="EmpGua_FechaHasta" ColumnName="EmpGua_FechaHasta" />
+          <ScalarProperty Name="EmpGua_FechaDesde" ColumnName="EmpGua_FechaDesde" />
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+          <ScalarProperty Name="EmpGua_Id" ColumnName="EmpGua_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmpleadosLicencias">
+      <EntityTypeMapping TypeName="GestionProcesosModel.EmpleadosLicencias">
+        <MappingFragment StoreEntitySet="EmpleadosLicencias">
+          <ScalarProperty Name="EmpLic_DatosVerificados" ColumnName="EmpLic_DatosVerificados" />
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="EmpLic_Obs" ColumnName="EmpLic_Obs" />
+          <ScalarProperty Name="GeneraNotificacion" ColumnName="GeneraNotificacion" />
+          <ScalarProperty Name="GeneraAlerta" ColumnName="GeneraAlerta" />
+          <ScalarProperty Name="EmpLic_FechaHasta" ColumnName="EmpLic_FechaHasta" />
+          <ScalarProperty Name="EmpLic_FechaDesde" ColumnName="EmpLic_FechaDesde" />
+          <ScalarProperty Name="Clas_Licencia_Id" ColumnName="Clas_Licencia_Id" />
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+          <ScalarProperty Name="EmpLic_Id" ColumnName="EmpLic_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Exportaciones">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Exportaciones">
+        <MappingFragment StoreEntitySet="Exportaciones">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Exp_Act" ColumnName="Exp_Act" />
+          <ScalarProperty Name="Clas_ExpArc_Id" ColumnName="Clas_ExpArc_Id" />
+          <ScalarProperty Name="Clas_ExpTipo_Id" ColumnName="Clas_ExpTipo_Id" />
+          <ScalarProperty Name="Exp_SQL" ColumnName="Exp_SQL" />
+          <ScalarProperty Name="Exp_Desc" ColumnName="Exp_Desc" />
+          <ScalarProperty Name="Exp_Nom" ColumnName="Exp_Nom" />
+          <ScalarProperty Name="Exp_Id" ColumnName="Exp_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExportacionesDetalles">
+      <EntityTypeMapping TypeName="GestionProcesosModel.ExportacionesDetalles">
+        <MappingFragment StoreEntitySet="ExportacionesDetalles">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="RutPasDet_Var" ColumnName="RutPasDet_Var" />
+          <ScalarProperty Name="RutPasDet_Orden" ColumnName="RutPasDet_Orden" />
+          <ScalarProperty Name="RutPasDet_CamPorc" ColumnName="RutPasDet_CamPorc" />
+          <ScalarProperty Name="RutPasDet_TabPorc" ColumnName="RutPasDet_TabPorc" />
+          <ScalarProperty Name="RutPasDet_CamCant" ColumnName="RutPasDet_CamCant" />
+          <ScalarProperty Name="RutPasDet_TabCant" ColumnName="RutPasDet_TabCant" />
+          <ScalarProperty Name="RutPasDet_Porc" ColumnName="RutPasDet_Porc" />
+          <ScalarProperty Name="RutPasDet_Cant" ColumnName="RutPasDet_Cant" />
+          <ScalarProperty Name="RutPasDet_CptNro" ColumnName="RutPasDet_CptNro" />
+          <ScalarProperty Name="RutPasDet_Par2" ColumnName="RutPasDet_Par2" />
+          <ScalarProperty Name="AcuLeg_Id" ColumnName="AcuLeg_Id" />
+          <ScalarProperty Name="RutPasDet_Cam2Id" ColumnName="RutPasDet_Cam2Id" />
+          <ScalarProperty Name="RutPasDet_Tab2Id" ColumnName="RutPasDet_Tab2Id" />
+          <ScalarProperty Name="RutPasDet_ConsAlf" ColumnName="RutPasDet_ConsAlf" />
+          <ScalarProperty Name="RutPasDet_ConsNum" ColumnName="RutPasDet_ConsNum" />
+          <ScalarProperty Name="Clas_PasNex_Id" ColumnName="Clas_PasNex_Id" />
+          <ScalarProperty Name="Clas_PasOpe_Id" ColumnName="Clas_PasOpe_Id" />
+          <ScalarProperty Name="RutPasDet_CamId" ColumnName="RutPasDet_CamId" />
+          <ScalarProperty Name="RutPasDet_TabId" ColumnName="RutPasDet_TabId" />
+          <ScalarProperty Name="RutPasDet_Par1" ColumnName="RutPasDet_Par1" />
+          <ScalarProperty Name="Clas_PasSec_Id" ColumnName="Clas_PasSec_Id" />
+          <ScalarProperty Name="Exp_Id" ColumnName="Exp_Id" />
+          <ScalarProperty Name="ExpDet_Id" ColumnName="ExpDet_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadPaginas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.SeguridadPaginas">
+        <MappingFragment StoreEntitySet="SeguridadPaginas">
+          <ScalarProperty Name="SegPag_Cod" ColumnName="SegPag_Cod" />
+          <ScalarProperty Name="SegPag_Act" ColumnName="SegPag_Act" />
+          <ScalarProperty Name="SegPag_NomDesc" ColumnName="SegPag_NomDesc" />
+          <ScalarProperty Name="SegPag_Nom" ColumnName="SegPag_Nom" />
+          <ScalarProperty Name="SegPag_Id" ColumnName="SegPag_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadRoles">
+      <EntityTypeMapping TypeName="GestionProcesosModel.SeguridadRoles">
+        <MappingFragment StoreEntitySet="SeguridadRoles">
+          <ScalarProperty Name="SegRol_Descr" ColumnName="SegRol_Descr" />
+          <ScalarProperty Name="SegRol_Id" ColumnName="SegRol_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadRolesPaginas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.SeguridadRolesPaginas">
+        <MappingFragment StoreEntitySet="SeguridadRolesPaginas">
+          <ScalarProperty Name="SegRolPag_Expo" ColumnName="SegRolPag_Expo" />
+          <ScalarProperty Name="SegRolPag_Alta" ColumnName="SegRolPag_Alta" />
+          <ScalarProperty Name="SegRolPag_Ver" ColumnName="SegRolPag_Ver" />
+          <ScalarProperty Name="SegPag_Id" ColumnName="SegPag_Id" />
+          <ScalarProperty Name="SegRol_Id" ColumnName="SegRol_Id" />
+          <ScalarProperty Name="SegRolPag_Id" ColumnName="SegRolPag_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadUsuariosPaginas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.SeguridadUsuariosPaginas">
+        <MappingFragment StoreEntitySet="SeguridadUsuariosPaginas">
+          <ScalarProperty Name="SegPagUsu_Expo" ColumnName="SegPagUsu_Expo" />
+          <ScalarProperty Name="SegPagUsu_Alta" ColumnName="SegPagUsu_Alta" />
+          <ScalarProperty Name="SegPagUsu_Ver" ColumnName="SegPagUsu_Ver" />
+          <ScalarProperty Name="SegPag_Id" ColumnName="SegPag_Id" />
+          <ScalarProperty Name="SegUsu_Id" ColumnName="SegUsu_Id" />
+          <ScalarProperty Name="SegUsuPag_Id" ColumnName="SegUsuPag_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Clientes">
+        <MappingFragment StoreEntitySet="Clientes">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Cli_Obs" ColumnName="Cli_Obs" />
+          <ScalarProperty Name="Cli_DatosVerificados" ColumnName="Cli_DatosVerificados" />
+          <ScalarProperty Name="Cli_FechaHasta" ColumnName="Cli_FechaHasta" />
+          <ScalarProperty Name="Cli_FechaDesde" ColumnName="Cli_FechaDesde" />
+          <ScalarProperty Name="Emp_Guardia_Id" ColumnName="Emp_Guardia_Id" />
+          <ScalarProperty Name="Emp_Secundario_Id" ColumnName="Emp_Secundario_Id" />
+          <ScalarProperty Name="Emp_Principal_Id" ColumnName="Emp_Principal_Id" />
+          <ScalarProperty Name="Clas_CliEst_Id" ColumnName="Clas_CliEst_Id" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+          <ScalarProperty Name="Cli_Id" ColumnName="Cli_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empleados">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Empleados">
+        <MappingFragment StoreEntitySet="Empleados">
+          <ScalarProperty Name="Emp_Token" ColumnName="Emp_Token" />
+          <ScalarProperty Name="Cli_Id" ColumnName="Cli_Id" />
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Emp_Obs" ColumnName="Emp_Obs" />
+          <ScalarProperty Name="Emp_App_Verificado" ColumnName="Emp_App_Verificado" />
+          <ScalarProperty Name="Emp_APP_Acceso" ColumnName="Emp_APP_Acceso" />
+          <ScalarProperty Name="Emp_DatosVerificados" ColumnName="Emp_DatosVerificados" />
+          <ScalarProperty Name="Emp_Dispositivo" ColumnName="Emp_Dispositivo" />
+          <ScalarProperty Name="Emp_Salt" ColumnName="Emp_Salt" />
+          <ScalarProperty Name="Emp_Password" ColumnName="Emp_Password" />
+          <ScalarProperty Name="Emp_FechaBaja" ColumnName="Emp_FechaBaja" />
+          <ScalarProperty Name="Emp_FechaAlta" ColumnName="Emp_FechaAlta" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Personas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Personas">
+        <MappingFragment StoreEntitySet="Personas">
+          <ScalarProperty Name="Per_Doc_Extranjero" ColumnName="Per_Doc_Extranjero" />
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Per_Foto" ColumnName="Per_Foto" />
+          <ScalarProperty Name="Per_Obs" ColumnName="Per_Obs" />
+          <ScalarProperty Name="Per_RegistroComodin" ColumnName="Per_RegistroComodin" />
+          <ScalarProperty Name="Per_DatosVerificados" ColumnName="Per_DatosVerificados" />
+          <ScalarProperty Name="Per_DatosCompletos" ColumnName="Per_DatosCompletos" />
+          <ScalarProperty Name="Per_PersonaFisica" ColumnName="Per_PersonaFisica" />
+          <ScalarProperty Name="Per_MAIL" ColumnName="Per_MAIL" />
+          <ScalarProperty Name="Per_TE_Celular" ColumnName="Per_TE_Celular" />
+          <ScalarProperty Name="Clas_Localidad_Id" ColumnName="Clas_Localidad_Id" />
+          <ScalarProperty Name="Per_Direccion" ColumnName="Per_Direccion" />
+          <ScalarProperty Name="Per_FecHas" ColumnName="Per_FecHas" />
+          <ScalarProperty Name="Per_FecDes" ColumnName="Per_FecDes" />
+          <ScalarProperty Name="Clas_Nacionalidad_Id" ColumnName="Clas_Nacionalidad_Id" />
+          <ScalarProperty Name="Clas_Sexo_Id" ColumnName="Clas_Sexo_Id" />
+          <ScalarProperty Name="Per_Cuil_Con" ColumnName="Per_Cuil_Con" />
+          <ScalarProperty Name="Per_Cuil_Doc" ColumnName="Per_Cuil_Doc" />
+          <ScalarProperty Name="Per_Cuil_Cod" ColumnName="Per_Cuil_Cod" />
+          <ScalarProperty Name="Per_Alias" ColumnName="Per_Alias" />
+          <ScalarProperty Name="Per_Ape" ColumnName="Per_Ape" />
+          <ScalarProperty Name="Per_SoloNom" ColumnName="Per_SoloNom" />
+          <ScalarProperty Name="Per_SoloApe" ColumnName="Per_SoloApe" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Productos">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Productos">
+        <MappingFragment StoreEntitySet="Productos">
+          <ScalarProperty Name="Prod_Cantidad" ColumnName="Prod_Cantidad" />
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Prod_Obs" ColumnName="Prod_Obs" />
+          <ScalarProperty Name="Prod_DatosVerificados" ColumnName="Prod_DatosVerificados" />
+          <ScalarProperty Name="Prod_FechaHasta" ColumnName="Prod_FechaHasta" />
+          <ScalarProperty Name="Prod_FechaDesde" ColumnName="Prod_FechaDesde" />
+          <ScalarProperty Name="Clas_Rubros_Id" ColumnName="Clas_Rubros_Id" />
+          <ScalarProperty Name="Prod_Desc" ColumnName="Prod_Desc" />
+          <ScalarProperty Name="Prod_Nom" ColumnName="Prod_Nom" />
+          <ScalarProperty Name="Prod_Id" ColumnName="Prod_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductosProveedores">
+      <EntityTypeMapping TypeName="GestionProcesosModel.ProductosProveedores">
+        <MappingFragment StoreEntitySet="ProductosProveedores">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="ProdProv_Obs" ColumnName="ProdProv_Obs" />
+          <ScalarProperty Name="ProdProv_DatosVerificados" ColumnName="ProdProv_DatosVerificados" />
+          <ScalarProperty Name="ProdProv_Activo" ColumnName="ProdProv_Activo" />
+          <ScalarProperty Name="Prov_Id" ColumnName="Prov_Id" />
+          <ScalarProperty Name="Prod_Id" ColumnName="Prod_Id" />
+          <ScalarProperty Name="ProdProv_Id" ColumnName="ProdProv_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_Alertas" FunctionName="GestionProcesosModel.Store.sp_Alertas">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GestionProcesosModel.sp_Alertas_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Prefijo" ColumnName="Prefijo" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="TextoCorto" ColumnName="TextoCorto" />
+          <ScalarProperty Name="Texto" ColumnName="Texto" />
+          <ScalarProperty Name="Dato" ColumnName="Dato" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="ClasificadoresIdiomas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.ClasificadoresIdiomas">
+        <MappingFragment StoreEntitySet="ClasificadoresIdiomas">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="ClasIdi_Texto" ColumnName="ClasIdi_Texto" />
+          <ScalarProperty Name="Idi_Id" ColumnName="Idi_Id" />
+          <ScalarProperty Name="Clas_Id" ColumnName="Clas_Id" />
+          <ScalarProperty Name="ClasIdi_Id" ColumnName="ClasIdi_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tripulantes">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Tripulantes">
+        <MappingFragment StoreEntitySet="Tripulantes">
+          <ScalarProperty Name="Tri_Token" ColumnName="Tri_Token" />
+          <ScalarProperty Name="Tri_App_Verificado" ColumnName="Tri_App_Verificado" />
+          <ScalarProperty Name="Tri_APP_Acceso" ColumnName="Tri_APP_Acceso" />
+          <ScalarProperty Name="Tri_Dispositivo" ColumnName="Tri_Dispositivo" />
+          <ScalarProperty Name="Tri_Salt" ColumnName="Tri_Salt" />
+          <ScalarProperty Name="Tri_Password" ColumnName="Tri_Password" />
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Tri_Obs" ColumnName="Tri_Obs" />
+          <ScalarProperty Name="Tri_DatosVerificados" ColumnName="Tri_DatosVerificados" />
+          <ScalarProperty Name="Tri_FechaHasta" ColumnName="Tri_FechaHasta" />
+          <ScalarProperty Name="Tri_FechaDesde" ColumnName="Tri_FechaDesde" />
+          <ScalarProperty Name="Tri_Identificacion" ColumnName="Tri_Identificacion" />
+          <ScalarProperty Name="Clas_Areas_Id" ColumnName="Clas_Areas_Id" />
+          <ScalarProperty Name="Clas_Status_Id" ColumnName="Clas_Status_Id" />
+          <ScalarProperty Name="Clas_Estados_Id" ColumnName="Clas_Estados_Id" />
+          <ScalarProperty Name="Cli_Id" ColumnName="Cli_Id" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+          <ScalarProperty Name="Tri_Id" ColumnName="Tri_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proveedores">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Proveedores">
+        <MappingFragment StoreEntitySet="Proveedores">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Prov_Obs" ColumnName="Prov_Obs" />
+          <ScalarProperty Name="Prov_DatosVerificados" ColumnName="Prov_DatosVerificados" />
+          <ScalarProperty Name="Prov_Propio" ColumnName="Prov_Propio" />
+          <ScalarProperty Name="Prov_CtaCorriente" ColumnName="Prov_CtaCorriente" />
+          <ScalarProperty Name="Clas_ProEst_Id" ColumnName="Clas_ProEst_Id" />
+          <ScalarProperty Name="Prov_Codigo" ColumnName="Prov_Codigo" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+          <ScalarProperty Name="Prov_Id" ColumnName="Prov_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Buques">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Buques">
+        <MappingFragment StoreEntitySet="Buques">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Buq_Obs" ColumnName="Buq_Obs" />
+          <ScalarProperty Name="Buq_DatosVerificados" ColumnName="Buq_DatosVerificados" />
+          <ScalarProperty Name="Clas_Bandera_Id" ColumnName="Clas_Bandera_Id" />
+          <ScalarProperty Name="Buq_Nombre" ColumnName="Buq_Nombre" />
+          <ScalarProperty Name="Buq_Id" ColumnName="Buq_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BuquesViajes">
+      <EntityTypeMapping TypeName="GestionProcesosModel.BuquesViajes">
+        <MappingFragment StoreEntitySet="BuquesViajes">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="BuqVia_Obs" ColumnName="BuqVia_Obs" />
+          <ScalarProperty Name="BuqVia_DatosVerificados" ColumnName="BuqVia_DatosVerificados" />
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+          <ScalarProperty Name="BuqVia_Destino" ColumnName="BuqVia_Destino" />
+          <ScalarProperty Name="BuqVia_Origen" ColumnName="BuqVia_Origen" />
+          <ScalarProperty Name="BuqVia_ETD" ColumnName="BuqVia_ETD" />
+          <ScalarProperty Name="BuqVia_ETA" ColumnName="BuqVia_ETA" />
+          <ScalarProperty Name="BuqVia_Codigo" ColumnName="BuqVia_Codigo" />
+          <ScalarProperty Name="Clas_Temporada_Id" ColumnName="Clas_Temporada_Id" />
+          <ScalarProperty Name="Buq_Id" ColumnName="Buq_Id" />
+          <ScalarProperty Name="BuqVia_Id" ColumnName="BuqVia_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BuquesViajesClientes">
+      <EntityTypeMapping TypeName="GestionProcesosModel.BuquesViajesClientes">
+        <MappingFragment StoreEntitySet="BuquesViajesClientes">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="BuqViaCli_Obs" ColumnName="BuqViaCli_Obs" />
+          <ScalarProperty Name="BuqViaCli_DatosVerificados" ColumnName="BuqViaCli_DatosVerificados" />
+          <ScalarProperty Name="Cli_Id" ColumnName="Cli_Id" />
+          <ScalarProperty Name="BuqVia_Id" ColumnName="BuqVia_Id" />
+          <ScalarProperty Name="BuqViaCli_Id" ColumnName="BuqViaCli_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BuquesViajesClientesServicios">
+      <EntityTypeMapping TypeName="GestionProcesosModel.BuquesViajesClientesServicios">
+        <MappingFragment StoreEntitySet="BuquesViajesClientesServicios">
+          <ScalarProperty Name="BuqViaCliSer_Signer" ColumnName="BuqViaCliSer_Signer" />
+          <ScalarProperty Name="Clas_Localidad_Id" ColumnName="Clas_Localidad_Id" />
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="BuqViaCliSer_Obs" ColumnName="BuqViaCliSer_Obs" />
+          <ScalarProperty Name="BuqViaCliSer_DatosVerificados" ColumnName="BuqViaCliSer_DatosVerificados" />
+          <ScalarProperty Name="Clas_Estado_Id" ColumnName="Clas_Estado_Id" />
+          <ScalarProperty Name="BuqViaCliSer_FechaHora" ColumnName="BuqViaCliSer_FechaHora" />
+          <ScalarProperty Name="BuqViaCliSer_Cantidad" ColumnName="BuqViaCliSer_Cantidad" />
+          <ScalarProperty Name="Prod_Id" ColumnName="Prod_Id" />
+          <ScalarProperty Name="BuqViaCli_Id" ColumnName="BuqViaCli_Id" />
+          <ScalarProperty Name="BuqViaCliSer_Id" ColumnName="BuqViaCliSer_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehiculosDocumentos">
+      <EntityTypeMapping TypeName="GestionProcesosModel.VehiculosDocumentos">
+        <MappingFragment StoreEntitySet="VehiculosDocumentos">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="VehDoc_Obs" ColumnName="VehDoc_Obs" />
+          <ScalarProperty Name="VehDoc_DatosVerificados" ColumnName="VehDoc_DatosVerificados" />
+          <ScalarProperty Name="VehDoc_ArchivoAdjunto" ColumnName="VehDoc_ArchivoAdjunto" />
+          <ScalarProperty Name="GeneraAlerta" ColumnName="GeneraAlerta" />
+          <ScalarProperty Name="VehDoc_FechaAviso" ColumnName="VehDoc_FechaAviso" />
+          <ScalarProperty Name="VehDoc_FechaVencimiento" ColumnName="VehDoc_FechaVencimiento" />
+          <ScalarProperty Name="VehDoc_FechaAprobado" ColumnName="VehDoc_FechaAprobado" />
+          <ScalarProperty Name="Clas_TipoDocumento_Id" ColumnName="Clas_TipoDocumento_Id" />
+          <ScalarProperty Name="Veh_Id" ColumnName="Veh_Id" />
+          <ScalarProperty Name="VehDoc_Id" ColumnName="VehDoc_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Verificaciones">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Verificaciones">
+        <MappingFragment StoreEntitySet="Verificaciones">
+          <ScalarProperty Name="Ver_Detalle" ColumnName="Ver_Detalle" />
+          <ScalarProperty Name="Ver_Update" ColumnName="Ver_Update" />
+          <ScalarProperty Name="Ver_Insert" ColumnName="Ver_Insert" />
+          <ScalarProperty Name="Ver_Tabla" ColumnName="Ver_Tabla" />
+          <ScalarProperty Name="Ver_Id" ColumnName="Ver_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersonasCaracteristicas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.PersonasCaracteristicas">
+        <MappingFragment StoreEntitySet="PersonasCaracteristicas">
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="PerCar_Obs" ColumnName="PerCar_Obs" />
+          <ScalarProperty Name="PerCar_DatosVerificados" ColumnName="PerCar_DatosVerificados" />
+          <ScalarProperty Name="PerCar_Nivel" ColumnName="PerCar_Nivel" />
+          <ScalarProperty Name="PerCar_Visible" ColumnName="PerCar_Visible" />
+          <ScalarProperty Name="Clas_Carac_Id" ColumnName="Clas_Carac_Id" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+          <ScalarProperty Name="PerCar_Id" ColumnName="PerCar_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersonasContactos">
+      <EntityTypeMapping TypeName="GestionProcesosModel.PersonasContactos">
+        <MappingFragment StoreEntitySet="PersonasContactos">
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="PerCon_Obs" ColumnName="PerCon_Obs" />
+          <ScalarProperty Name="PerCon_DatosVerificados" ColumnName="PerCon_DatosVerificados" />
+          <ScalarProperty Name="PerCon_Correo" ColumnName="PerCon_Correo" />
+          <ScalarProperty Name="PerCon_TE_Numero" ColumnName="PerCon_TE_Numero" />
+          <ScalarProperty Name="PerCon_TE_Ciudad" ColumnName="PerCon_TE_Ciudad" />
+          <ScalarProperty Name="PerCon_TE_Pais" ColumnName="PerCon_TE_Pais" />
+          <ScalarProperty Name="PerCon_Marca" ColumnName="PerCon_Marca" />
+          <ScalarProperty Name="Clas_TipoContacto_Id" ColumnName="Clas_TipoContacto_Id" />
+          <ScalarProperty Name="Clas_ClaseContacto_Id" ColumnName="Clas_ClaseContacto_Id" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+          <ScalarProperty Name="PerCon_Id" ColumnName="PerCon_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersonasDocumentos">
+      <EntityTypeMapping TypeName="GestionProcesosModel.PersonasDocumentos">
+        <MappingFragment StoreEntitySet="PersonasDocumentos">
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="PerDoc_Obs" ColumnName="PerDoc_Obs" />
+          <ScalarProperty Name="PerDoc_DatosVerificados" ColumnName="PerDoc_DatosVerificados" />
+          <ScalarProperty Name="PerDoc_ArchivoAdjunto" ColumnName="PerDoc_ArchivoAdjunto" />
+          <ScalarProperty Name="GeneraNotificacion" ColumnName="GeneraNotificacion" />
+          <ScalarProperty Name="GeneraAlerta" ColumnName="GeneraAlerta" />
+          <ScalarProperty Name="PerDoc_FechaAviso" ColumnName="PerDoc_FechaAviso" />
+          <ScalarProperty Name="PerDoc_FechaVigencia" ColumnName="PerDoc_FechaVigencia" />
+          <ScalarProperty Name="PerDoc_FechaAprobado" ColumnName="PerDoc_FechaAprobado" />
+          <ScalarProperty Name="Clas_DocTipo_Id" ColumnName="Clas_DocTipo_Id" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+          <ScalarProperty Name="PerDoc_Id" ColumnName="PerDoc_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersonasDomicilios">
+      <EntityTypeMapping TypeName="GestionProcesosModel.PersonasDomicilios">
+        <MappingFragment StoreEntitySet="PersonasDomicilios">
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="PerDom_Obs" ColumnName="PerDom_Obs" />
+          <ScalarProperty Name="PerDom_DatosVerificados" ColumnName="PerDom_DatosVerificados" />
+          <ScalarProperty Name="PerDom_FecHas" ColumnName="PerDom_FecHas" />
+          <ScalarProperty Name="PerDom_FecDes" ColumnName="PerDom_FecDes" />
+          <ScalarProperty Name="Clas_LugNac_Id" ColumnName="Clas_LugNac_Id" />
+          <ScalarProperty Name="PerDom_Direccion" ColumnName="PerDom_Direccion" />
+          <ScalarProperty Name="PerDom_Marca" ColumnName="PerDom_Marca" />
+          <ScalarProperty Name="Clas_DomTip_Id" ColumnName="Clas_DomTip_Id" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+          <ScalarProperty Name="PerDom_Id" ColumnName="PerDom_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersonasIdiomas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.PersonasIdiomas">
+        <MappingFragment StoreEntitySet="PersonasIdiomas">
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="PerIdi_Obs" ColumnName="PerIdi_Obs" />
+          <ScalarProperty Name="PerIdi_DatosVerificados" ColumnName="PerIdi_DatosVerificados" />
+          <ScalarProperty Name="Clas_Idioma_Id" ColumnName="Clas_Idioma_Id" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+          <ScalarProperty Name="PerIdi_Id" ColumnName="PerIdi_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmpleadosUbicaciones">
+      <EntityTypeMapping TypeName="GestionProcesosModel.EmpleadosUbicaciones">
+        <MappingFragment StoreEntitySet="EmpleadosUbicaciones">
+          <ScalarProperty Name="EmpUbi_Longitud" ColumnName="EmpUbi_Longitud" />
+          <ScalarProperty Name="EmpUbi_Latitud" ColumnName="EmpUbi_Latitud" />
+          <ScalarProperty Name="EmpUbi_Fecha" ColumnName="EmpUbi_Fecha" />
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+          <ScalarProperty Name="EmpUbi_Id" ColumnName="EmpUbi_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Idiomas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Idiomas">
+        <MappingFragment StoreEntitySet="Idiomas">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Idi_Obs" ColumnName="Idi_Obs" />
+          <ScalarProperty Name="Idi_Activo" ColumnName="Idi_Activo" />
+          <ScalarProperty Name="Clas_Idiomas_Id" ColumnName="Clas_Idiomas_Id" />
+          <ScalarProperty Name="Idi_Id" ColumnName="Idi_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IdiomasPalabras">
+      <EntityTypeMapping TypeName="GestionProcesosModel.IdiomasPalabras">
+        <MappingFragment StoreEntitySet="IdiomasPalabras">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="IdiPal_Desc" ColumnName="IdiPal_Desc" />
+          <ScalarProperty Name="IdiPal_Texto" ColumnName="IdiPal_Texto" />
+          <ScalarProperty Name="IdiPal_Clave" ColumnName="IdiPal_Clave" />
+          <ScalarProperty Name="IdiPal_Seccion" ColumnName="IdiPal_Seccion" />
+          <ScalarProperty Name="IdiPal_Herramienta" ColumnName="IdiPal_Herramienta" />
+          <ScalarProperty Name="Idi_Id" ColumnName="Idi_Id" />
+          <ScalarProperty Name="IdiPal_Id" ColumnName="IdiPal_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmpleadosFunciones">
+      <EntityTypeMapping TypeName="GestionProcesosModel.EmpleadosFunciones">
+        <MappingFragment StoreEntitySet="EmpleadosFunciones">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="EmpFun_Obs" ColumnName="EmpFun_Obs" />
+          <ScalarProperty Name="EmpFun_DatosVerificados" ColumnName="EmpFun_DatosVerificados" />
+          <ScalarProperty Name="EmpFun_FechaHasta" ColumnName="EmpFun_FechaHasta" />
+          <ScalarProperty Name="EmpFun_FechaDesde" ColumnName="EmpFun_FechaDesde" />
+          <ScalarProperty Name="Clas_EmpleadosFunciones_Id" ColumnName="Clas_EmpleadosFunciones_Id" />
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+          <ScalarProperty Name="EmpFun_Id" ColumnName="EmpFun_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Servicios">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Servicios">
+        <MappingFragment StoreEntitySet="Servicios">
+          <ScalarProperty Name="Serv_Firma" ColumnName="Serv_Firma" />
+          <ScalarProperty Name="Serv_FechaFirma" ColumnName="Serv_FechaFirma" />
+          <ScalarProperty Name="Serv_Longitud" ColumnName="Serv_Longitud" />
+          <ScalarProperty Name="Serv_Latitud" ColumnName="Serv_Latitud" />
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="BuqViaCliTri_Id" ColumnName="BuqViaCliTri_Id" />
+          <ScalarProperty Name="BuqViaCliSer_Id" ColumnName="BuqViaCliSer_Id" />
+          <ScalarProperty Name="Serv_Id" ColumnName="Serv_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehiculos">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Vehiculos">
+        <MappingFragment StoreEntitySet="Vehiculos">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Veh_Obs" ColumnName="Veh_Obs" />
+          <ScalarProperty Name="Veh_DatosVerificados" ColumnName="Veh_DatosVerificados" />
+          <ScalarProperty Name="Veh_PasajerosCantidad" ColumnName="Veh_PasajerosCantidad" />
+          <ScalarProperty Name="Veh_FechaHasta" ColumnName="Veh_FechaHasta" />
+          <ScalarProperty Name="Veh_FechaDesde" ColumnName="Veh_FechaDesde" />
+          <ScalarProperty Name="Prov_Id" ColumnName="Prov_Id" />
+          <ScalarProperty Name="Veh_Patente" ColumnName="Veh_Patente" />
+          <ScalarProperty Name="Veh_Id" ColumnName="Veh_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehiculosLicencias">
+      <EntityTypeMapping TypeName="GestionProcesosModel.VehiculosLicencias">
+        <MappingFragment StoreEntitySet="VehiculosLicencias">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="VehLic_Obs" ColumnName="VehLic_Obs" />
+          <ScalarProperty Name="VehLic_DatosVerificados" ColumnName="VehLic_DatosVerificados" />
+          <ScalarProperty Name="GeneraAlerta" ColumnName="GeneraAlerta" />
+          <ScalarProperty Name="VehLic_FechaHasta" ColumnName="VehLic_FechaHasta" />
+          <ScalarProperty Name="VehLic_FechaDesde" ColumnName="VehLic_FechaDesde" />
+          <ScalarProperty Name="Clas_TipoLicencia_Id" ColumnName="Clas_TipoLicencia_Id" />
+          <ScalarProperty Name="Veh_Id" ColumnName="Veh_Id" />
+          <ScalarProperty Name="VehLic_Id" ColumnName="VehLic_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BuquesViajesClientesTripulantes">
+      <EntityTypeMapping TypeName="GestionProcesosModel.BuquesViajesClientesTripulantes">
+        <MappingFragment StoreEntitySet="BuquesViajesClientesTripulantes">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="BuqViaCliTri_Obs" ColumnName="BuqViaCliTri_Obs" />
+          <ScalarProperty Name="BuqViaCliTri_FechaHora" ColumnName="BuqViaCliTri_FechaHora" />
+          <ScalarProperty Name="Tri_Id" ColumnName="Tri_Id" />
+          <ScalarProperty Name="BuqViaCli_Id" ColumnName="BuqViaCli_Id" />
+          <ScalarProperty Name="BuqViaCliTri_Id" ColumnName="BuqViaCliTri_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TripulantesUbicaciones">
+      <EntityTypeMapping TypeName="GestionProcesosModel.TripulantesUbicaciones">
+        <MappingFragment StoreEntitySet="TripulantesUbicaciones">
+          <ScalarProperty Name="TriUbi_Longitud" ColumnName="TriUbi_Longitud" />
+          <ScalarProperty Name="TriUbi_Latitud" ColumnName="TriUbi_Latitud" />
+          <ScalarProperty Name="TriUbi_Fecha" ColumnName="TriUbi_Fecha" />
+          <ScalarProperty Name="Tri_Id" ColumnName="Tri_Id" />
+          <ScalarProperty Name="TriUbi_Id" ColumnName="TriUbi_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Agendas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Agendas">
+        <MappingFragment StoreEntitySet="Agendas">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Age_FechaEnvio" ColumnName="Age_FechaEnvio" />
+          <ScalarProperty Name="GeneraNotificacion" ColumnName="GeneraNotificacion" />
+          <ScalarProperty Name="GeneraAlerta" ColumnName="GeneraAlerta" />
+          <ScalarProperty Name="Age_FechaAviso" ColumnName="Age_FechaAviso" />
+          <ScalarProperty Name="Age_Detalle" ColumnName="Age_Detalle" />
+          <ScalarProperty Name="Age_FechaHora" ColumnName="Age_FechaHora" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+          <ScalarProperty Name="Age_Id" ColumnName="Age_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadUsuarios">
+      <EntityTypeMapping TypeName="GestionProcesosModel.SeguridadUsuarios">
+        <MappingFragment StoreEntitySet="SeguridadUsuarios">
+          <ScalarProperty Name="Salt" ColumnName="Salt" />
+          <ScalarProperty Name="SegUsu_FecBaja" ColumnName="SegUsu_FecBaja" />
+          <ScalarProperty Name="SegUsu_FecAlta" ColumnName="SegUsu_FecAlta" />
+          <ScalarProperty Name="SegRol_Id" ColumnName="SegRol_Id" />
+          <ScalarProperty Name="SegUsu_Pass" ColumnName="SegUsu_Pass" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+          <ScalarProperty Name="SegUsu_Id" ColumnName="SegUsu_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bitacoras">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Bitacoras">
+        <MappingFragment StoreEntitySet="Bitacoras">
+          <ScalarProperty Name="Bit_FechaHora" ColumnName="Bit_FechaHora" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+          <ScalarProperty Name="Bit_Mensaje" ColumnName="Bit_Mensaje" />
+          <ScalarProperty Name="BuqViaCliSer_Id" ColumnName="BuqViaCliSer_Id" />
+          <ScalarProperty Name="BitConf_Id" ColumnName="BitConf_Id" />
+          <ScalarProperty Name="Bit_Id" ColumnName="Bit_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BitacorasConfiguraciones">
+      <EntityTypeMapping TypeName="GestionProcesosModel.BitacorasConfiguraciones">
+        <MappingFragment StoreEntitySet="BitacorasConfiguraciones">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="BitConf_DatosVerificados" ColumnName="BitConf_DatosVerificados" />
+          <ScalarProperty Name="BitConf_Tripulantes" ColumnName="BitConf_Tripulantes" />
+          <ScalarProperty Name="BitConf_Clientes" ColumnName="BitConf_Clientes" />
+          <ScalarProperty Name="BitConf_Empleados" ColumnName="BitConf_Empleados" />
+          <ScalarProperty Name="BitConf_Asesores" ColumnName="BitConf_Asesores" />
+          <ScalarProperty Name="BitConf_Admin" ColumnName="BitConf_Admin" />
+          <ScalarProperty Name="GeneraAlerta" ColumnName="GeneraAlerta" />
+          <ScalarProperty Name="GeneraNotificacion" ColumnName="GeneraNotificacion" />
+          <ScalarProperty Name="BitConf_Activo" ColumnName="BitConf_Activo" />
+          <ScalarProperty Name="BitConf_Detalle" ColumnName="BitConf_Detalle" />
+          <ScalarProperty Name="BitConf_Nom" ColumnName="BitConf_Nom" />
+          <ScalarProperty Name="BitConf_Id" ColumnName="BitConf_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BitacorasReceptores">
+      <EntityTypeMapping TypeName="GestionProcesosModel.BitacorasReceptores">
+        <MappingFragment StoreEntitySet="BitacorasReceptores">
+          <ScalarProperty Name="BitRec_FechaHora" ColumnName="BitRec_FechaHora" />
+          <ScalarProperty Name="BitRec_FormaRecepcion" ColumnName="BitRec_FormaRecepcion" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+          <ScalarProperty Name="Bit_Id" ColumnName="Bit_Id" />
+          <ScalarProperty Name="BitRec_Id" ColumnName="BitRec_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BuquesViajesClientesServiciosDetallesAlojamientos">
+      <EntityTypeMapping TypeName="GestionProcesosModel.BuquesViajesClientesServiciosDetallesAlojamientos">
+        <MappingFragment StoreEntitySet="BuquesViajesClientesServiciosDetallesAlojamientos">
+          <ScalarProperty Name="BuqViaCliSerDetAlo_ArchivoAdjunto" ColumnName="BuqViaCliSerDetAlo_ArchivoAdjunto" />
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="BuqViaCliSerDetAlo_Obs" ColumnName="BuqViaCliSerDetAlo_Obs" />
+          <ScalarProperty Name="Emp_Asistente_Id" ColumnName="Emp_Asistente_Id" />
+          <ScalarProperty Name="Clas_ServicioEstado_Id" ColumnName="Clas_ServicioEstado_Id" />
+          <ScalarProperty Name="Prov_Id" ColumnName="Prov_Id" />
+          <ScalarProperty Name="BuqViaCliSerDetAlo_CantidadComidas" ColumnName="BuqViaCliSerDetAlo_CantidadComidas" />
+          <ScalarProperty Name="BuqViaCliSerDetAlo_IncluyeExtras" ColumnName="BuqViaCliSerDetAlo_IncluyeExtras" />
+          <ScalarProperty Name="BuqViaCliSerDetAlo_IncluyeComida" ColumnName="BuqViaCliSerDetAlo_IncluyeComida" />
+          <ScalarProperty Name="BuqViaCliSerDetAlo_TipoCama" ColumnName="BuqViaCliSerDetAlo_TipoCama" />
+          <ScalarProperty Name="BuqViaCliSerDetAlo_CheckOutPosterior" ColumnName="BuqViaCliSerDetAlo_CheckOutPosterior" />
+          <ScalarProperty Name="BuqViaCliSerDetAlo_CheckInAnticipado" ColumnName="BuqViaCliSerDetAlo_CheckInAnticipado" />
+          <ScalarProperty Name="BuqViaCliSerDetAlo_FechaHasta" ColumnName="BuqViaCliSerDetAlo_FechaHasta" />
+          <ScalarProperty Name="BuqViaCliSerDetAlo_FechaDesde" ColumnName="BuqViaCliSerDetAlo_FechaDesde" />
+          <ScalarProperty Name="BuqViaCliSer_Id" ColumnName="BuqViaCliSer_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BuquesViajesClientesServiciosDetallesComidas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.BuquesViajesClientesServiciosDetallesComidas">
+        <MappingFragment StoreEntitySet="BuquesViajesClientesServiciosDetallesComidas">
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="BuqViaCliSerDetCom_Obs" ColumnName="BuqViaCliSerDetCom_Obs" />
+          <ScalarProperty Name="BuqViaCliSerDetCom_ArchivoAdjunto" ColumnName="BuqViaCliSerDetCom_ArchivoAdjunto" />
+          <ScalarProperty Name="Clas_ServicioEstado_Id" ColumnName="Clas_ServicioEstado_Id" />
+          <ScalarProperty Name="BuqViaCliSerDetCom_TipoContrato" ColumnName="BuqViaCliSerDetCom_TipoContrato" />
+          <ScalarProperty Name="BuqViaCliSerDetCom_TipoComida" ColumnName="BuqViaCliSerDetCom_TipoComida" />
+          <ScalarProperty Name="Prov_Id" ColumnName="Prov_Id" />
+          <ScalarProperty Name="BuqViaCliSerDetCom_Comida" ColumnName="BuqViaCliSerDetCom_Comida" />
+          <ScalarProperty Name="BuqViaCliSerDetCom_Fecha" ColumnName="BuqViaCliSerDetCom_Fecha" />
+          <ScalarProperty Name="BuqViaCliSer_Id" ColumnName="BuqViaCliSer_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ComunicacionesInternas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.ComunicacionesInternas">
+        <MappingFragment StoreEntitySet="ComunicacionesInternas">
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+          <ScalarProperty Name="ComInt_Act" ColumnName="ComInt_Act" />
+          <ScalarProperty Name="ComInt_FechaVenc" ColumnName="ComInt_FechaVenc" />
+          <ScalarProperty Name="ComInt_Asunto" ColumnName="ComInt_Asunto" />
+          <ScalarProperty Name="ComInt_Fecha" ColumnName="ComInt_Fecha" />
+          <ScalarProperty Name="ComInt_Id" ColumnName="ComInt_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ComunicacionesInternasDetalles">
+      <EntityTypeMapping TypeName="GestionProcesosModel.ComunicacionesInternasDetalles">
+        <MappingFragment StoreEntitySet="ComunicacionesInternasDetalles">
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+          <ScalarProperty Name="ComIntDet_ArchivoNom" ColumnName="ComIntDet_ArchivoNom" />
+          <ScalarProperty Name="ComIntDet_Detalle" ColumnName="ComIntDet_Detalle" />
+          <ScalarProperty Name="ComIntDet_Fecha" ColumnName="ComIntDet_Fecha" />
+          <ScalarProperty Name="ComInt_Id" ColumnName="ComInt_Id" />
+          <ScalarProperty Name="ComIntDet_Id" ColumnName="ComIntDet_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ComunicacionesInternasUsuarios">
+      <EntityTypeMapping TypeName="GestionProcesosModel.ComunicacionesInternasUsuarios">
+        <MappingFragment StoreEntitySet="ComunicacionesInternasUsuarios">
+          <ScalarProperty Name="ComIntUsu_FechaLeido" ColumnName="ComIntUsu_FechaLeido" />
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+          <ScalarProperty Name="ComInt_Id" ColumnName="ComInt_Id" />
+          <ScalarProperty Name="ComIntUsu_Id" ColumnName="ComIntUsu_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BuquesViajesClientesServiciosDetallesExtras">
+      <EntityTypeMapping TypeName="GestionProcesosModel.BuquesViajesClientesServiciosDetallesExtras">
+        <MappingFragment StoreEntitySet="BuquesViajesClientesServiciosDetallesExtras">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="BuqViaCliSerDetExt_Obs" ColumnName="BuqViaCliSerDetExt_Obs" />
+          <ScalarProperty Name="BuqViaCliSerDetExt_ArchivoAdjunto" ColumnName="BuqViaCliSerDetExt_ArchivoAdjunto" />
+          <ScalarProperty Name="Clas_ServicioEstado_Id" ColumnName="Clas_ServicioEstado_Id" />
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+          <ScalarProperty Name="BuqViaCliSerDetExt_ACargo" ColumnName="BuqViaCliSerDetExt_ACargo" />
+          <ScalarProperty Name="BuqViaCliSerDetExt_Accion" ColumnName="BuqViaCliSerDetExt_Accion" />
+          <ScalarProperty Name="BuqViaCliSerDetExt_Lugar" ColumnName="BuqViaCliSerDetExt_Lugar" />
+          <ScalarProperty Name="Clas_Tramite_Id" ColumnName="Clas_Tramite_Id" />
+          <ScalarProperty Name="BuqViaCliSerDetExt_Fecha" ColumnName="BuqViaCliSerDetExt_Fecha" />
+          <ScalarProperty Name="BuqViaCliSer_Id" ColumnName="BuqViaCliSer_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BuquesViajesClientesServiciosDetallesAdministrativos">
+      <EntityTypeMapping TypeName="GestionProcesosModel.BuquesViajesClientesServiciosDetallesAdministrativos">
+        <MappingFragment StoreEntitySet="BuquesViajesClientesServiciosDetallesAdministrativos">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="BuqViaCliSerDetAdm_ObsInterna" ColumnName="BuqViaCliSerDetAdm_ObsInterna" />
+          <ScalarProperty Name="BuqViaCliSerDetAdm_Obs" ColumnName="BuqViaCliSerDetAdm_Obs" />
+          <ScalarProperty Name="BuqViaCliSerDetAdm_ArchivoAdjunto" ColumnName="BuqViaCliSerDetAdm_ArchivoAdjunto" />
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+          <ScalarProperty Name="Prov_Id" ColumnName="Prov_Id" />
+          <ScalarProperty Name="Clas_ServicioEstado_Id" ColumnName="Clas_ServicioEstado_Id" />
+          <ScalarProperty Name="Clas_Tramite_Id" ColumnName="Clas_Tramite_Id" />
+          <ScalarProperty Name="BuqViaCliSerDetAdm_Urgente" ColumnName="BuqViaCliSerDetAdm_Urgente" />
+          <ScalarProperty Name="BuqViaCliSerDetAdm_FechaCita" ColumnName="BuqViaCliSerDetAdm_FechaCita" />
+          <ScalarProperty Name="BuqViaCliSerDetAdm_FechaEnvio" ColumnName="BuqViaCliSerDetAdm_FechaEnvio" />
+          <ScalarProperty Name="BuqViaCliSerDetAdm_FechaPedido" ColumnName="BuqViaCliSerDetAdm_FechaPedido" />
+          <ScalarProperty Name="BuqViaCliSer_Id" ColumnName="BuqViaCliSer_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BuquesViajesClientesServiciosDetallesComidasAdicionales">
+      <EntityTypeMapping TypeName="GestionProcesosModel.BuquesViajesClientesServiciosDetallesComidasAdicionales">
+        <MappingFragment StoreEntitySet="BuquesViajesClientesServiciosDetallesComidasAdicionales">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Clas_ComidaAdicional_Id" ColumnName="Clas_ComidaAdicional_Id" />
+          <ScalarProperty Name="Serv_Id" ColumnName="Serv_Id" />
+          <ScalarProperty Name="BuqViaCliSer_Id" ColumnName="BuqViaCliSer_Id" />
+          <ScalarProperty Name="BuqViaCliSerDetComAdi_Id" ColumnName="BuqViaCliSerDetComAdi_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductosProveedoresTarifas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.ProductosProveedoresTarifas">
+        <MappingFragment StoreEntitySet="ProductosProveedoresTarifas">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="ProdProvTar_Obs" ColumnName="ProdProvTar_Obs" />
+          <ScalarProperty Name="ProdProvTar_DatosVerificados" ColumnName="ProdProvTar_DatosVerificados" />
+          <ScalarProperty Name="ProdProvTar_Valor3" ColumnName="ProdProvTar_Valor3" />
+          <ScalarProperty Name="ProdProvTar_Valor2" ColumnName="ProdProvTar_Valor2" />
+          <ScalarProperty Name="ProdProvTar_Valor1" ColumnName="ProdProvTar_Valor1" />
+          <ScalarProperty Name="ProdProvTar_Fecha" ColumnName="ProdProvTar_Fecha" />
+          <ScalarProperty Name="ProdProv_Id" ColumnName="ProdProv_Id" />
+          <ScalarProperty Name="ProdProvTar_Id" ColumnName="ProdProvTar_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductosProveedoresTarifasHistoricas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.ProductosProveedoresTarifasHistoricas">
+        <MappingFragment StoreEntitySet="ProductosProveedoresTarifasHistoricas">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="ProdProvTar_Obs" ColumnName="ProdProvTar_Obs" />
+          <ScalarProperty Name="ProdProvTar_DatosVerificados" ColumnName="ProdProvTar_DatosVerificados" />
+          <ScalarProperty Name="ProdProvTar_Valor3" ColumnName="ProdProvTar_Valor3" />
+          <ScalarProperty Name="ProdProvTar_Valor2" ColumnName="ProdProvTar_Valor2" />
+          <ScalarProperty Name="ProdProvTar_Valor1" ColumnName="ProdProvTar_Valor1" />
+          <ScalarProperty Name="ProdProvTar_Fecha" ColumnName="ProdProvTar_Fecha" />
+          <ScalarProperty Name="ProdProv_Id" ColumnName="ProdProv_Id" />
+          <ScalarProperty Name="ProdProvTar_Id" ColumnName="ProdProvTar_Id" />
+          <ScalarProperty Name="ProdProvTarHis_Id" ColumnName="ProdProvTarHis_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BuquesViajesClientesServiciosDetallesMedicosCostos">
+      <EntityTypeMapping TypeName="GestionProcesosModel.BuquesViajesClientesServiciosDetallesMedicosCostos">
+        <MappingFragment StoreEntitySet="BuquesViajesClientesServiciosDetallesMedicosCostos">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="BuqViaCliSerDetMedCos_Obs" ColumnName="BuqViaCliSerDetMedCos_Obs" />
+          <ScalarProperty Name="BuqViaCliSerDetMedCos_ArchivoAdjunto" ColumnName="BuqViaCliSerDetMedCos_ArchivoAdjunto" />
+          <ScalarProperty Name="BuqViaCliSerDetMedCos_Valor" ColumnName="BuqViaCliSerDetMedCos_Valor" />
+          <ScalarProperty Name="BuqViaCliSerDetMedCos_Costo" ColumnName="BuqViaCliSerDetMedCos_Costo" />
+          <ScalarProperty Name="Clas_Atencion_Id" ColumnName="Clas_Atencion_Id" />
+          <ScalarProperty Name="BuqViaCliSerDetMedCos_Fecha" ColumnName="BuqViaCliSerDetMedCos_Fecha" />
+          <ScalarProperty Name="BuqViaCliSer_Id" ColumnName="BuqViaCliSer_Id" />
+          <ScalarProperty Name="BuqViaCliSerDetMedCos_Id" ColumnName="BuqViaCliSerDetMedCos_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dic_Relaciones">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Dic_Relaciones">
+        <MappingFragment StoreEntitySet="Dic_Relaciones">
+          <ScalarProperty Name="Rel_Activo" ColumnName="Rel_Activo" />
+          <ScalarProperty Name="Rel_Descr" ColumnName="Rel_Descr" />
+          <ScalarProperty Name="Cam_Id2" ColumnName="Cam_Id2" />
+          <ScalarProperty Name="Tab_Id2" ColumnName="Tab_Id2" />
+          <ScalarProperty Name="Cam_Id1" ColumnName="Cam_Id1" />
+          <ScalarProperty Name="Tab_Id1" ColumnName="Tab_Id1" />
+          <ScalarProperty Name="Rel_Id" ColumnName="Rel_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ParametrosGenerales">
+      <EntityTypeMapping TypeName="GestionProcesosModel.ParametrosGenerales">
+        <MappingFragment StoreEntitySet="ParametrosGenerales">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="ParGen_Interno" ColumnName="ParGen_Interno" />
+          <ScalarProperty Name="ParGen_Descripcion" ColumnName="ParGen_Descripcion" />
+          <ScalarProperty Name="ParGen_Valor" ColumnName="ParGen_Valor" />
+          <ScalarProperty Name="ParGen_Nombre" ColumnName="ParGen_Nombre" />
+          <ScalarProperty Name="ParGen_Id" ColumnName="ParGen_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dic_Campos">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Dic_Campos">
+        <MappingFragment StoreEntitySet="Dic_Campos">
+          <ScalarProperty Name="Cam_Filtro" ColumnName="Cam_Filtro" />
+          <ScalarProperty Name="Cam_Query" ColumnName="Cam_Query" />
+          <ScalarProperty Name="Cam_EnUso" ColumnName="Cam_EnUso" />
+          <ScalarProperty Name="Cam_Tipo" ColumnName="Cam_Tipo" />
+          <ScalarProperty Name="Cam_Visible" ColumnName="Cam_Visible" />
+          <ScalarProperty Name="Cam_NomInt" ColumnName="Cam_NomInt" />
+          <ScalarProperty Name="Cam_Nom" ColumnName="Cam_Nom" />
+          <ScalarProperty Name="Cam_Descr" ColumnName="Cam_Descr" />
+          <ScalarProperty Name="Tab_Id" ColumnName="Tab_Id" />
+          <ScalarProperty Name="Cam_Id" ColumnName="Cam_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dic_Tablas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Dic_Tablas">
+        <MappingFragment StoreEntitySet="Dic_Tablas">
+          <ScalarProperty Name="Tab_Activo" ColumnName="Tab_Activo" />
+          <ScalarProperty Name="Tab_Auditoria" ColumnName="Tab_Auditoria" />
+          <ScalarProperty Name="Tab_Orden" ColumnName="Tab_Orden" />
+          <ScalarProperty Name="Tab_Visible" ColumnName="Tab_Visible" />
+          <ScalarProperty Name="Tab_FechaBaja" ColumnName="Tab_FechaBaja" />
+          <ScalarProperty Name="Tab_FechaAlta" ColumnName="Tab_FechaAlta" />
+          <ScalarProperty Name="Tab_NomInt" ColumnName="Tab_NomInt" />
+          <ScalarProperty Name="Tab_Nom" ColumnName="Tab_Nom" />
+          <ScalarProperty Name="Tab_Desc" ColumnName="Tab_Desc" />
+          <ScalarProperty Name="Tab_Id" ColumnName="Tab_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VencimientosServiciosExternos">
+      <EntityTypeMapping TypeName="GestionProcesosModel.VencimientosServiciosExternos">
+        <MappingFragment StoreEntitySet="VencimientosServiciosExternos">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="VenSerExt_Descripcion" ColumnName="VenSerExt_Descripcion" />
+          <ScalarProperty Name="VenSerExt_Identificacion" ColumnName="VenSerExt_Identificacion" />
+          <ScalarProperty Name="VenSerExt_Proveedor" ColumnName="VenSerExt_Proveedor" />
+          <ScalarProperty Name="VenSerExt_Id" ColumnName="VenSerExt_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VencimientosServiciosExternosDetalles">
+      <EntityTypeMapping TypeName="GestionProcesosModel.VencimientosServiciosExternosDetalles">
+        <MappingFragment StoreEntitySet="VencimientosServiciosExternosDetalles">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="VenSerExtDet_Obs" ColumnName="VenSerExtDet_Obs" />
+          <ScalarProperty Name="VenSerExtDet_FechaVencimiento" ColumnName="VenSerExtDet_FechaVencimiento" />
+          <ScalarProperty Name="Clas_MonedasTipos_Id" ColumnName="Clas_MonedasTipos_Id" />
+          <ScalarProperty Name="VenSerExtDet_ValorPagado" ColumnName="VenSerExtDet_ValorPagado" />
+          <ScalarProperty Name="VenSerExtDet_FechaPagado" ColumnName="VenSerExtDet_FechaPagado" />
+          <ScalarProperty Name="VenSerExt_Id" ColumnName="VenSerExt_Id" />
+          <ScalarProperty Name="VenSerExtDet_Id" ColumnName="VenSerExtDet_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClientesProveedoresTarifas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.ClientesProveedoresTarifas">
+        <MappingFragment StoreEntitySet="ClientesProveedoresTarifas">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="CliProvTar_Obs" ColumnName="CliProvTar_Obs" />
+          <ScalarProperty Name="CliProvTar_Valor3" ColumnName="CliProvTar_Valor3" />
+          <ScalarProperty Name="CliProvTar_Valor2" ColumnName="CliProvTar_Valor2" />
+          <ScalarProperty Name="CliProvTar_Valor1" ColumnName="CliProvTar_Valor1" />
+          <ScalarProperty Name="CliProvTar_Fecha" ColumnName="CliProvTar_Fecha" />
+          <ScalarProperty Name="Prod_Id" ColumnName="Prod_Id" />
+          <ScalarProperty Name="Prov_Id" ColumnName="Prov_Id" />
+          <ScalarProperty Name="Cli_Id" ColumnName="Cli_Id" />
+          <ScalarProperty Name="CliProvTar_Id" ColumnName="CliProvTar_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClientesProveedoresTarifasHistoricas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.ClientesProveedoresTarifasHistoricas">
+        <MappingFragment StoreEntitySet="ClientesProveedoresTarifasHistoricas">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="CliProvTar_Obs" ColumnName="CliProvTar_Obs" />
+          <ScalarProperty Name="CliProvTar_Valor3" ColumnName="CliProvTar_Valor3" />
+          <ScalarProperty Name="CliProvTar_Valor2" ColumnName="CliProvTar_Valor2" />
+          <ScalarProperty Name="CliProvTar_Valor1" ColumnName="CliProvTar_Valor1" />
+          <ScalarProperty Name="CliProvTar_Fecha" ColumnName="CliProvTar_Fecha" />
+          <ScalarProperty Name="Prod_Id" ColumnName="Prod_Id" />
+          <ScalarProperty Name="Prov_Id" ColumnName="Prov_Id" />
+          <ScalarProperty Name="Cli_Id" ColumnName="Cli_Id" />
+          <ScalarProperty Name="CliProvTar_Id" ColumnName="CliProvTar_Id" />
+          <ScalarProperty Name="CliProvTarHis_Id" ColumnName="CliProvTarHis_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BuquesViajesClientesServiciosDocumentos">
+      <EntityTypeMapping TypeName="GestionProcesosModel.BuquesViajesClientesServiciosDocumentos">
+        <MappingFragment StoreEntitySet="BuquesViajesClientesServiciosDocumentos">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="BuqViaCliSerDoc_ArchivoAdjunto" ColumnName="BuqViaCliSerDoc_ArchivoAdjunto" />
+          <ScalarProperty Name="BuqViaCliSerDoc_Detalle" ColumnName="BuqViaCliSerDoc_Detalle" />
+          <ScalarProperty Name="BuqViaCliSerDoc_Fecha" ColumnName="BuqViaCliSerDoc_Fecha" />
+          <ScalarProperty Name="BuqViaCliSer_Id" ColumnName="BuqViaCliSer_Id" />
+          <ScalarProperty Name="BuqViaCliSerDoc_Id" ColumnName="BuqViaCliSerDoc_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BuquesViajesClientesServiciosDetallesTraslados">
+      <EntityTypeMapping TypeName="GestionProcesosModel.BuquesViajesClientesServiciosDetallesTraslados">
+        <MappingFragment StoreEntitySet="BuquesViajesClientesServiciosDetallesTraslados">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="BuqViaCliSerDetTra_Obs" ColumnName="BuqViaCliSerDetTra_Obs" />
+          <ScalarProperty Name="BuqViaCliSerDetTra_ArchivoAdjunto" ColumnName="BuqViaCliSerDetTra_ArchivoAdjunto" />
+          <ScalarProperty Name="Clas_ServicioEstado_Id" ColumnName="Clas_ServicioEstado_Id" />
+          <ScalarProperty Name="Veh_Id" ColumnName="Veh_Id" />
+          <ScalarProperty Name="Emp_Asistente_Id" ColumnName="Emp_Asistente_Id" />
+          <ScalarProperty Name="Emp_Chofer_Id" ColumnName="Emp_Chofer_Id" />
+          <ScalarProperty Name="Clas_Equipajes_Id" ColumnName="Clas_Equipajes_Id" />
+          <ScalarProperty Name="BuqViaCliSerDetTra_TipoTraslado" ColumnName="BuqViaCliSerDetTra_TipoTraslado" />
+          <ScalarProperty Name="BuqViaCliSerDetTra_NroVuelo" ColumnName="BuqViaCliSerDetTra_NroVuelo" />
+          <ScalarProperty Name="Clas_Recorrido_Id" ColumnName="Clas_Recorrido_Id" />
+          <ScalarProperty Name="BuqViaCliSerDetTra_Destino" ColumnName="BuqViaCliSerDetTra_Destino" />
+          <ScalarProperty Name="BuqViaCliSerDetTra_Origen" ColumnName="BuqViaCliSerDetTra_Origen" />
+          <ScalarProperty Name="BuqViaCliSerDetTra_Tiempo" ColumnName="BuqViaCliSerDetTra_Tiempo" />
+          <ScalarProperty Name="BuqViaCliSerDetTra_FechaHora" ColumnName="BuqViaCliSerDetTra_FechaHora" />
+          <ScalarProperty Name="BuqViaCliSer_Id" ColumnName="BuqViaCliSer_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BuquesViajesClientesServiciosDetallesMedicos">
+      <EntityTypeMapping TypeName="GestionProcesosModel.BuquesViajesClientesServiciosDetallesMedicos">
+        <MappingFragment StoreEntitySet="BuquesViajesClientesServiciosDetallesMedicos">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="BuqViaCliSerDetMed_Obs" ColumnName="BuqViaCliSerDetMed_Obs" />
+          <ScalarProperty Name="BuqViaCliSerDetMed_ArchivoAdjunto" ColumnName="BuqViaCliSerDetMed_ArchivoAdjunto" />
+          <ScalarProperty Name="Clas_ServicioEstado_Id" ColumnName="Clas_ServicioEstado_Id" />
+          <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+          <ScalarProperty Name="BuqViaCliSerDetMed_Tratamiento" ColumnName="BuqViaCliSerDetMed_Tratamiento" />
+          <ScalarProperty Name="Prov_Id" ColumnName="Prov_Id" />
+          <ScalarProperty Name="BuqViaCliSerDetMed_FechaHasta" ColumnName="BuqViaCliSerDetMed_FechaHasta" />
+          <ScalarProperty Name="BuqViaCliSerDetMed_FechaDesde" ColumnName="BuqViaCliSerDetMed_FechaDesde" />
+          <ScalarProperty Name="BuqViaCliSer_Id" ColumnName="BuqViaCliSer_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

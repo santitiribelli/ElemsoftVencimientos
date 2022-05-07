@@ -1,0 +1,808 @@
+﻿@{
+    ViewBag.Title = "MesaOperaciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<script src="@Url.Content("~/Scripts/dom-text.js")"></script>
+<script src="@Url.Content("~/Scripts/dom-select.js")"></script>*@
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="page-header">Me Sa Oper Aciones</h4>
+    </div>
+</div>
+@if (ViewBag.ServiciosSinDetalle > 0)
+{<div class="row">
+        <div class="alert alert-info alert-dismissible" id="tabInfo" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+            <strong><i class="fa fa-exclamation-circle"></i></strong> <strong>@ViewBag.ServiciosSinDetalle</strong> Servicios de Traslado sin detalle asignado
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example" style="width: 100%;"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Editar").IdiPal_Texto)</h4>
+            </div>
+            <div class="modal-body">
+                ¿Confirma que desea guar dar  los camb ios del registro?
+            </div>
+            <div class="modal-footer">
+                @if (ViewBag.Alta == true)
+                {
+                    <button type="button" class="btn btn-primary btn-rounded editar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                }
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmTripulantes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Titulo").IdiPal_Texto)</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-exampleTripulantes" width="99%"></table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var id;
+    var sessionData;
+    var dataVehiculos;
+    var elemento;
+    var _aData;
+    $(function () {
+
+
+        jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+            "date-moment-pre": function ( a ) {
+                return ~~moment(a, "DD/MM/YYYY").format("X");
+            },
+            "date-moment-asc": function ( a, b ) {
+                return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            },
+            "date-moment-desc": function ( a, b ) {
+                return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            }
+        });
+
+        $.fn.dataTable.ext.order['dom-text'] = function (settings, col) {
+            return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
+                return $('input', td).val();
+            });
+        };
+
+        $.fn.dataTable.ext.order['dom-select'] = function (settings, col) {
+            return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
+                return $('select', td).val();
+            });
+        };
+
+        $('body').off('click', '.editarRegistro').on('click', '.editarRegistro', function () {
+            var table = $('#dataTables-example').DataTable();
+            _aData = table.row($(this).parents('tr')).data();
+            elemento = $(this);
+            id = _aData.id;
+            $(this).parent().parent().find('td').css('background-color', 'yellow');
+
+            sessionData = {
+                "BuqViaCliSer_Id": id,
+                "BuqViaCliSerDetTra_FechaHora":  $(this).parents('tr').find(".fecha").val() + " " +  $(this).parents('tr').find(".hora").val(),
+                "BuqViaCliSerDetTra_Tiempo":  $(this).parents('tr').find(".tiempo").val(),
+                "BuqViaCliSerDetTra_Origen":  $(this).parents('tr').find(".origen").val(),
+                "BuqViaCliSerDetTra_Destino":  $(this).parents('tr').find(".destino").val(),
+                "Veh_Id":  $(this).parents('tr').find('.vehiculo').select2("val"),
+                "Emp_Chofer_Id":  $(this).parents('tr').find(".chofer").select2("val"),
+                "Emp_Asistente_Id":  $(this).parents('tr').find(".asistente").select2("val"),
+            };
+
+            _aData.tiempo = $(this).parents('tr').find(".tiempo").val();
+            _aData.origen = $(this).parents('tr').find(".origen").val();
+            _aData.destino = $(this).parents('tr').find(".destino").val();
+            _aData.fecha = $(this).parents('tr').find(".fecha").val();
+            _aData.hora = $(this).parents('tr').find(".hora").val();
+            _aData.vehiculo = $(this).parents('tr').find(".vehiculo").select2("val");
+            _aData.chofer = $(this).parents('tr').find(".chofer").select2("val");
+            _aData.asistente = $(this).parents('tr').find(".asistente").select2("val");
+
+        });
+        $('body').off('click', '.editar').on('click', '.editar', function () {
+            var table = $('#dataTables-example').DataTable();
+            $.ajax({
+                url: '@Url.Action("MesaOperaciones")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Actualizar").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#confirmEdit').modal('hide');
+                        //id = null;
+                        sessionData = null;
+                        elemento.parents('tr').find('button').addClass('btn-success').removeClass('btn-warning editarRegistro');
+                        elemento.parents('tr').find('#hiddenChofer').val(_aData.chofer);
+                        elemento.parents('tr').find('#hiddenAsistente').val(_aData.asistente);
+                        elemento.parents('tr').find('#hiddenVehiculo').val(_aData.vehiculo);
+                        //generarTabla();
+                        table.row(elemento.parents('tr')).data(_aData).draw(true);
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+            });
+        });
+
+        @*$.ajax({
+            url: '@Url.Action("GetVehiculosMesaOperativa", "Vehiculos")',
+            async:false,
+            success: function (results) {
+                if (results.success) {
+                    dataVehiculos = results.msg;
+                } else {
+                    new PNotify({
+                        title: 'Error!',
+                        text: results.msg,
+                        type: 'danger',
+                        hide: false,
+                        styling: 'bootstrap3',
+                        animation: 'slide'
+                    });
+                }
+            },
+            type: "GET"
+        });*@
+
+        function generarTabla() {
+            $('#dataTables-example').dataTable({
+                "scrollX": true,
+                "paging":false,
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Paginado").IdiPal_Texto)",
+                    "sZeroRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscar sin resultados").IdiPal_Texto)",
+                    "sEmptyTable": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - No hay datos").IdiPal_Texto)",
+                    "sInfo": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info").IdiPal_Texto)",
+                    "sInfoEmpty": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info sin datos").IdiPal_Texto)",
+                    "sInfoFiltered": "(@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info Filtro").IdiPal_Texto))",
+                    "sInfoPostFix": "",
+                    "sSearch": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscador").IdiPal_Texto): ",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Cargando").IdiPal_Texto)",
+                    "oPaginate": {
+                        "sFirst": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Primero").IdiPal_Texto)",
+                        "sLast": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Ultimo").IdiPal_Texto)",
+                        "sNext": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Siguiente").IdiPal_Texto)",
+                        "sPrevious": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Anterior").IdiPal_Texto)"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                "destroy": true,
+                "ajax": {
+                    "type": "GET",
+                    "url": '@Url.Action("MesaOperacionesGrilla")',
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+                "autoWidth": false,
+                "columns": [
+                    {
+                        "orderDataType": "dom-text", "type": "date-moment",
+                        "data": "fecha",
+                        "width": "100px",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Fecha").IdiPal_Texto)',
+                        "render": function(data, type, full, meta) {
+                            return '<input type="text" style="width:100px" class="input-sm form-control bfh-phone datepicker fecha" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" name="fecha" value="'+ data +'" />'
+                        }
+                    },
+                    {
+                        "orderDataType": "dom-text", "type": "time",
+                        "data": "hora",
+                        "width": "50px",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Comunes - Campo - Hora").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<input type="text" style="width:75px" class="input-sm form-control bfh-phone hora" autocomplete="off" data-format="hh:mm" placeholder="HH:MM" name="hora"  value="' + data + '" />'
+                        }
+                    },
+                     {
+                         "orderDataType": "dom-text", "type": "string",
+                         "data": "origen",
+                         //"width": "12.5%",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Detalles Traslado - Origen").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<input  name="origen" type="text" class="form-control input-sm origen" value="' + data + '" />';
+                        }
+                    },
+                    {
+                        "orderDataType": "dom-text", "type": "string",
+                         //"width": "12.5%",
+                        "data": "destino",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Detalles Traslado - Destino").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                             return '<input  name="destino" type="text" class="form-control input-sm destino" value="' + data + '" />';
+                        }
+                    },
+                       {
+                         "orderDataType": "dom-text",
+                         "data": "tiempo",
+                         //"width": "5%",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Detalles Traslado - Tiempo").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<input name="tiempo" style="width:50px;" type="text" class="form-control input-sm tiempo" value="' + data + '" />';
+                        }
+                    },
+                    {
+                         //"width": "5%",
+                        "data": "cantidad",
+                        "class": "claseAlign",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Titulo").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<a style="color:#428bca;cursor:pointer;text-decoration:underline;" class="tripulantes" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmTripulantes"><span id="cantidadTripulantesGrid">' + data + '</span></a><input type="hidden" id="hiddenCantidad" value="' + full['cantidad'] + '"/>';
+                        }
+                    },
+                    {
+                        //"width": "5%",
+                        "data": "privado",
+                        "class": "claseAlign",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Detalles Traslado - Privado").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="privadoGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                         "orderDataType": "dom-select",
+                        "data": "",
+                         "width": "200px",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Vehiculos - Titulo").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<select class="form-control input-sm vehiculo"  style="width:200px;"  name="vehiculo"><option></option>@foreach (var item in BusinessLogic.VehiculosAdmin.GetListVerificados()) {<option value="@item.Veh_Id">@((string.IsNullOrEmpty(item.Veh_Obs) ? item.Veh_Patente  : item.Veh_Patente + " - " + item.Veh_Obs)) </option> }</select><input type="hidden" id="hiddenVehiculo" value="' + full['vehiculo'] + '"/>';
+                            //return '<input name="vehiculo" style="width:200px;" type="text" class="form-control input-sm vehiculo" /><input type="hidden" id="hiddenVehiculo" value="' + full['vehiculo'] + '"/>';
+                        }
+                    },
+                    {
+                        "orderDataType": "dom-select",
+                         //"width": "12.5%",
+                        "data": "",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Detalles Traslado - Chofer").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<select class="form-control input-sm chofer"  style="width:150px;"  name="chofer"><option></option>@foreach (var item in BusinessLogic.EmpleadosAdmin.GetListVerificados("CHOFER")) {<option value="@item.Emp_Id">@item.Personas.Per_Ape </option> }</select><input type="hidden" id="hiddenChofer" value="' + full['chofer'] + '"/>';
+                        }
+                    },
+                    {
+                        "orderDataType": "dom-select",
+                         //"width": "12.5%",
+                        "data": "",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Detalles Traslado - Asistente").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<select class="form-control input-sm asistente"  style="width:150px"  name="asistente"><option></option>@foreach (var item in BusinessLogic.EmpleadosAdmin.GetListVerificados("ASISTENTE")) {<option value="@item.Emp_Id">@item.Personas.Per_Ape </option> }</select><input type="hidden" id="hiddenAsistente" value="' + full['asistente'] + '"/>';
+                        }
+                    },
+                    {
+                        "data": "buqueViaje",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Buques Viajes").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="buqueViajeGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "cliente",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Titulo").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="clienteGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "",
+                         //"width": "2.5%",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)',
+                        "class": "claseAlign",
+                        "render": function(data, type, full, meta) {
+                            var botones = "";
+                            botones += '<button type="button" class="btn btn-success btn-xs" title="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmEdit"><span class="fa fa-check"></span></button>';
+                            return botones;
+                        }
+                    }
+                ],
+                "drawCallback": function (e) {
+                    if (elemento != null) {
+                        $('#'+id).parents('tr').find('.chofer').select2({ allowClear: true, placeholder: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Detalles Traslado - Chofer").IdiPal_Texto)' });
+                        $('#' + id).parents('tr').find('.asistente').select2({ allowClear: true, placeholder: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Detalles Traslado - Asistente").IdiPal_Texto)' });
+                        $('#' + id).parents('tr').find('.vehiculo').select2({ allowClear: true, placeholder: '@Html.Raw(Ajax.JavaScriptStringEncode((((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Vehiculos - Titulo").IdiPal_Texto)))' });
+                        $('#' + id).parents('tr').find('.chofer').select2('val', $('#' + id).parents('tr').find("#hiddenChofer").val());
+                        $('#' + id).parents('tr').find('.asistente').select2('val', $('#' + id).parents('tr').find("#hiddenAsistente").val());
+                        $('#' + id).parents('tr').find('.vehiculo').select2('val', $('#' + id).parents('tr').find("#hiddenVehiculo").val());
+                    }
+                    
+                    $(".hora").off("focusout").on("focusout", function (e) {
+                        validarVehiculoLicenciaServicios($(this));
+                        validarAsistenteServicios($(this));
+                        validarChoferServicios($(this));
+                    });
+                    $('.fecha').off("focusout").on("focusout", function () {
+                        validarVehiculoLicenciaServicios($(this));
+                        validarAsistenteServicios($(this));
+                        validarChoferServicios($(this));
+                    });
+                    $('.tiempo').off("focusout").on("focusout", function () {
+                        validarVehiculoLicenciaServicios($(this));
+                        validarAsistenteServicios($(this));
+                        validarChoferServicios($(this));
+                    });
+                    $('.vehiculo').off("change").on("change", function () {
+                        validarVehiculoLicenciaServicios($(this));
+                    });
+                    $('.chofer').off("change").on("change", function () {
+                        validarChoferServicios($(this));
+                     });
+                    $('.asistente').off("change").on("change", function () {
+                        validarAsistenteServicios($(this));
+                    });
+                },
+                "createdRow": function (row, data, dataIndex) {
+                    $(row).find('.chofer').select2({allowClear:true, placeholder:'@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Detalles Traslado - Chofer").IdiPal_Texto)'});
+                    $(row).find('.asistente').select2({ allowClear: true, placeholder: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Detalles Traslado - Asistente").IdiPal_Texto)' });
+                    $(row).find('.chofer').select2('val', $(row).find("#hiddenChofer").val());
+                    $(row).find('.asistente').select2('val', $(row).find("#hiddenAsistente").val());
+
+                    $(row).find('.vehiculo').select2({
+                        allowClear: true,
+                        placeholder: '@Html.Raw(Ajax.JavaScriptStringEncode((((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Vehiculos - Titulo").IdiPal_Texto)))'
+                    });
+                    $(row).find('.vehiculo').select2('val', $(row).find("#hiddenVehiculo").val());
+                  },
+                "initComplete":function( settings, json){
+                     $('.hora').mask('00:00');
+                     $('.hora').timepicker({
+                         showMeridian: false,
+                         defaultTime: false,
+                         template: false,
+                         twoDigitsHour:true
+                     });
+                }
+            });
+            $('.dataTables_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+        }
+
+        $('body').on("change", '.vehiculo,.chofer,.asistente,.fecha', function () {
+            detectarCambios($(this));
+        });
+
+        $('body').on("keyup", '.hora,.fecha,.origen,.destino,.tiempo', function () {
+            detectarCambios($(this));
+        });
+
+        function detectarCambios(e) {
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row(e.parents('tr')).data();
+
+            if (aData.vehiculo != e.parents('tr').find('.vehiculo').select2('val') ||
+                aData.chofer != e.parents('tr').find('.chofer').select2('val') ||
+                aData.asistente != e.parents('tr').find('.asistente').select2('val') ||
+                aData.origen != e.parents('tr').find('.origen').val() ||
+                aData.destino != e.parents('tr').find('.destino').val() ||
+                aData.hora != e.parents('tr').find('.hora').val() ||
+                aData.fecha != e.parents('tr').find('.fecha').val() ||
+                aData.tiempo != e.parents('tr').find('.tiempo').val()) {
+                e.parents('tr').find('button').removeClass('btn-success').addClass('btn-warning editarRegistro');
+            } else {
+                e.parents('tr').find('button').addClass('btn-success').removeClass('btn-warning editarRegistro');
+            }
+        }
+
+        function validarVehiculoLicenciaServicios(e)
+          {
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row(e.parents('tr')).data();
+            //var licenciaOk = '';
+            //var servicioOk = '';
+            //var cantidadOk = '';
+            var minutes = $(e).parents('tr').find('.tiempo').val() != '' ? $('.tiempo').val() : 0;
+            if (e.parents('tr').find('.vehiculo').select2('val') != '') {
+
+                var _fecha = moment(e.parents('tr').find('.fecha').val() + ' ' + e.parents('tr').find('.hora').val(), 'DD/MM/YYYY hh:mm');
+                var _fechaFin = moment(e.parents('tr').find('.fecha').val() + ' ' + e.parents('tr').find('.hora').val(), 'DD/MM/YYYY hh:mm').add(minutes, 'minutes');
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ValidarVehiculoLicenciaServicios")',
+                    data:   {
+                    "id": aData.id,
+                    "vehId": e.parents('tr').find('.vehiculo').select2('val'),
+                    "fecha": _fecha.format('DD/MM/YYYY HH:mm'),
+                    "fechaFin": _fechaFin.format('DD/MM/YYYY HH:mm'),
+                },
+                    success: function (results) {
+                        if (results.success) {
+                            if (results.licencia != '') {
+                                new PNotify({
+                                    title: '!!!!!',
+                                    text: results.licencia,
+                                    type: 'warning',
+                                    hide: true,
+                                    styling: 'bootstrap3',
+                                    delay: 3000,
+                                    animate: {
+                                        animate: true,
+                                        in_class: 'bounceInDown',
+                                        out_class: 'bounceOutRight'
+                                    }
+                                });
+                            }
+                            if (results.servicio != '') {
+                                new PNotify({
+                                    title: '!!!!!',
+                                    text: results.servicio,
+                                    type: 'warning',
+                                    hide: true,
+                                    styling: 'bootstrap3',
+                                    delay: 3000,
+                                    animate: {
+                                        animate: true,
+                                        in_class: 'bounceInDown',
+                                        out_class: 'bounceOutRight'
+                                    }
+                                });
+                            }
+                            if (results.cantidad != '') {
+                                new PNotify({
+                                    title: '!!!!!',
+                                    text: results.cantidad,
+                                    type: 'warning',
+                                    hide: true,
+                                    styling: 'bootstrap3',
+                                    delay: 3000,
+                                    animate: {
+                                        animate: true,
+                                        in_class: 'bounceInDown',
+                                        out_class: 'bounceOutRight'
+                                    }
+                                });
+                            }
+                        } else {
+                            new PNotify({
+                                title: 'Error!',
+                                text: results.msg,
+                                type: 'danger',
+                                hide: false,
+                                styling: 'bootstrap3',
+                                animation: 'slide'
+                            });
+                        }
+                    },
+                });
+
+
+                @*$.each(e.parents('tr').find('.vehiculo').select2('data').licencias, function (i, item) {
+                    _fechaDesde = moment(item.fechaDesde, 'DD/MM/YYYY');
+                    _fechaHasta = moment(item.fechaHasta, 'DD/MM/YYYY');
+
+                    if (_fechaDesde <= _fecha && _fechaHasta >= _fecha)
+                        licenciaOk = '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Detalles Traslado - Vehiculo Superposicion Licencia Periodo").IdiPal_Texto): ' + _fechaDesde.format('DD/MM/YYYY') + ' - ' + _fechaHasta.format('DD/MM/YYYY') + " - @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Vehiculos - Licencias - Licencia").IdiPal_Texto): " + item.tipo;
+
+                    if (_fechaDesde <= _fecha && item.fechaHasta == '')
+                        licenciaOk = '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Detalles Traslado - Vehiculo Superposicion Licencia Abierta").IdiPal_Texto): \n' + _fechaDesde.format('DD/MM/YYYY') + " - @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Vehiculos - Licencias - Licencia").IdiPal_Texto): " + item.tipo;
+                });
+
+                $.each(e.parents('tr').find('.vehiculo').select2('data').servicios, function (i, item) {
+
+                    _fechaDesde = moment(item.fechaDesde, 'DD/MM/YYYY HH:mm');
+                    _fechaHasta = moment(item.fechaHasta, 'DD/MM/YYYY HH:mm');
+
+                    if (item.id != aData.id) {
+
+                        //verifico la fecha y hora de comienzo
+                        if (_fechaDesde < _fecha && _fechaHasta > _fecha)
+                        {
+                            servicioOk = '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Detalles Traslado - Vehiculo Superposicion Inicio").IdiPal_Texto) \n' +
+                                _fechaDesde.format('DD/MM/YYYY HH:mm') + " - " + _fechaHasta.format('DD/MM/YYYY HH:mm');
+                            return false;
+                        }
+
+                        //verifico la fecha y hora de fin
+                        if (_fechaDesde < _fechaFin && _fechaHasta > _fechaFin)
+                        {
+                            servicioOk = '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Detalles Traslado - Vehiculo Superposicion Fin").IdiPal_Texto) \n' +
+                                _fechaDesde.format('DD/MM/YYYY HH:mm') + " - " + _fechaHasta.format('DD/MM/YYYY HH:mm'); return false;
+                        }
+
+                        //verifico que la fecha de inicio no este antes del comienzo y la fecha hasta luego del fin
+                        if (_fechaDesde >= _fecha && _fechaHasta <= _fechaFin)
+                        {
+                            servicioOk = '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Buques Viajes - Detalles Traslado - Vehiculo Superposicion Rango").IdiPal_Texto) \n' +
+                                _fechaDesde.format('DD/MM/YYYY HH:mm') + " - " + _fechaHasta.format('DD/MM/YYYY HH:mm'); return false;
+                        }
+                    }
+                });
+                if (e.parents('tr').find('.vehiculo').select2('data').cantidad < e.parents('tr').find('#hiddenCantidad').val()) {
+                    cantidadOk = 'La cantidad de tripulantes supera a la capacidad maxima del vehiculo seleccionado ' + e.parents('tr').find('.vehiculo').select2('data').cantidad;
+                }*@
+
+            }
+        }
+        @*function validarChoferServicios(e)
+          {
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row(e.parents('tr')).data();
+            var minutes = $(e).parents('tr').find('.tiempo').val() != '' ? $('.tiempo').val() : 0;
+            if (e.parents('tr').find('.vehiculo').select2('val') != '') {
+                var _fecha = moment(e.parents('tr').find('.fecha').val() + ' ' + e.parents('tr').find('.hora').val(), 'DD/MM/YYYY hh:mm');
+                var _fechaFin = moment(e.parents('tr').find('.fecha').val() + ' ' + e.parents('tr').find('.hora').val(), 'DD/MM/YYYY hh:mm').add(minutes, 'minutes');
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ValidarChoferServicios")',
+                    data:   {
+                    "id": aData.id,
+                    "empId": e.parents('tr').find('.chofer').select2('val'),
+                    "fecha": _fecha.format('DD/MM/YYYY HH:mm'),
+                    "fechaFin": _fechaFin.format('DD/MM/YYYY HH:mm'),
+                },
+                    success: function (results) {
+                        if (results.success) {
+                            if (results.servicio != '') {
+                                new PNotify({
+                                    title: '!!!!!',
+                                    text: results.servicio,
+                                    type: 'warning',
+                                    hide: true,
+                                    styling: 'bootstrap3',
+                                    delay: 3000,
+                                    animate: {
+                                        animate: true,
+                                        in_class: 'bounceInDown',
+                                        out_class: 'bounceOutRight'
+                                    }
+                                });
+                            }
+                        } else {
+                            new PNotify({
+                                title: 'Error!',
+                                text: results.msg,
+                                type: 'danger',
+                                hide: false,
+                                styling: 'bootstrap3',
+                                animation: 'slide'
+                            });
+                        }
+                    },
+                });
+            }
+        }*@
+        function validarAsistenteServicios(e)
+          {
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row(e.parents('tr')).data();
+            var minutes = $(e).parents('tr').find('.tiempo').val() != '' ? $('.tiempo').val() : 0;
+            if (e.parents('tr').find('.asistente').select2('val') != '') {
+                var _fecha = moment(e.parents('tr').find('.fecha').val() + ' ' + e.parents('tr').find('.hora').val(), 'DD/MM/YYYY hh:mm');
+                var _fechaFin = moment(e.parents('tr').find('.fecha').val() + ' ' + e.parents('tr').find('.hora').val(), 'DD/MM/YYYY hh:mm').add(minutes, 'minutes');
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ValidarEmpleadoServicios")',
+                    data:   {
+                    "id": aData.id,
+                    "empId": e.parents('tr').find('.asistente').select2('val'),
+                    "fecha": _fecha.format('DD/MM/YYYY HH:mm'),
+                    "fechaFin": _fechaFin.format('DD/MM/YYYY HH:mm'),
+                },
+                    success: function (results) {
+                        if (results.success) {
+                             if (results.licencia != '') {
+                                new PNotify({
+                                    title: '!!!!!',
+                                    text: results.licencia,
+                                    type: 'warning',
+                                    hide: true,
+                                    styling: 'bootstrap3',
+                                    delay: 3000,
+                                    animate: {
+                                        animate: true,
+                                        in_class: 'bounceInDown',
+                                        out_class: 'bounceOutRight'
+                                    }
+                                });
+                            }
+                            if (results.servicio != '') {
+                                new PNotify({
+                                    title: '!!!!!',
+                                    text: results.servicio,
+                                    type: 'warning',
+                                    hide: true,
+                                    styling: 'bootstrap3',
+                                    delay: 3000,
+                                    animate: {
+                                        animate: true,
+                                        in_class: 'bounceInDown',
+                                        out_class: 'bounceOutRight'
+                                    }
+                                });
+                            }
+                        } else {
+                            new PNotify({
+                                title: 'Error!',
+                                text: results.msg,
+                                type: 'danger',
+                                hide: false,
+                                styling: 'bootstrap3',
+                                animation: 'slide'
+                            });
+                        }
+                    },
+                });
+            }
+        }
+        function validarChoferServicios(e)
+          {
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row(e.parents('tr')).data();
+            var minutes = $(e).parents('tr').find('.tiempo').val() != '' ? $('.tiempo').val() : 0;
+            if (e.parents('tr').find('.chofer').select2('val') != '') {
+                var _fecha = moment(e.parents('tr').find('.fecha').val() + ' ' + e.parents('tr').find('.hora').val(), 'DD/MM/YYYY hh:mm');
+                var _fechaFin = moment(e.parents('tr').find('.fecha').val() + ' ' + e.parents('tr').find('.hora').val(), 'DD/MM/YYYY hh:mm').add(minutes, 'minutes');
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ValidarEmpleadoServicios")',
+                    data:   {
+                    "id": aData.id,
+                    "empId": e.parents('tr').find('.chofer').select2('val'),
+                    "fecha": _fecha.format('DD/MM/YYYY HH:mm'),
+                    "fechaFin": _fechaFin.format('DD/MM/YYYY HH:mm'),
+                },
+                    success: function (results) {
+                        if (results.success) {
+                            if (results.servicio != '') {
+                                new PNotify({
+                                    title: '!!!!!',
+                                    text: results.servicio,
+                                    type: 'warning',
+                                    hide: true,
+                                    styling: 'bootstrap3',
+                                    delay: 3000,
+                                    animate: {
+                                        animate: true,
+                                        in_class: 'bounceInDown',
+                                        out_class: 'bounceOutRight'
+                                    }
+                                });
+                            }
+                             if (results.licencia != '') {
+                                new PNotify({
+                                    title: '!!!!!',
+                                    text: results.licencia,
+                                    type: 'warning',
+                                    hide: true,
+                                    styling: 'bootstrap3',
+                                    delay: 3000,
+                                    animate: {
+                                        animate: true,
+                                        in_class: 'bounceInDown',
+                                        out_class: 'bounceOutRight'
+                                    }
+                                });
+                            }
+                        } else {
+                            new PNotify({
+                                title: 'Error!',
+                                text: results.msg,
+                                type: 'danger',
+                                hide: false,
+                                styling: 'bootstrap3',
+                                animation: 'slide'
+                            });
+                        }
+                    },
+                });
+            }
+        }
+        $('body').off('click', '.tripulantes').on('click', '.tripulantes', function () {
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row($(this).parents('tr')).data();
+            id = aData.id;
+            $(this).parent().parent().find('td').css('background-color', 'yellow');
+            generarTablaTripulantes(aData.tripulantes);
+        });
+        $('#confirmTripulantes,#confirmEdit').on('hidden.bs.modal', function (e) {
+            $('td').css('background-color', '');
+        });
+        function generarTablaTripulantes(f) {
+            var oTable =  $('#dataTables-exampleTripulantes').dataTable({
+                "stateSave":true,
+                //"scrollX": true,
+                "paging":false,
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Paginado").IdiPal_Texto)",
+                   "sZeroRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscar sin resultados").IdiPal_Texto)",
+                   "sEmptyTable": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - No hay datos").IdiPal_Texto)",
+                   "sInfo": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info").IdiPal_Texto)",
+                   "sInfoEmpty": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info sin datos").IdiPal_Texto)",
+                   "sInfoFiltered": "(@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info Filtro").IdiPal_Texto))",
+                   "sInfoPostFix": "",
+                   "sSearch": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscador").IdiPal_Texto): ",
+                   "sUrl": "",
+                   "sInfoThousands": ",",
+                   "sLoadingRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Cargando").IdiPal_Texto)",
+                   "oPaginate": {
+                       "sFirst": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Primero").IdiPal_Texto)",
+                       "sLast": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Ultimo").IdiPal_Texto)",
+                       "sNext": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Siguiente").IdiPal_Texto)",
+                       "sPrevious": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Anterior").IdiPal_Texto)"
+                   },
+                   "oAria": {
+                       "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                       "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                   }
+        },
+        "destroy": true,
+    "data": f,
+    "ordering": false,
+    "autoWidth": true,
+    "bFilter": false,
+        "info":false,
+    "columns": [
+                {
+                    "data": "nombre",
+                    "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Titulo").IdiPal_Texto)',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="nombreGrid">' + data + '</span>';
+                    }
+                },
+                ],
+    });
+    $('.dataTables_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+    }
+        generarTabla();
+
+    });
+
+    window.addEventListener("beforeunload", function (e) {
+        if ($('button.btn-warning').length > 0) {
+            var confirmationMessage = "\o/";
+            (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+            return confirmationMessage; //Webkit, Safari, Chrome
+        } else
+            return true;
+    });
+</script>

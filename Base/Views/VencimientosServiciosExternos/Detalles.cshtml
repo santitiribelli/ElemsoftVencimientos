@@ -1,0 +1,715 @@
+﻿@using Entities
+@if (ViewBag.Alta == true)
+   
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="button" class="btn btn-info  btn-block" id="btnAgregarForm"><i class="fa fa-plus"></i> Agregar</button>
+        </div>
+    </div>
+    <form class="form-horizontal rowAlt" role="form" id="formPrincipal" style="display: none;">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>F. Pagado</label>
+                                <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaPagado" name="fechaPagado" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>F. Vencimiento</label>
+                                <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaVencimiento" name="fechaVencimiento" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Moneda</label>
+                                <select type="text" class="form-control input-sm" name="tipo" id="tipo">
+                                    <option></option>
+                                    @foreach (var item in BusinessLogic.ClasificadoresAdmin.GetList("Monedas Tipos"))
+                                    {
+                                        <option value="@item.Clas_Id">@item.Clas_Desc</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="col-md-1" id="divDescargar" style="display:none;">
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <label>Descargar</label>
+                    <a class="btn btn-success" target="_blank" href="/Uploads/Pagos/@(Model != null ? Model.Com_ArchivoNom : "")"><span class="glyphicon glyphicon-download-alt"></span></a>
+                </div>
+            </div>
+        </div>*@
+                    @*<div class="col-md-2">
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <label style="display:block;">Moneda</label>
+                    <input type="text" class="form-control input-sm" name="moneda" id="moneda" style="text-transform:uppercase" />
+                </div>
+            </div>
+        </div>*@
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Valor Pagado</label>
+                                <input type="text" class="form-control input-sm" autocomplete="off" id="valorPagado" name="valorPagado" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Observación</label>
+                                <textarea rows="2" class="form-control input-sm" name="observacion" id="observacion"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-right btn-Cont">
+                    <button type="submit" class="btn btn-success btn-rounded" id="btnGuardar"><i class="fa fa-check"></i> Guardar</button>
+
+                </div>
+            </div>
+        </div>
+    </form>
+}
+<style>
+    .colHidden {
+        display: none;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example" style="min-width: 100%;">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="confirmEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Editar</h4>
+            </div>
+            <form class="form-horizontal" id="formEdit" method="post">
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>F. Pagado</label>
+                                    <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaPagadoEdit" name="fechaPagadoEdit" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>F. Vencimiento</label>
+                                    <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaVencimientoEdit" name="fechaVencimientoEdit" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Moneda</label>
+                                    <select type="text" class="form-control input-sm" name="tipoEdit" id="tipoEdit">
+                                        <option></option>
+                                        @foreach (var item in BusinessLogic.ClasificadoresAdmin.GetList("Monedas Tipos"))
+                                        {
+                                            <option value="@item.Clas_Id">@item.Clas_Desc</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Valor Pagado</label>
+                                    <input type="text" class="form-control input-sm" id="valorPagadoEdit" name="valorPagadoEdit" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Observación</label>
+                                    <textarea rows="2" class="form-control input-sm" name="observacionEdit" id="observacionEdit"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    @if (ViewBag.Alta == true)
+                    {
+
+                        <button type="submit" class="btn btn-primary btn-rounded" id="btnEditar"><i class="fa fa-check"></i> Guardar</button>
+                        <button type="button" class="btn btn-danger btn-rounded borrarRegistro" title="Borrar" data-toggle="modal" data-target="#confirmDelete"><i class="fa fa-trash"></i> Eliminar</button>
+                    }
+                    <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Eliminar</h4>
+            </div>
+            <div class="modal-body">
+                Confirma que desea eliminar el registro?
+            </div>
+            <div class="modal-footer">
+                @if (ViewBag.Alta == true)
+                {
+                    <button type="button" class="btn btn-primary btn-rounded delete"><i class="fa fa-check"></i> Guardar</button>
+                }
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+       <script>
+    var id;
+    //---------------------------------
+    //Generación de la tabla principal : Listado
+    //---------------------------------
+    function generarTabla() {
+        $('#dataTables-example').dataTable({
+            "stateSave": true,
+            "scrollX": true,
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar: ",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "destroy": true,
+            "ajax": {
+                "type": "GET",
+                "url": '@Url.Action("DetallesGrilla")',
+                "data": { id: $('#vencid').val() },
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+                "ordering": false,
+                "autoWidth": false,
+                "columns": [
+
+
+                    {
+                        "data": "fechaPagado",
+                        "title": 'F. Pagado',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="desdeGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "fechaVencimiento",
+                        "title": 'F. Vecimiento',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="hastaGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "valorPagado",
+                        "title": 'valorPagado',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="hastaGrid">' + data + '</span>';
+                        }
+                    },
+
+
+
+                     {
+                        "data": "tipo",
+                        "title": 'Moneda',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="tipoGrid">' + data + '</span><input type="hidden" id="hiddenTipo" value="' + full['tipoId'] + '"/>';
+                        }
+            },
+                     {
+                     "data": "observacion",
+                    "title": 'Observación',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="observacionGrid">' + data + '</span>';
+                    }
+            },
+                    {
+                        "data": "",
+                        "title": 'Acciones',
+                        "class": "claseAlign",
+                        "render": function (data, type, full, meta) {
+                            var algo = "";
+                            if ('@ViewBag.Alta' == 'True') {
+
+
+                   algo += '<button type="button" class="btn ' + (full['verif'] == true ? "btn-success" : "btn-warning") + ' btn-xs editarRegistro" title="Editar" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmEdit"><span class="glyphicon glyphicon-pencil"></span></button>';
+                                algo += '<button type="button" class="btn ' + (full['verif'] = 0 ? "btn-success" : "btn-danger") + ' btn-xs DeleteRegistro" title="Delete" id="' + full['id'] + '" onclick=@Url.Action("Detalles")/?id=' + full['id'] + '\'"><span class="glyphicon glyphicon-trash"></span></button>';
+
+
+                            }
+
+                            return algo;
+                        }
+                    }
+                ],
+            });
+
+                $('.dataTables_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+    }
+    $(function () {
+
+
+
+        //---------------------------------
+        //Campos de Alta Registro
+        //Validators
+        //---------------------------------
+        //clasificador('tipo', 'Vehiculos - Licencias', 'formPrincipal', true);
+        //clasificador('tipoEdit', 'Vehiculos - Licencias', 'formEdit', true);
+
+        $('#fechaPagado').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaPagado', 'NOT_VALIDATED', null).validateField('fechaPagado');
+
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaVencimiento', 'NOT_VALIDATED', null).validateField('fechaVencimiento');
+
+        });
+
+        $('#fechaVencimiento').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                // Mark the field as not validated, so it'll be re-validated when the user change date
+                .updateStatus('fechaPagado', 'NOT_VALIDATED', null)
+                // Validate the field
+                .validateField('fechaPagado');
+        });
+
+        $.fn.bootstrapValidator.validators.dates = {
+            validate: function (validator, $field, options) {
+                if ($('#fechaPagado').val() == '')
+                    return true;
+                var d1 = $('#fechaVencimiento').val();
+                var d2 = $('#fechaPagado').val();
+                d1 = d1.split('/');
+                d2 = d2.split('/');
+                d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                return d2 >= d1;
+            }
+        };
+
+        //---------------------------------
+        //Insert Submit Registro
+        //Validators
+        //---------------------------------
+        $('#formPrincipal').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnGuardar',
+            fields: {
+
+                fechaPagado: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: 'Formato incorrecto'
+                        }
+                    }
+                },
+                fechaVencimiento: {
+                    validators: {
+
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: 'Formato incorrecto'
+                        },
+
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            //----------------------
+            //Submit del Form Insert
+            //----------------------
+            e.preventDefault();
+            var sessionData = {
+
+                /*"VenSerExtDet_Id": id,*/
+                "VenSerExt_Id": $("#vencid").val(),
+                "VenSerExtDet_FechaPagado": $("#fechaPagado").val(),
+                "VenSerExtDet_FechaVencimiento": $("#fechaVencimiento").val(),
+                "VenSerExtDet_ValorPagado": $("#valorPagado").val(),
+                "Clas_MonedasTipos_Id": $("#tipo").val(),
+                "VenSerExtDet_Obs": $("#observacion").val(),
+
+
+            };
+            $.ajax({
+                url: '@Url.Action("Detalles")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro guardado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000,
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'bounceOutRight'
+                            }
+                        });
+
+                        $('#tabDetalles').removeClass('sinInfo text-info');
+                        $('#tabDetalles i').remove();
+                        $('#tipo').select2('data', null)
+                        $('#observacion').val('');
+                        $('#fechaPagado,#fechaVencimiento').datepicker('update', '');
+                        $('#valorPagado').val('');
+                        $('#formPrincipal').bootstrapValidator('resetForm');
+
+                        generarTabla();
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        //---------------------------------
+        //Campos de Edición Registro
+        //Validators
+        //---------------------------------
+        $('#tipoEdit').select2();
+
+
+        $('#fechaPagadoEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaPagadoEdit', 'NOT_VALIDATED', null).validateField('fechaPagadoEdit');
+
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaVencimientoEdit', 'NOT_VALIDATED', null).validateField('fechaVencimientoEdit');
+        });
+
+        $('#fechaHastaEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaVencimientoEdit', 'NOT_VALIDATED', null).validateField('fechaVencimientoEdit');
+        });
+
+        $.fn.bootstrapValidator.validators.datesEdit = {
+            validate: function (validator, $field, options) {
+                if ($('#fechaVencimientoEdit').val() == '')
+                    return true;
+                var d1 = $('#fechaPagadoEdit').val();
+                var d2 = $('#fechaVencimientoEdit').val();
+                d1 = d1.split('/');
+                d2 = d2.split('/');
+                d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                return d2 >= d1;
+            }
+        };
+
+        //---------------------------------
+        //Edición Submit Registro
+        //Validators
+        //---------------------------------
+        $('#formEdit').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnEditar',
+            fields: {
+                tipoEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                fechaPagadoEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: 'Formato incorrecto'
+                        }
+                    }
+                },
+                fechaVencimientoEdit: {
+                    validators: {
+                        datesEdit: {
+                            message: 'La fecha hasta debe ser menor a la fecha desde'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: 'Formato incorrecto'
+                        },
+                        @*callback: {
+                            message: 'verifique las fechas. <br />',
+                            callback: function (value, validator) {
+                                var mensaje = '';
+                                var estado = true;
+                                if ($('#fechaDesdeEdit').val() != '') {
+                                    $.ajax({
+                                        type: "POST",
+                                        async: false,
+                                        url: '@Url.Action("ValidarFechasLicencias")',
+                                        dataType: 'json',
+                                        data: { desde: $('#fechaDesdeEdit').val(), hasta: $('#fechaHastaEdit').val(), idPropio: id, vehiculoId: $('#vehiculoId').val() },
+                                        success: function (data) {
+                                            mensaje = data.msg;
+                                            estado = data.success;
+                                        }
+                                    });
+
+                                    return {
+                                        valid: estado,
+                                        message: mensaje + '<br />'
+                                    };
+
+                                } else {
+                                    message: 'fecha desde y hasta es requerido. <br />'
+                                    return false;
+                                }
+                            }
+                        }*@
+                    }
+                },
+
+            }
+        }).on('success.form.bv', function (e) {
+            //----------------------
+            //Submit del Form Edit
+            //----------------------
+            e.preventDefault();
+            var sessionData = {
+                "VenSerExtDet_Id": id,
+                "VenSerExt_Id": $("#vencid").val(),
+                "VenSerExtDet_FechaPagado": $("#fechaPagadoEdit").val(),
+                "VenSerExtDet_FechaVencimiento": $("#fechaVencimientoEdit").val(),
+                "VenSerExtDet_ValorPagado": $("#valorPagadoEdit").val(),
+                "Clas_MonedasTipos_Id": $("#tipoEdit").val(),
+                "VenSerExtDet_Obs": $("#observacionEdit").val(),
+
+
+            };
+            $.ajax({
+                url: '@Url.Action("Detalles")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro actualizado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000,
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'bounceOutRight'
+                            }
+                        });
+
+                        $('#tipoEdit').select2('data', null);
+                        $('#fechaPagadoEdit,#fechafechaVencimientoEdit').datepicker('update', '');
+                        $('#observacionEdit, #hiddenTipoEdit').val('');
+                        $('#formEdit').bootstrapValidator('resetForm');
+                        id = null;
+
+                        $('#confirmEdit').modal('hide');
+                         generarTabla();
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        //-------------------------
+        //Editar btn Grilla
+        //-------------------------
+        $('body').off('click', '.editarRegistro').on('click', '.editarRegistro', function () {
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row($(this).parents('tr')).data();
+            id = aData.id;
+            $(this).parent().parent().find('td').css('background-color', 'yellow');
+            $('#observacionEdit').val(aData.observacion);
+            $('#fechaPagadoEdit').val(aData.fechaPagado);
+            $('#fechaVencimientoEdit').val(aData.fechaVencimiento);
+            $('#tipoEdit').val(aData.tipoId).trigger('change');
+
+
+
+
+        });
+        $('body').off('click', '.DeleteRegistro').on('click', '.DeleteRegistro', function () {
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row($(this).parents('tr')).data();
+            id = aData.id;
+            $(this).parent().parent().find('td').css('background-color', 'yellow');
+            if (confirm("Confirma Eliminar el Registro?")) {
+                return false;
+            
+             $.ajax({
+                url: '@Url.Action("DetallesDelete")',
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro eliminado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#confirmEdit, #confirmDelete').modal('hide');
+                        id = null;
+                        $('td').css('background-color', '');
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+             });
+            }
+        });
+
+        $('body').off('click', '.delete').on('click', '.delete', function () {
+            $.ajax({
+                url: '@Url.Action("DetallesDelete")',
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro eliminado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#confirmEdit,confirmDelete').modal('hide');
+                        id = null;
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+
+
+
+        $('#confirmEdit, #confirmDelete, #visualizarRegistro').on('hidden.bs.modal', function (e) {
+            id = null;
+            $('td').css('background-color', '');
+        });
+
+        generarTabla();
+    });
+       </script>

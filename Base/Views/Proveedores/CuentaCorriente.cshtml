@@ -1,0 +1,848 @@
+﻿@using BusinessLogic
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                    <h1>Saldo: <label id="labelSaldo"></label> </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Comprobantes
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example" style="min-width: 100%;">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Pedidos pendiente de recepción
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-pendientes" style="min-width: 100%;">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 90%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Pagos Realizados</h4>
+                </div>
+                <div class="modal-body">
+                    @if (ViewBag.Alta == true)
+{
+    <form class="form-horizontal rowAlt" role="form" id="formPrincipal" style="display: none;">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Forma de Pago</label>
+                                <select class="form-control input-sm" style="width: 100%;" id="formaPago" name="formaPago">
+                                    <option></option>
+                                    @foreach (var item in ClasificadoresAdmin.GetList("Formas de Pago"))
+                                    {
+                                        <option value="@item.Clas_Id">@item.Clas_Desc</option>
+                                    }
+                                </select>
+                            </div></div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Fecha</label>
+                                <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" id="fecha" name="fecha" data-format="dd/dd/dddd" />
+                            </div></div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Importe</label>
+                                <input type="text" class="form-control input-sm numeros" id="importe" name="importe" />
+                            </div>
+                        </div>
+                    </div>
+                <div class="clearfix"></div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Observación</label>
+                                <textarea class="form-control input-sm" maxlength="200" rows="3" id="observacion" name="observacion"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Cuenta Bancaria</label>
+                                <select class="form-control input-sm" style="width: 100%;" id="cuentaBancaria" name="cuentaBancaria">
+                                    <option></option>
+                                    @foreach (var item in CuentasBancariasAdmin.GetList())
+                                    {
+                                        <option value="@item.CueBan_Id">@(item.Clasificadores.Clas_Abrev + " - " + item.CueBan_Den)</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Cheque</label>
+                                <input type="text" class="form-control input-sm" id="chequera" name="chequera" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-12" id="divMovivimientoMonedero" style="display: none;">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Movimiento de Monedero</label>
+                                <input type="text" class="form-control input-sm" id="monedero" name="monedero" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="divDatosCheques" style="display: none;">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label style="display: block;">Diferido</label>
+                                    <input type="checkbox" name="diferido" id="diferido" data-on-color="success" data-off-color="success" data-on-text="Si" data-off-text="No" checked>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Fecha Emisión</label>
+                                    <input type="text" class="input-sm form-control bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaEmision" name="fechaEmision" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Fecha Pago</label>
+                                    <input type="text" class="input-sm form-control bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaPago" name="fechaPago" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="pull-right btn-Cont">
+                    <button type="submit" class="btn btn-success btn-rounded" id="btnGuardar"><i class="fa fa-check"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                </div>
+            </div>
+            </div>
+    </form>
+}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover" id="dataTables-pagos" style="width: 100%;">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    var id;
+    var compraId;
+    var renglon;
+    $(function() {
+        $('#dataTables-example').dataTable({
+            "scrollX": true,
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar: ",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "destroy": true,
+            "ajax": {
+                "type": "GET",
+                "url": '@Url.Action("CuentaCorrienteGrilla")',
+                "data": { id: $('#proveedorId').val() },
+                "dataType": 'json',
+                "dataSrc": ""
+            },
+            "ordering": false,
+            "autoWidth": true,
+            "columns": [
+                {
+                    "data": "fechaPedido",
+                    "title": 'F. Pedido',
+                    "render": function(data, type, full, meta) {
+                        return '<span id="vendedorGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "fechaComprobante",
+                    "title": 'F. Comprobante',
+                    "render": function(data, type, full, meta) {
+                        return '<span id="preventistaGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "formulario",
+                    "title": 'Comprobante',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="preventistaGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "sClass": "textAlignRight",
+                    "data": "total",
+                    "title": 'Total',
+                    "render": function(data, type, full, meta) {
+                        return '<span id="importeGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "sClass": "textAlignRight",
+                    "data": "pagado",
+                    "title": 'Pagado',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="pagadoGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "sClass": "textAlignRight",
+                    "data": "saldo",
+                    "title": 'Saldo',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="saldoGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "data": "",
+                    "title": 'Acciones',
+                    "class": "claseAlign",
+                    "render": function(data, type, full, meta) {
+                        var algo = "";
+                        algo += '<button type="button" class="btn btn-success btn-xs pagos" title="Ver Pagos realizados" id="' + full['id'] + '" compra="' + full['compraId'] + '" data-toggle="modal" data-target="#confirmEdit"><span class="glyphicon glyphicon-list"></span></button>';
+                        if (full['esCompra'] == true)
+                            algo +=
+                                '<button type="button" class="btn btn-info btn-xs" title="Ir al registro de Orden de Pedido" id="' +
+                                full['compraId'] +
+                                '" onclick="location.href=\'@Url.Action("Index", "Compras")/?id=' +
+                                full['compraId'] +
+                                '\'"><span class="glyphicon glyphicon-step-forward"></span></button>';
+                        else
+                            algo +=
+                                '<button type="button" class="btn btn-info btn-xs" title="Ir al registro de Gasto" id="' +
+                                full['compraId'] +
+                                '" onclick="location.href=\'@Url.Action("Index", "Gastos")/?id=' +
+                                full['compraId'] +
+                                '\'"><span class="glyphicon glyphicon-step-forward"></span></button>';
+                        return algo;
+                    }
+                }
+            ],
+            "initComplete": function (row, data, start, end, display) {
+                var montoCancelado = 0;
+                //var api = this.api(), data;
+                for (var i = 0; i < data.length; i++) {
+                    montoCancelado = parseFloat(montoCancelado) + parseCurrency(data[i].saldo);
+                }
+                $('#labelSaldo').text(numeral(montoCancelado).format('0,0.00'));
+            }
+        });
+
+        $('#dataTables-example_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+
+        function generarTablaPagos(cajaId) {
+            $('#dataTables-pagos').dataTable({
+                "stateSave": true,
+                "scrollX": true,
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar: ",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                "destroy": true,
+                "ajax": {
+                    "type": "GET",
+                    "url": '@Url.Action("FormasPagoGrilla","Compras")',
+                    "data": { id: cajaId },
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+                "ordering": false,
+                "autoWidth": true,
+                "columns": [
+                    {
+                        "data": "fecha",
+                        "title": 'Fecha',
+                        "render": function (data, type, full, meta) {
+                            return "<span id='fechaGrid'>" + data + "</span>";
+                        }
+                    },
+                    {
+                        "data": "formaPago",
+                        "title": 'Forma de Pago',
+                        "render": function (data, type, full, meta) {
+                            return "<span id='formaPagoGrid'>" + data + "</span>";
+                        }
+                    },
+
+                    {
+                        "data": "importe",
+                        "title": 'Importe',
+                        "render": function (data, type, full, meta) {
+                            return "<span class='numero' id='importeGrid'>" + data + "</span>";
+                        }
+                    },
+                    {
+                        "data": "cuentaBancaria",
+                        "title": 'Cuenta Bancaria',
+                        "render": function (data, type, full, meta) {
+                            return "<span class='numero' id='cuentaBancariaGrid'>" + data + "</span>";
+                        }
+                    },
+                    {
+                        "data": "chequera",
+                        "title": 'Cheque',
+                        "render": function (data, type, full, meta) {
+                            return "<span class='numero' id='chequeGrid'>" + data + "</span>";
+                        }
+                    },
+                    {
+                        "data": "observacion",
+                        "title": 'Observación',
+                        "render": function (data, type, full, meta) {
+                            return "<span id='observacionGrid'>" + data + "</span>";
+                        }
+                    },
+                ],
+            });
+            $('#dataTables-pagos_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+        }
+
+        $('body').on('click', '.pagos', function (e) {
+            id = this.id;
+            compraId = $(this).attr('compra');
+            renglon = $(this);
+            generarTablaPagos(compraId);
+            $('#formPrincipal').bootstrapValidator('updateOption', 'importe', 'lessThan', 'value', parseCurrency(renglon.parents('tr').find('#saldoGrid').text()));
+        });
+
+        //CHEQUES
+
+        $("[name='diferido']").bootstrapSwitch('state', true, false);
+
+        $('#diferido').on('switchChange.bootstrapSwitch', function (event, state) {
+            if (state == true) {
+                $('#fechaPago').removeAttr('readonly');
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('fechaPago', true);
+            } else {
+                $('#fechaPago').attr('readonly', 'readonly');
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('fechaPago', false);
+                $('#fechaPago').val($('#fechaEmision').val());
+            }
+        });
+
+        $('#fechaEmision').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaEmision', 'NOT_VALIDATED', null)
+                .validateField('fechaEmision');
+
+            if ($('[name="diferido"]').bootstrapSwitch('state') == false) {
+                $('#fechaPago').val($('#fechaEmision').val());
+            } else {
+                $('#formPrincipal').bootstrapValidator('updateOption', 'fechaPago', 'date', 'min', $('#fechaEmision').val());
+            }
+        });
+
+        $('#fechaPago').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaPago', 'NOT_VALIDATED', null)
+                .validateField('fechaPago');
+        });
+
+        //FIN CHEQUES
+
+        $('#confirmEdit').on('shown.bs.modal', function (e) {
+            $('#formPrincipal').data('bootstrapValidator').updateStatus('importe', 'NOT_VALIDATED').validateField('importe');
+        });
+
+        function cargarMonedero() {
+            $.ajax({
+                url: '@Url.Action("GetRetirosSaldoPositivo", "Monedero")',
+                dataType: 'json',
+                type: 'GET',
+                success: function (data) {
+                    $('#monedero,#monederoEdit').select2({
+                        data: data
+                    });
+                }
+            });
+        }
+        $('#monedero').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('importe', 'NOT_VALIDATED', null)
+                .validateField('importe');
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('monedero', 'NOT_VALIDATED', null)
+                .validateField('monedero');
+        });
+
+        $('#formaPago').select2();
+
+        $('#cuentaBancaria').select2({ allowClear: false });
+        $('#chequera').select2({ allowClear: false, placeholder: 'Seleccione una cuenta', data: [] });
+        $('#cuentaBancaria').on('change', function () {
+            $('#formPrincipal').bootstrapValidator('resetField', 'chequera', false);
+            $.ajax({
+                url: '@Url.Action("GetChequerasByCuentaBancaria", "CuentasBancarias")',
+                type: 'POST',
+                data: { id: $('#cuentaBancaria').select2('val') },
+                success: function (results2) {
+                    if (results2.success) {
+                        $('#chequera').select2('destroy').select2({
+                            allowClear: false,
+                            data: results2.msg
+                        });
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results2.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        $('#formaPago').on("change", function () {
+            if ($('#formaPago').select2('data').text == "CHEQUE") {
+                $('#divMovivimientoMonedero,#divTransferencia').hide();
+                $('#divDatosCheques').show();
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('observacion', true);
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('importe', false, 'callback');
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('monedero', false);
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('chequera', true, 'notEmpty');
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('cuentaBancaria', true, 'notEmpty');
+                $('#cuentaBancaria,#chequera').select2('readonly', false);
+                $('#monedero').select2('data', null).select2('readonly', true);
+            } else if ($('#formaPago').select2('data').text == "TRANSFERENCIA") {
+                $('#divMovivimientoMonedero,#divDatosCheques').hide();
+                $('#divTransferencia').show();
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('observacion', false);
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('importe', false, 'callback');
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('monedero', false);
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('chequera', false, 'notEmpty');
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('cuentaBancaria', true, 'notEmpty');
+                $('#chequera').select2('data', null).select2('readonly', true);
+                $('#cuentaBancaria').select2('readonly', false);
+                $('#monedero').select2('data', null).select2('readonly', true);
+            } else {
+                $('#divMovivimientoMonedero').show();
+                $('#divDatosCheques,#divTransferencia').hide();
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('observacion', false);
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('importe', true, 'callback');
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('monedero', true);
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('chequera', false, 'notEmpty');
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('cuentaBancaria', false, 'notEmpty');
+                $('#cuentaBancaria,#chequera').select2('data', null);
+                $('#cuentaBancaria,#chequera').select2('readonly', true);
+                $('#monedero').select2('readonly', false);
+
+            }
+        });
+
+        $('#chequera').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator').updateStatus('chequera', 'NOT_VALIDATED', null).validateField('chequera');
+
+            if ($('#chequera').select2('data').importe > 0) {
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('observacion', false);
+                $('#fechaEmision,#fechaPago').attr('readonly', 'readonly');
+                $('#fechaEmision').val($('#chequera').select2('data').fechaEmision);
+                $('#fechaPago').val($('#chequera').select2('data').fechaPago);
+                $("[name='diferido']").bootstrapSwitch('state', $('#chequera').select2('data').diferido);
+                $("[name='diferido']").bootstrapSwitch('disabled', true);
+            } else {
+                $('#formPrincipal').data('bootstrapValidator').enableFieldValidators('observacion', true);
+                $('#fechaEmision,#fechaPago').removeAttr('readonly');
+                $('#fechaEmision,#fechaPago').datepicker('update', '');
+                $("[name='diferido']").bootstrapSwitch('disabled', false);
+            }
+            $('#formPrincipal').data('bootstrapValidator').updateStatus('fechaPago', 'NOT_VALIDATED', null).validateField('fechaPago');
+            $('#formPrincipal').data('bootstrapValidator').updateStatus('fechaEmision', 'NOT_VALIDATED', null).validateField('fechaEmision');
+            $('#formPrincipal').data('bootstrapValidator').updateStatus('importe', 'NOT_VALIDATED', null).validateField('importe');
+        });
+
+        $('#fecha').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fecha', 'NOT_VALIDATED', null)
+                .validateField('fecha');
+        });
+
+        $.fn.bootstrapValidator.validators.importeCheque = {
+            validate: function (validator, $field, options) {
+                if ($('#formaPago').select2('data').text != "CHEQUE" || ($('#formaPago').select2('data').text == "CHEQUE" && parseCurrency($('#chequera').select2('data').importe) == 0))
+                    return true;
+
+                return parseCurrency($('#chequera').select2('data').saldo) >= parseCurrency($('#importe').val());
+            }
+        };
+
+        $('#formPrincipal').bootstrapValidator({
+            submitButtons: '#btnGuardar',
+            live: 'enabled',
+            fields: {
+                formaPago: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                cuentaBancaria: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                chequera: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                monedero: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                observacion: {
+                    enabled: false,
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                textoComprobante: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                importe: {
+                    validators: {
+                        //numeric: {
+                        //    message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Solo Numeros").IdiPal_Texto)',
+                        //    separator: '.'
+                        //},
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                        regexp: {
+                            regexp: /^\d+(,\d{3})*(\.\d*)?$/,
+                            message: 'solo números'
+                        },
+                        callback: {
+                            message: 'El importe cargado es superior al posible para rendir',
+                            callback: function (value, validator) {
+                                if ($('#monedero').select2('val') != '' && parseFloat($('#monedero').select2('data').saldo) < parseCurrency($('#importe').val())) {
+                                    return false;
+                                } else {
+                                    return true;
+                                }
+                            }
+                        },
+                        lessThan: {
+                            message: 'el importe no puede ser superior a %s',
+                            inclusive: true,
+                            value: 3000
+                        },
+                        importeCheque: {
+                            message: 'El importe no puede ser superior al disponible en el cheque.'
+                        }
+                    }
+                },
+                fecha: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Formato incorrecto").IdiPal_Texto)'
+                        }
+                    }
+                },
+                fechaEmision: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Formato incorrecto").IdiPal_Texto)'
+                        }
+                    }
+                },
+                fechaPago: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                        //date: {
+                        //    format: 'DD/MM/YYYY',
+                        //    message: "La fecha debe ser mayor ",
+                        //    min: $('#fechaEmision').val()
+                        //},
+                        callback: {
+                            message: 'La fecha de pago debe ser posterior a la de emisión',
+                            callback: function (value, validator) {
+                                var m = new moment(value, 'DD/MM/YYYY', true);
+                                var m2 = new moment($('#fechaEmision').val(), 'DD/MM/YYYY', true);
+                                if (!m.isValid()) {
+                                    return false;
+                                }
+                                return m.isAfter(m2);
+                            }
+                        }
+                    }
+                },
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var sessionData = {
+                "Com_Id": compraId,
+                "ClasInt_ForPag_Id": $("#formaPago").select2("val"),
+                "ComForPag_Imp": parseCurrency($("#importe").val()),
+                "ComForPag_Fec": $("#fecha").val(),
+                "ComForPag_Desc": $("#observacion").val(),
+                "CueBan_Id": $("#cuentaBancaria").select2("val"),
+                "Cheq_Id": $("#chequera").select2("val"),
+                "ComCom_Id": id,
+                "BilMov_Id": $("#monedero").select2("val"),
+            };
+
+            var chequeData = {
+                "CheqEmi_Id": $("#chequera").select2("val"),
+                "CueBan_Id": $("#cuentaBancaria").select2("val"),
+                "CheqEmi_Dif": $('[name="diferido"]').bootstrapSwitch('state'),
+                "CheqEmi_FechaEmi": $("#fechaEmision").val(),
+                "CheqEmi_FechaPago": $("#fechaPago").val(),
+                "CheqEmi_Imp": parseCurrency($("#importe").val()),
+                "CheqEmi_Detalle": $("#observacion").val(),
+            };
+
+            $.ajax({
+                url: '@Url.Action("FormasPago","Compras")',
+                type: 'POST',
+                data: JSON.stringify({ model: sessionData, cheque: chequeData, comprobante: $('#textoComprobante').val() }),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: 'Exito!',
+                            text: 'Pago generado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000,
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'bounceOutRight'
+                            }
+                        });
+
+                        //actualizo los datos en la grilla principal
+                        renglon.parents('tr').find('#pagadoGrid').text(numeral(parseCurrency(renglon.parents('tr').find('#pagadoGrid').text()) + parseCurrency($('#importe').val())).format('0,0.00'));
+                        renglon.parents('tr').find('#saldoGrid').text(numeral(parseCurrency(renglon.parents('tr').find('#importeGrid').text()) - parseCurrency(renglon.parents('tr').find('#pagadoGrid').text())).format('0,0.00'));
+
+                        //actualizo el campo total en saldo
+                        $('#labelSaldo').text(numeral(parseCurrency($('#labelSaldo').text()) - parseCurrency($('#importe').val())).format('0,0.00'));
+
+                        $('#formaPago,#cuentaBancaria,#chequera').select2('data', null);
+                        $('#importe,#fecha,#observacion').val('');
+                        $('#formPrincipal').bootstrapValidator('resetForm');
+                        $('#divDatosCheques,#divMovivimientoMonedero').hide();
+                        cargarMonedero();
+                        generarTablaPagos(id);
+
+
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        $('#dataTables-pendientes').dataTable({
+            "scrollX": true,
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar: ",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "destroy": true,
+            "ajax": {
+                "type": "GET",
+                "url": '@Url.Action("CuentaCorrientePendientesGrilla")',
+                "data": { id: $('#proveedorId').val() },
+                "dataType": 'json',
+                "dataSrc": ""
+            },
+            "ordering": false,
+            "autoWidth": true,
+            "columns": [
+                {
+                    "data": "fechaPedido",
+                    "title": 'F. Pedido',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="vendedorGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "sClass": "textAlignRight",
+                    "data": "importe",
+                    "title": 'Importe',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="importeGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "sClass": "textAlignRight",
+                    "data": "pagado",
+                    "title": 'Pagado',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="pagadoGrid">' + data + '</span>';
+                    }
+                },
+                {
+                    "sClass": "textAlignRight",
+                    "data": "saldo",
+                    "title": 'Saldo',
+                    "render": function (data, type, full, meta) {
+                        return '<span id="saldoGrid">' + data + '</span>';
+                    }
+                },
+                //{
+                //    "data": "",
+                //    "title": 'Acciones',
+                //    "class": "claseAlign",
+                //    "render": function (data, type, full, meta) {
+                //        var algo = "";
+                //        algo += '<button type="button" class="btn btn-success btn-xs pagos" title="Ver Pagos realizados" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmEdit"><span class="glyphicon glyphicon-list"></span></button>';
+                //        return algo;
+                //    }
+                //}
+            ],
+        });
+
+        $('#dataTables-pendientes_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+
+        cargarMonedero();
+    });
+
+</script>

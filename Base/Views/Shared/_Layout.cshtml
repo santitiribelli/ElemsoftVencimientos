@@ -1,0 +1,394 @@
+﻿@using BusinessLogic
+@using Entities
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/png" href="@Url.Content("~/Images/logo-h.png")" />
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <title>@System.Configuration.ConfigurationManager.AppSettings["EmpresaNombre"]</title>
+    
+
+    <script src="https://kit.fontawesome.com/f607fed533.js" crossorigin="anonymous"></script>
+    <link href="@Url.Content("~/Content/pnotify.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/pnotify.buttons.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/fileinput.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/glyphicons-halflings.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/bootstrapValidator.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/bootstrap-editable.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/select2.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/select2-bootstrap.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/bootstrap-switch.css")" rel="stylesheet">
+    <!--<link href="css/flat-ui.css" rel="stylesheet">-->
+    @*<link href="@Url.Content("~/Content/font-awesome.css")" rel="stylesheet">*@
+    <link href="@Url.Content("~/fontsawesome/fontawesome-all.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/animate.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/dataTables.bootstrap.css")" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/sb-admin.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/bootstrap-datetimepicker.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/bootstrap-timepicker.css")" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+    <script src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="~/Scripts/assets/js/html5shiv.js"></script>
+        <script src="~/Scripts/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div id="wrapper" style="background-color: cadetblue;">
+
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0;@(ViewBag.Produccion == true ? "" : "background-color:red;")">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("Index","Home")" style="text-transform: uppercase;">
+                    <img alt="" src="@Url.Content("~/images/logo-h.png")" style="width: 9%; position: relative; top: -15px;" />
+                </a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right linksArriba" style="position: fixed;top: 0;right: 0;">
+                <li class="dropdown">
+                <li><a href="@Url.Action("Buscador", "Vehiculos")">Vehículos</a></li>
+                </li>
+                <li class="dropdown primerNivel">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-copy fa-fw"></i>Auxiliares <i class="fa fa-caret-down"></i></a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="@Url.Action("Index", "Clasificadores")">Clasificadores</a></li>
+                        <li><a href="@Url.Action("Buscador", "VencimientosServiciosExternos")">Vencimientos Servicios Externos</a></li>
+                        <li class="divider"></li>
+                        <li role="presentation" class="dropdown-header">Seguridad</li>
+                        <li><a href="@Url.Action("Usuarios", "Seguridad")">Usuarios</a></li>
+                        <li><a href="@Url.Action("Roles", "Seguridad")">Roles</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i><span style="text-decoration: underline;">@ViewBag.Usuario</span><i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="/"><i class="fa fa-sign-out fa-fw"></i>Cerrar Sesión</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <!-- /.navbar-top-links -->
+
+
+        </nav>
+        <div id="page-wrapper">
+            <!-- ///contenido de las vistas -->
+            @RenderBody()
+            <!-- contenido de las vistas/// -->
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+
+    </div>
+
+    <script src="@Url.Content("~/Scripts/fileinput.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.blockUI.js")"></script>
+    <script src="@Url.Content("~/Scripts/blockUI.build.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrapValidator.js")"></script>
+    <script src="@Url.Content("~/Scripts/select2.js")"></script>
+    
+    @*<script src="@Url.Content("~/Scripts/select2_locale_es.js")"></script>*@
+
+
+    <script src="@Url.Content("~/Scripts/bootstrap-switch.js")"></script>
+    <script src="@Url.Content("~/Scripts/moments.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/moment.js")"></script>*@
+    <script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
+    
+    <script src="@Url.Content("~/Scripts/bootstrap-formhelpers.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.dataTables.js")"></script>
+    <script src="@Url.Content("~/Scripts/dataTables.bootstrap.js")"></script>
+    <script src="@Url.Content("~/Scripts/dataTables.fixedColums.js")"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery.metisMenu.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.mask.min.js")"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.12/sorting/datetime-moment.js"></script>
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="@Url.Content("~/Scripts/sb-admin.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/numeral.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/pnotify.custom.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.hotkeys.js")"></script>
+    @*tabs*@
+    <script src="@Url.Content("~/Scripts/jquery.droptabs.min.js")"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+    <script src="@Url.Content("~/Scripts/bootstrap-datetimepicker.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap-timepicker.js")"></script>
+    <div id="alertMessage2"></div>
+
+</body>
+<script>
+    var idleTime = 0;
+    $(function () {
+
+        var idleInterval = setInterval(timerIncrement, 5000);
+
+
+        $(this).mousemove(function (e) {
+            idleTime = 0;
+        });
+        $(this).keypress(function (e) {
+            idleTime = 0;
+        });
+
+        $('input[type="search"]').focus();
+
+        $('body').on('focus', '.datepicker', function () {
+
+            $(this).datepicker({
+                format: "dd/mm/yyyy",
+                startView: 1,
+                todayBtn: "linked",
+                //language: "es",
+                autoclose: true
+            });
+        });
+
+        $('body').on('click', '#btnAgregarFormDoc', function () {
+            $('#docModal').toggle();
+        });
+
+        $('body').on('click', '#btnAgregarForm', function () {
+            $('form[role="form"]').toggle();
+        });
+
+        $('input').on('keydown', null, 'f2', function () {
+            $('#confirmClasRapido').modal('show');
+        });
+
+        $('select').on('keydown', null, 'f2', function () {
+            $('#confirmClasRapido').modal('show');
+        });
+
+        $('body').on('keydown', null, 'f2', function () {
+            $('#confirmClasRapido').modal('show');
+        });
+
+        $(document).on('focus',':input',function(){
+            $(this).attr('autocomplete','off');
+        });
+
+        $('body').bind('keydown', 'f9', function () {
+            $('#modalIssue').modal('toggle');
+        });
+
+        $('#issueTipo').select2();
+
+        $('#btnConfirmarIssue').on('click', function () {
+            var sessionData = {
+                "es_error": $("#issueTipo").select2("val"),
+                "referencia_ped": $("#issueReferencia").val(),
+                "obs_pedido": $("#issueObservacion").val()
+            };
+            $.ajax({
+                url: '/Error/SolicitudCambios',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'success',
+                            texto: 'Solicitud cargada exitosamente',
+                        });
+
+                        $('#issueTipo').select2('data', null);
+                        $('#issueReferencia,#issueObservacion').val('');
+
+                        $('#modalIssue').modal('toggle');
+
+                    } else {
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'danger',
+                            texto: results.msg,
+                        });
+                    }
+                }
+            });
+        });
+    });
+    function timerIncrement() {
+        idleTime = idleTime + 1;
+        if (idleTime == @(System.Web.HttpContext.Current.Session.Timeout * 12)) { //60 secs
+
+            new PNotify({
+                title: 'Alerta!',
+                text: 'La sesión fue cerrada por inactivadad.',
+                icon: 'glyphicon glyphicon-exclamation-sign',
+                styling: 'bootstrap3',
+                hide: false,
+                confirm: {
+                    confirm: true,
+                    buttons: [
+                        {
+                            text: 'Ok',
+                            addClass: 'btn-primary',
+                            click: function(notice) {
+                                notice.remove();
+                                window.location.href = "@Url.Action("Login","Account")";
+                            }
+                        },
+                        null
+                    ]
+                },
+                buttons: {
+                    closer: false,
+                    sticker: false
+                },
+                addclass: 'stack-modal',
+                stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true }
+            });
+        }
+    }
+
+    function ValidateSelect2Multi(algo, form, campo) {
+
+        if (algo != null) {
+            $.ajax({
+                url: '@Url.Action("ValidateSelect2Multi", "Clasificadores")',
+                async: false,
+                type: 'POST',
+                data: JSON.stringify({ id: algo }),
+                contentType: "application/json",
+                success: function(results) {
+                    if (results.msg) {
+                        form.data('bootstrapValidator')
+                            .updateStatus(campo, 'VALID', null)
+                            .validateField(campo);
+                    } else {
+                        form.data('bootstrapValidator')
+                            .updateStatus(campo, 'INVALID', null)
+                            .validateField(campo);
+                    }
+                }
+            });
+        } else {
+            form.data('bootstrapValidator')
+                .updateStatus(campo, 'INVALID', null)
+                .validateField(campo);
+        }
+    }
+
+    function clasificadorById(nombre, _clasId) {
+        if (_clasId != '') {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetClasificadorById", "Clasificadores")',
+                dataType: 'json',
+                data: { id: _clasId },
+                success: function (data) {
+                    $('#'+nombre).select2('data', data);
+                }
+            }).done(function () {
+                $('#s2id_' + nombre + ' .select2-search-choice-close').css("display", "none");
+                $('#s2id_' + nombre + ' .select2-search-field').prev().find('.select2-search-choice-close').css("display", "block");
+            });
+        }
+    }
+
+    function clasificador(nombre, tabla, formulario, valida) {
+
+        $('#' + nombre).select2({
+            maximumInputLength: 10,
+            multiple: true,
+            initSelection: function(element, callback) {
+                console.log($('#' + nombre).val());
+                if ($('#' + nombre).val() > 0) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetClasificadorById", "Clasificadores")',
+                        dataType: 'json',
+                        data: { id: $('#' + nombre).val() },
+                        success: function(data) {
+                            callback(data);
+                        }
+                    }).done(function() {
+                        $('#s2id_' + nombre + ' .select2-search-choice-close').css("display", "none");
+
+                        $('#s2id_' + nombre + ' .select2-search-field').prev().find('.select2-search-choice-close').css("display", "block");
+                    });
+                }
+            },
+            ajax: {
+                url: '@Url.Action("GetClasificador", "Clasificadores")',
+                dataType: 'json',
+                type: 'POST',
+                data: function (term, page) {
+                    if ($('#' + nombre).select2("val").length == 0) {
+                        return {
+                            tabla: tabla,
+                            q: term // search term
+                        };
+                    } else {
+                        return {
+                            tabla: tabla,
+                            q: term, // search term
+                            id: $('#' + nombre).select2("val")[$('#' + nombre).select2("val").length - 1]
+                        };
+                    }
+                },
+                results: function (data, page) {
+                    return {
+                        results: data
+                    };
+                }
+            }
+        });
+
+        $('#' + nombre).on("change", function () {
+            $('#s2id_'+nombre+' .select2-search-choice-close').css("display", "none");
+            $('#s2id_'+nombre+' .select2-search-field').prev().find('.select2-search-choice-close').css("display", "block");
+            if ($(this).select2("data")[$(this).select2("val").length - 1] != null && $(this).select2("data")[$(this).select2("val").length - 1].ultimoNivel == false) {
+                $(this).select2('open');
+            }
+            if (valida == true)
+                if ($(this).select2("data")[$(this).select2("val").length - 1] != null && $(this).select2("data")[$(this).select2("val").length - 1].ultimoNivel == true) {
+                    $('#' + formulario).data('bootstrapValidator').updateStatus(nombre, 'VALID', null).validateField(nombre);
+                } else {
+                    $('#' + formulario).data('bootstrapValidator').updateStatus(nombre, 'INVALID', null).validateField(nombre);
+                }
+            //ValidateSelect2Multi($('#' + nombre).select2("val")[$('#' + nombre).select2("val").length - 1], $('#' + formulario), nombre);
+        });
+    }
+
+    $(document).ajaxError(function (event, request, settings) {
+        if (request.status === 403) {
+            window.location.href = '@Url.Action("Login", "Account")';
+            return;
+        }
+    });
+    //$('.numeros').mask("#,##0.00", {reverse: true});
+    //$('.numeros5').mask("#,##0.00000", {reverse: true});
+    function parseCurrency( num ) {
+        if (num.toString().indexOf(',') != -1)
+            return parseFloat( num.replace( /,/g, '') );
+        else
+            return parseFloat( num );
+    }
+
+</script>
+</html>

@@ -1,0 +1,795 @@
+﻿@using BusinessLogic
+@using Entities
+<style>
+    .colHidden {
+        display: none;
+    }
+</style>
+@if (ViewBag.Alta == true)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="button" class="btn btn-info  btn-block" id="btnAgregarForm"><i class="fa fa-plus"></i> Agregar</button>
+        </div>
+    </div>
+    <form class="form-horizontal rowAlt" role="form" id="formPrincipal" style="display: none;">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Titulo").IdiPal_Texto)</label>
+                                <select class="form-control input-sm" style="width: 100%;" id="persona" name="persona">
+                                    <option></option>
+                                    @foreach (var item in PersonasAdmin.GetList())
+                                    {
+                                        <option value="@item.Per_Id">@item.DocumentoNombre</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Tripulantes - Estado").IdiPal_Texto)</label>
+                                <select class="form-control input-sm" style="width: 100%;" id="estado" name="estado">
+                                    @foreach (var item in ClasificadoresIdiomasAdmin.GetList("Tripulantes Estados"))
+                                    {
+                                        <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Tripulantes - Status").IdiPal_Texto)</label>
+                                <select class="form-control input-sm" style="width: 100%;" id="status" name="status">
+                                    @foreach (var item in ClasificadoresIdiomasAdmin.GetList("Tripulantes Status"))
+                                    {
+                                        <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Tripulantes - Area").IdiPal_Texto)</label>
+                                <select class="form-control input-sm" style="width: 100%;" id="area" name="area">
+                                    @foreach (var item in ClasificadoresIdiomasAdmin.GetList("Buques Areas"))
+                                    {
+                                        <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Tripulantes - Identificacion").IdiPal_Texto)</label>
+                                <input id="identificacion" name="identificacion" type="text" class="form-control input-sm" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>F. Desde</label>
+                                <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaDesde" name="fechaDesde" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>F. Hasta</label>
+                                <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaHasta" name="fechaHasta" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Observación</label>
+                                <textarea rows="3" class="input-sm form-control" id="observacion" name="observacion"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="pull-right btn-Cont">
+                    <button type="submit" class="btn btn-success btn-rounded" id="btnGuardar"><i class="fa fa-check"></i> Guardar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example" style="min-width: 100%;">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Editar</h4>
+            </div>
+            <form class="form-horizontal" id="formEdit" method="post">
+                <div class="modal-body rowAlt">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Titulo").IdiPal_Texto)</label>
+                                    <select class="form-control input-sm" style="width: 100%;" id="personaEdit" name="personaEdit">
+                                        <option></option>
+                                        @foreach (var item in PersonasAdmin.GetList())
+                                        {
+                                            <option value="@item.Per_Id">@item.DocumentoNombre</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Tripulantes - Estado").IdiPal_Texto)</label>
+                                    <select class="form-control input-sm" style="width: 100%;" id="estadoEdit" name="estadoEdit">
+                                        @foreach (var item in ClasificadoresIdiomasAdmin.GetList("Tripulantes Estados"))
+                                        {
+                                            <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Tripulantes - Status").IdiPal_Texto)</label>
+                                    <select class="form-control input-sm" style="width: 100%;" id="statusEdit" name="statusEdit">
+                                        @foreach (var item in ClasificadoresIdiomasAdmin.GetList("Tripulantes Status"))
+                                        {
+                                            <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Tripulantes - Area").IdiPal_Texto)</label>
+                                    <select class="form-control input-sm" style="width: 100%;" id="areaEdit" name="areaEdit">
+                                        @foreach (var item in ClasificadoresIdiomasAdmin.GetList("Buques Areas"))
+                                        {
+                                            <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Tripulantes - Identificacion").IdiPal_Texto)</label>
+                                    <input id="identificacionEdit" name="identificacionEdit" type="text" class="form-control input-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>F. Desde</label>
+                                    <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaDesdeEdit" name="fechaDesdeEdit" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>F. Hasta</label>
+                                    <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaHastaEdit" name="fechaHastaEdit" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Observación</label>
+                                    <textarea rows="3" class="input-sm form-control" id="observacionEdit" name="observacionEdit"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    @if (ViewBag.Alta == true)
+                    {
+                        <div class="pull-left btn-Cont">
+                            <button type="button" class="btn btn-warning btn-rounded" id="btnVerificar" data-toggle="modal" data-target="#confirmVerificar"><i class="fa fa-check"></i> Verificar</button>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-rounded" id="btnEditar"><i class="fa fa-check"></i> Guardar</button>
+                        <button type="button" class="btn btn-danger btn-rounded borrarRegistro" title="Borrar" data-toggle="modal" data-target="#confirmDelete"><i class="fa fa-trash"></i> Eliminar</button>
+                    }
+                    <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Eliminar</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+
+            </div>
+            <div class="modal-body">
+                Confirma que desea eliminar el registro?
+            </div>
+            <div class="modal-footer">
+                @if (ViewBag.Alta == true)
+                {
+                    <button type="button" class="btn btn-primary btn-rounded delete"><i class="fa fa-check"></i> Guardar</button>
+                }
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmVerificar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Verificar").IdiPal_Texto)*@
+                <h4 class="modal-title" id="myModalLabel">Verificar</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+
+            </div>
+            <div class="modal-body">
+                @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Confirmar Verificar").IdiPal_Texto)
+            </div>
+            <div class="modal-footer">
+                @if (ViewBag.Alta == true)
+                {
+                    <button type="button" class="btn btn-primary btn-rounded verificar"><i class="fa fa-check"></i> Guardar</button>
+                }
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var id;
+    var oTable;
+    $(function () {
+       function generarTabla() {
+            oTable = $('#dataTables-example').dataTable({
+                "scrollX": true,
+                  "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Paginado").IdiPal_Texto)",
+                "sZeroRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscar sin resultados").IdiPal_Texto)",
+                "sEmptyTable": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - No hay datos").IdiPal_Texto)",
+                "sInfo": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info").IdiPal_Texto)",
+                "sInfoEmpty": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info sin datos").IdiPal_Texto)",
+                "sInfoFiltered": "(@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Info Filtro").IdiPal_Texto))",
+                "sInfoPostFix": "",
+                "sSearch": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Buscador").IdiPal_Texto): ",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Cargando").IdiPal_Texto)",
+                "oPaginate": {
+                    "sFirst": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Primero").IdiPal_Texto)",
+                    "sLast": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Ultimo").IdiPal_Texto)",
+                    "sNext": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Siguiente").IdiPal_Texto)",
+                    "sPrevious": "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Grilla - Anterior").IdiPal_Texto)"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+                "destroy": true,
+                "ajax": {
+                    "type": "GET",
+                    "url": '@Url.Action("TripulantesGrilla")',
+                    "data": { id: $('#clienteId').val() },
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+                "ordering": false,
+                "autoWidth": false,
+                "columns": [
+                    {
+                        "data": "persona",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Titulo").IdiPal_Texto)',
+                        @*"title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Tripulantes - Personas").IdiPal_Texto)',*@
+                        "render": function (data, type, full, meta) {
+                            return '<span id="personaGrid">' + data + '</span><input type="hidden" id="hiddenPersona" value="' + full['personaId'] + '"/>';
+                        }
+                    },
+                    {
+                        "data": "estado",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Tripulantes - Estado").IdiPal_Texto)',
+                        @*"title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Tripulantes - Estado").IdiPal_Texto)',*@
+                        "render": function (data, type, full, meta) {
+                            return '<span id="estadoGrid">' + data + '</span><input type="hidden" id="hiddenEstado" value="' + full['estadoId'] + '"/>';
+                        }
+                    },
+                    {
+                        "data": "status",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Tripulantes - Status").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="statusGrid">' + data + '</span><input type="hidden" id="hiddenStatus" value="' + full['statusId'] + '"/>';
+                        }
+                    },
+                    {
+                        "data": "area",
+                        "title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Tripulantes - Area").IdiPal_Texto)',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="areaGrid">' + data + '</span><input type="hidden" id="hiddenArea" value="' + full['areaId'] + '"/>';
+                        }
+                    },
+                     {
+                        "data": "identificacion",
+                        @*"title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Tripulantes - Identificacion").IdiPal_Texto)',*@
+                        "title": 'Identificacion',
+                        //"className" : "colHidden",
+                        "render": function (data, type, full, meta) {
+                            return '<span id="identificacionGrid">' + data + '</span>';
+                        }
+                    },
+                      {
+                        "data": "fechaDesde",
+                        "title": 'F. Desde',
+                        //"className" : "colHidden",
+                        "render": function (data, type, full, meta) {
+                            return '<span id="desdeGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "fechaHasta",
+                        "title": 'F. Hasta',
+                        //"className" : "colHidden",
+                        "render": function (data, type, full, meta) {
+                            return '<span id="hastaGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "datosVerificados",
+                        @*"title": '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Tripulantes - Datos Verificados").IdiPal_Texto)',*@
+                        "className" : "colHidden",
+                        "render": function (data, type, full, meta) {
+                            return '<span id="datosVerificadosGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "observacion",
+                        "title": 'Observación',
+                        "className" : "colHidden",
+                        "render": function (data, type, full, meta) {
+                            return '<span id="observacionGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "",
+                        "title": 'Acciones',
+                        "class": "claseAlign",
+                        "render": function (data, type, full, meta) {
+
+                            var algo = "";
+                            if ('@ViewBag.Alta' == 'True')
+                                algo += '<button type="button" class="btn ' + (full['verificados'] == true ? "btn-success" : "btn-warning") + ' btn-xs editarRegistro" title="Editar" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmEdit"><span class="glyphicon glyphicon-pencil"></span></button>';
+                            return algo;
+                        }
+                    }
+                ],
+            });
+
+            $('#dataTables-example_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+        }
+
+        $('#persona').select2();
+        $('#estado').select2();
+        $('#status').select2();
+        $('#area').select2();
+
+
+        $('#fechaDesde').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaDesde', 'NOT_VALIDATED', null).validateField('fechaDesde');
+
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null).validateField('fechaHasta');
+        });
+
+        $('#fechaHasta').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null).validateField('fechaHasta');
+        });
+
+        $.fn.bootstrapValidator.validators.dates = {
+            validate: function (validator, $field, options) {
+                if ($('#fechaHasta').val() == '')
+                    return true;
+                var d1 = $('#fechaDesde').val();
+                var d2 = $('#fechaHasta').val();
+                d1 = d1.split('/');
+                d2 = d2.split('/');
+                d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                return d2 >= d1;
+            }
+        };
+
+        $('#formPrincipal').bootstrapValidator({
+            submitButtons: '#btnGuardar',
+            fields: {
+                    persona: {
+                        validators: {
+                            notEmpty: {
+                                message: 'campo requerido'
+                            }
+                        }
+                    },
+                    estado: {
+                        validators: {
+                            notEmpty: {
+                                message: 'campo requerido'
+                            }
+                        }
+                    },
+                    status: {
+                        validators: {
+                            notEmpty: {
+                                message: 'campo requerido'
+                            },
+                        }
+                    },
+                    fechaDesde: {
+                        validators: {
+                            notEmpty: {
+                                message: 'campo requerido'
+                            },
+                            date: {
+                                format: 'DD/MM/YYYY',
+                                message: 'Formato incorrecto'
+                            }
+                        }
+                    },
+                    fechaHasta: {
+                        validators: {
+                            dates: {
+                                message: 'La fecha hasta debe ser menor a la fecha desde'
+                            },
+                            date: {
+                                format: 'DD/MM/YYYY',
+                                message: 'Formato incorrecto'
+                            }
+                        }
+                    }
+                }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            var sessionData = {
+                //"Tri_Id": id,
+                "Per_Id": $("#persona").select2("val"),
+                "Cli_Id": $("#clienteId").val(),
+                "Clas_Estados_Id": $("#estado").select2("val"),
+                "Clas_Status_Id": $("#status").select2("val"),
+                "Clas_Areas_Id": $("#area").select2("val"),
+                "Tri_Identificacion": $("#identificacion").val(),
+                "Tri_FechaDesde": $("#fechaDesde").val(),
+                "Tri_FechaHasta": $("#fechaHasta").val(),
+                "Tri_Obs" : $("#observacion").val()
+            };
+            $.ajax({
+                url: '@Url.Action("Tripulantes")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro guardado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000,
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'bounceOutRight'
+                            }
+                        });
+
+                        $('#tabTripulantes').removeClass('sinInfo text-info');
+                        $('#tabTripulantes i').remove();
+
+                        $('#estado,#status,#area,#persona').select2('data', null);
+                        $('#fechaDesde,#fechaHasta').datepicker('update', '');
+                        $('#identificacion,#observacion').val('');
+                        $('#formPrincipal').bootstrapValidator('resetForm');
+
+                        generarTabla();
+                    } else {
+                        new PNotify({
+                            title: ':(',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        $('#personaEdit').select2();
+        $('#estadoEdit').select2();
+        $('#statusEdit').select2();
+        $('#areaEdit').select2();
+
+        $('#fechaDesdeEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaDesdeEdit', 'NOT_VALIDATED', null).validateField('fechaDesdeEdit');
+
+            $('#formEdit').data('bootstrapValidator')
+            .updateStatus('fechaHastaEdit', 'NOT_VALIDATED', null).validateField('fechaHastaEdit');
+        });
+
+        $('#fechaHastaEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaHastaEdit', 'NOT_VALIDATED', null).validateField('fechaHastaEdit');
+        });
+
+        $.fn.bootstrapValidator.validators.dates = {
+            validate: function (validator, $field, options) {
+                if ($('#fechaHastaEdit').val() == '')
+                    return true;
+                var d1 = $('#fechaDesdeEdit').val();
+                var d2 = $('#fechaHastaEdit').val();
+                d1 = d1.split('/');
+                d2 = d2.split('/');
+                d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                return d2 >= d1;
+            }
+        };
+
+        $('#formEdit')
+            .bootstrapValidator({
+                submitButtons: '#btnEditar',
+                fields: {
+                    personaEdit: {
+                        validators: {
+                            notEmpty: {
+                                message: 'campo requerido'
+                            }
+                        }
+                    },
+                    estadoEdit: {
+                        validators: {
+                            notEmpty: {
+                                message: 'campo requerido'
+                            }
+                        }
+                    },
+                    statusEdit: {
+                        validators: {
+                            notEmpty: {
+                                message: 'campo requerido'
+                            },
+                        }
+                    },
+                    fechaDesdeEdit: {
+                        validators: {
+                            notEmpty: {
+                                message: 'campo requerido'
+                            },
+                            date: {
+                                format: 'DD/MM/YYYY',
+                                message: 'Formato incorrecto'
+                            }
+                        }
+                    },
+                    fechaHastaEdit: {
+                        validators: {
+                            dates: {
+                                message: 'La fecha hasta debe ser menor a la fecha desde'
+                            },
+                            date: {
+                                format: 'DD/MM/YYYY',
+                                message: 'Formato incorrecto'
+                            }
+                        }
+                    }
+                }
+            }).on('success.form.bv', function (e) {
+                e.preventDefault();
+                var sessionData = {
+                "Tri_Id": id,
+                "Per_Id": $("#personaEdit").select2("val"),
+                "Cli_Id": $("#clienteId").val(),
+                "Clas_Estados_Id": $("#estadoEdit").select2("val"),
+                "Clas_Status_Id": $("#statusEdit").select2("val"),
+                "Clas_Areas_Id": $("#areaEdit").select2("val"),
+                "Tri_Identificacion": $("#identificacionEdit").val(),
+                "Tri_FechaDesde": $("#fechaDesdeEdit").val(),
+                "Tri_FechaHasta": $("#fechaHastaEdit").val(),
+                "Tri_Obs" : $("#observacionEdit").val()
+                };
+                console.log(sessionData);
+                $.ajax({
+                    url: '@Url.Action("Tripulantes")',
+                    type: 'POST',
+                    data: JSON.stringify(sessionData),
+                    contentType: "application/json",
+                    success: function (results) {
+                        if (results.success) {
+                            new PNotify({
+                                title: ':)',
+                                text: 'Registro actualizado exitosamente',
+                                type: 'success',
+                                hide: true,
+                                styling: 'bootstrap3',
+                                delay: 3000,
+                                animate: {
+                                    animate: true,
+                                    in_class: 'bounceInDown',
+                                    out_class: 'bounceOutRight'
+                                }
+                            });
+
+                        $('#estadoEdit,#statusEdit,#areaEdit,#personaEdit').select2('data', null);
+                        $('#fechaDesdeEdit,#fechaHastaEdit').datepicker('update', '');
+                        $('#identificacionEdit,#observacionEdit').val('');
+                            $('#formEdit').bootstrapValidator('resetForm');
+                            id = null;
+
+                            $('#confirmEdit').modal('hide');
+                        } else {
+                            new PNotify({
+                                title: ':(',
+                                text: results.msg,
+                                type: 'danger',
+                                hide: false,
+                                styling: 'bootstrap3',
+                                animation: 'slide'
+                            });
+                        }
+                    }
+                });
+            });
+
+        $('body').off('click', '.editarRegistro').on('click', '.editarRegistro', function () {
+            id = this.id;
+            $(this).parent().parent().find('td').css('background-color', 'yellow');
+            $('#personaEdit').val($(this).parents('tr').find('#hiddenPersona').val()).trigger('change');
+            $('#statusEdit').val($(this).parents('tr').find('#hiddenStatus').val()).trigger('change');
+            $('#areaEdit').val($(this).parents('tr').find('#hiddenArea').val()).trigger('change');
+            $('#estadoEdit').val($(this).parents('tr').find('#hiddenEstado').val()).trigger('change');
+            $('#identificacionEdit').val($(this).parents('tr').find('#identificacionGrid').text());
+            $('#fechaDesdeEdit').val($(this).parents('tr').find('#desdeGrid').text());
+            $('#fechaHastaEdit').val($(this).parents('tr').find('#hastaGrid').text());
+             $('#observacionEdit').val($(this).parents('tr').find('#observacionGrid').text());
+             var table = $('#dataTables-example').DataTable();
+            var aData = table.row($(this).parents('tr')).data();
+
+            if (aData.verificados == true)
+                $('#btnVerificar').hide();
+            else
+                $('#btnVerificar').show();
+
+        });
+
+        $('#confirmEdit, #confirmDelete, #confirmVerificar').on('hidden.bs.modal', function (e) {
+            id = null;
+            $('td').css('background-color', '');
+        });
+
+
+        $('body').off('click', '.delete').on('click', '.delete', function () {
+            $.ajax({
+                url: '@Url.Action("TripulantesDelete")',
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro eliminado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#confirmEdit, #confirmDelete').modal('hide');
+                        id = null;
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: ':(',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+        $('body').off('click', '.verificar').on('click', '.verificar', function () {
+            $.ajax({
+                url: '@Url.Action("TripulantesVerificar")',
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro actualizado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#confirmEdit, #confirmDelete, #confirmVerificar').modal('hide');
+                        id = null;
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+
+
+
+        generarTabla();
+    });
+
+</script>
+

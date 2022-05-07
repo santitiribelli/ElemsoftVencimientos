@@ -1,0 +1,811 @@
+﻿@using BusinessLogic
+@using Entities
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/png" href="@Url.Content("~/Images/favicon.png")" />
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <title>@System.Configuration.ConfigurationManager.AppSettings["EmpresaNombre"]</title>
+
+    <script src="https://kit.fontawesome.com/f607fed533.js" crossorigin="anonymous"></script>
+    <link href="@Url.Content("~/Content/pnotify.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/pnotify.buttons.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/fileinput.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/glyphicons-halflings.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/bootstrapValidator.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/bootstrap-editable.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/select2.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/select2-bootstrap.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/bootstrap-switch.css")" rel="stylesheet">
+    <!--<link href="css/flat-ui.css" rel="stylesheet">-->
+    @*<link href="@Url.Content("~/Content/font-awesome.css")" rel="stylesheet">*@
+    <link href="@Url.Content("~/fontsawesome/fontawesome-all.min.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/animate.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/dataTables.bootstrap.css")" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet">
+    <link href="@Url.Content("~/Content/sb-admin.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/bootstrap-datetimepicker.css")" rel="stylesheet">
+    <link href="@Url.Content("~/Content/bootstrap-timepicker.css")" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+    <script src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="~/Scripts/assets/js/html5shiv.js"></script>
+        <script src="~/Scripts/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div id="wrapper" style="background-color: cadetblue;">
+
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0;@(ViewBag.Produccion == true ? "" : "background-color:red;")">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("Index","Home")" style="text-transform: uppercase;">
+                    <img alt="" src="@Url.Content("~/images/logo.svg")" style="width: 40%; position: relative; top: -15px;" />
+                </a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right linksArriba" style="position: fixed;top: 0;right: 0;">
+                <li class="dropdown">
+                    <a href="@Url.Action("Buscador", "Personas")"><i class="fa fa-user"></i>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Personas").IdiPal_Texto) </a>
+                </li>
+                <li class="dropdown primerNivel">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cubes"></i>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Productos").IdiPal_Texto) <i class="fa fa-caret-down"></i></a>
+                    <ul class="dropdown-menu dropdown-user">
+                        @*<li><a href="@Url.Action("Optima1", "Servicios")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Buques Viajes").IdiPal_Texto)</a></li>*@
+                        <li><a href="@Url.Action("Buscador", "Productos")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Productos").IdiPal_Texto)</a></li>
+                        <li><a href="@Url.Action("BuscadorBuques", "BuquesViajes")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Buques").IdiPal_Texto)</a></li>
+                        <li><a href="@Url.Action("Buscador", "Vehiculos")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Vehiculos").IdiPal_Texto)</a></li>
+                        @*<li><a href="@Url.Action("BuscadorBuquesViajes", "BuquesViajes")">Buques Viajes</a></li>*@
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="@Url.Action("MesaOperaciones", "Servicios")"><i class="fa fa-table"></i>Me SA Oper Aciones </a>
+                </li>
+                @*<li class="dropdown primerNivel">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>Clientes <i class="fa fa-caret-down"></i></a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="@Url.Action("Buscador", "Clientes")">Buscador</a></li>
+                            <li><a href="@Url.Action("Recorridos", "Clientes")">Recorridos</a></li>
+                            <li><a href="@Url.Action("Buscador", "Ventas")">Ventas</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown primerNivel">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-truck"></i>Proveedores <i class="fa fa-caret-down"></i></a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="@Url.Action("Buscador", "Proveedores")">Buscador</a></li>
+                            <li><a href="@Url.Action("Buscador", "Compras")">Orden de Pedido</a></li>
+                            <li><a href="@Url.Action("OrdenPago", "Gastos")">Orden de Pago</a></li>
+                        </ul>
+                    </li><li class="dropdown primerNivel">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-money-bill"></i>Vendedores <i class="fa fa-caret-down"></i></a>
+                                    <ul class="dropdown-menu dropdown-user">
+                                        <li><a href="@Url.Action("Buscador", "Empleados")">Buscador</a></li>
+                                        <li><a href="@Url.Action("Rendicion", "Rendiciones")">Rendición</a></li>
+                                        <li><a href="@Url.Action("MovimientosInterno", "Depositos")">Carga de Depositos</a></li>
+                                        <li><a href="@Url.Action("Buscador", "Depositos")">Depositos</a></li>
+                                        <li><a href="@Url.Action("Gastos", "Empleados")">Gastos Empleados</a></li>
+                                        <li><a href="@Url.Action("GastosEmpleados", "Gastos")">Gastos Empleados</a></li>
+                                        <li><a href="@Url.Action("NoAutorizados", "App")">Consulta App</a></li>
+                                        <li><a href="@Url.Action("BuscadorHistorico", "Rendiciones")">Rendiciones Histórico</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown primerNivel">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cubes"></i>Productos <i class="fa fa-caret-down"></i></a>
+                                    <ul class="dropdown-menu dropdown-user">
+                                        <li><a href="@Url.Action("Buscador", "Productos",new{tipo="P"})">Artículos</a></li>
+                                        <li><a href="@Url.Action("ListasPrecios", "Productos")">Listas de Precios</a></li>
+                                        <li><a href="@Url.Action("CostosGrales", "Productos")">Costos Generales</a></li>
+                                        <li><a href="@Url.Action("VentasGrales", "Productos")">Ventas Generales</a></li>
+                                    </ul>
+                                </li>*@
+                @*<li class="dropdown primerNivel">
+                        <a href="#"  class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-book fa-fw"></i>Administración <i class="fa fa-caret-down"></i></a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="@Url.Action("Buscador", "Gastos")">Gastos</a></li>
+                            <li><a href="@Url.Action("Buscador", "Productos",new{tipo="G"})">Rubros de Gasto</a></li>
+                            <li><a href="@Url.Action("GastosVehiculos", "Gastos")">Gastos Vehículos</a></li>
+                            <li><a href="@Url.Action("Index", "Monedero")">Monedero</a></li>
+                            <li><a href="@Url.Action("Buscador", "Vehiculos")">Vehículos</a></li>
+                            <li class="divider"></li>
+                            <li role="presentation" class="dropdown-header">Banco</li>
+                            <li><a href="@Url.Action("Buscador", "CuentasBancarias")">Cuentas Bancarias</a></li>
+                            <li><a href="@Url.Action("ChequesRecibidos", "CuentasBancarias")">Cheques Recibidos</a></li>
+                        </ul>
+                    </li>*@
+                <li class="dropdown primerNivel">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-copy fa-fw"></i>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Auxiliares").IdiPal_Texto) <i class="fa fa-caret-down"></i></a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="@Url.Action("Buscador", "ALertas")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Auxiliares - Alertas").IdiPal_Texto)</a></li>
+                        <li><a href="@Url.Action("Index", "Clasificadores")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Auxiliares - Clasificadores").IdiPal_Texto)</a></li>
+                        <li><a href="@Url.Action("Consultas", "Exportacion")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Auxiliares - Exportaciones").IdiPal_Texto)</a></li>
+                        <!---->
+                        <li><a href="@Url.Action("Buscador", "VencimientosServiciosExternos")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Auxiliares - Venc. Externos").IdiPal_Texto)</a></li>
+                        <!---->
+                        <li><a href="@Url.Action("Buscador", "Agendas")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Auxiliares - Agenda").IdiPal_Texto)</a></li>
+                        <li><a href="@Url.Action("Buscador", "Bitacoras")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Auxiliares - Bitacoras Config").IdiPal_Texto)</a></li>
+                        @if (((Entities.SeguridadUsuarios)Session["UserLogged"]).SegUsu_Id == 1)
+                        {
+                            <li><a href="@Url.Action("Buscador", "DiccionarioDatos")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Auxiliares - Diccionario").IdiPal_Texto)</a></li>
+                        }
+                        <li><a href="@Url.Action("Idiomas", "Idiomas")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Auxiliares - Idiomas").IdiPal_Texto)</a></li>
+                        <li class="divider"></li>
+                        <li role="presentation" class="dropdown-header">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Auxiliares - Seguridad").IdiPal_Texto)</li>
+                        <li><a href="@Url.Action("Usuarios", "Seguridad")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Auxiliares - Usuarios").IdiPal_Texto)</a></li>
+                        <li><a href="@Url.Action("Roles", "Seguridad")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Auxiliares - Roles").IdiPal_Texto)</a></li>
+                        <li><a href="@Url.Action("Verificaciones", "Seguridad")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Auxiliares - Verificaciones").IdiPal_Texto)</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Comunicaciones Internas").IdiPal_Texto)"><i style="color:chartreuse;" class="fa fa-comments"></i><span class="badge" id="badgeInternas">0</span></a>
+                    <ul class="dropdown-menu dropdown-messages" id="ulInternas" style="overflow-y: scroll;height: 500px;">
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i><span style="text-decoration: underline;">@ViewBag.Usuario</span><i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="/"><i class="fa fa-sign-out fa-fw"></i>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Usuarios - Cerrar Sesión").IdiPal_Texto)</a></li>
+                        <li><a href="@Url.Action("CambiarPassword", "Account")"><i class="fa fa-key fa-fw"></i>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Usuarios - Cambiar Contraseña").IdiPal_Texto)</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <!-- /.navbar-top-links -->
+
+
+        </nav>
+        <div id="page-wrapper">
+            <!-- ///contenido de las vistas -->
+            @RenderBody()
+            <!-- contenido de las vistas/// -->
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+
+    </div>
+
+    <script src="@Url.Content("~/Scripts/fileinput.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.blockUI.js")"></script>
+    <script src="@Url.Content("~/Scripts/blockUI.build.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrapValidator.js")"></script>
+    <script src="@Url.Content("~/Scripts/select2.js")"></script>
+    <script>
+    $.extend($.fn.select2.defaults, {
+        formatNoMatches: function () { return "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Desplegables - Sin Resultado").IdiPal_Texto)"; },
+        formatInputTooShort: function (input, min) { var n = min - input.length; return "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Desplegables - Minimo Caracteres").IdiPal_Texto)"; },
+        formatInputTooLong: function (input, max) { var n = input.length - max; return "Por favor, elimine " + n + " car" + (n == 1? "ácter" : "acteres"); },
+        formatSelectionTooBig: function (limit) { return "Sólo puede seleccionar " + limit + " elemento" + (limit == 1 ? "" : "s"); },
+        formatLoadMore: function (pageNumber) { return "Cargando más resultados…"; },
+        formatSearching: function () { return "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Desplegables - Buscando").IdiPal_Texto)"; }
+    });
+    </script>
+    @*<script src="@Url.Content("~/Scripts/select2_locale_es.js")"></script>*@
+
+
+    <script src="@Url.Content("~/Scripts/bootstrap-switch.js")"></script>
+    <script src="@Url.Content("~/Scripts/moments.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/moment.js")"></script>*@
+    <script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
+    <script>
+    $.fn.datepicker.dates['en'] = {
+        days: [
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia - Domingo").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia - Lunes").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia - Martes").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia - Miercoles").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia - Jueves").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia - Viernes").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia - Sabado").IdiPal_Texto)",
+        ],
+        daysShort: [
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia 3 caracteres - Dom").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia 3 caracteres - Lun").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia 3 caracteres - Mar").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia 3 caracteres - Mie").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia 3 caracteres - Jue").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia 3 caracteres - Vie").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia 3 caracteres - Sab").IdiPal_Texto)",
+        ],
+        daysMin: [
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia 2 caracteres - Do").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia 2 caracteres - Lu").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia 2 caracteres - Ma").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia 2 caracteres - Mi").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia 2 caracteres - Ju").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia 2 caracteres - Vi").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Dia 2 caracteres - Sa").IdiPal_Texto)",
+        ],
+        months: [
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes - Enero").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes - Febrero").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes - Marzo").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes - Abril").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes - Mayo").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes - Junio").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes - Julio").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes - Agosto").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes - Septiembre").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes - Octubre").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes - Noviembre").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes - Diciembre").IdiPal_Texto)",
+        ],
+        monthsShort: [
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes Corto - Enero").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes Corto - Febrero").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes Corto - Marzo").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes Corto - Abril").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes Corto - Mayo").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes Corto - Junio").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes Corto - Julio").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes Corto - Agosto").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes Corto - Septiembre").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes Corto - Octubre").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes Corto - Noviembre").IdiPal_Texto)",
+            "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Mes Corto - Diciembre").IdiPal_Texto)"
+        ],
+        today: "@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "DatePicker - Hoy").IdiPal_Texto)",
+        clear: "Clear",
+        format: "dd/mm/yyyy",
+        //titleFormat: "MM yyyy", /* Leverages same syntax as 'format' */
+        weekStart: 0
+    };
+    </script>
+    <script src="@Url.Content("~/Scripts/bootstrap-formhelpers.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.dataTables.js")"></script>
+    <script src="@Url.Content("~/Scripts/dataTables.bootstrap.js")"></script>
+    <script src="@Url.Content("~/Scripts/dataTables.fixedColums.js")"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery.metisMenu.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.mask.min.js")"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.12/sorting/datetime-moment.js"></script>
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="@Url.Content("~/Scripts/sb-admin.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/numeral.min.js")"></script>
+
+    <script src="@Url.Content("~/Scripts/pnotify.custom.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.hotkeys.js")"></script>
+    @*tabs*@
+    <script src="@Url.Content("~/Scripts/jquery.droptabs.min.js")"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+    <script src="@Url.Content("~/Scripts/bootstrap-datetimepicker.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap-timepicker.js")"></script>
+    <div id="alertMessage2"></div>
+
+    <div class="modal fade" id="modalIssue" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 100%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Registro de Cambios Solicitados a Sistemas</h4>
+                </div>
+                <form class="form-horizontal" id="formIssues" method="post">
+                    <div class="modal-body rowAlt">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Tipo de Problema</label>
+                                    <div class="col-lg-9">
+                                        <select class="select form-control input-sm" style="width: 100%;" id="issueTipo" name="issueTipo">
+                                            <option value="C">Cambio Funcionalidad</option>
+                                            <option value="E">Error</option>
+                                            <option value="N">Nueva Funcionalidad</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Referencia</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control input-sm" name="issueReferencia" id="issueReferencia" maxlength="50" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <label>Observación acerca del Problema o Cambio </label><label style="color:darkred; padding-left: 20px;"> (Hasta 32000 caracteres)</label>
+                                        <textarea class="input-sm form-control" maxlength="32000" rows="8" id="issueObservacion"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnConfirmarIssue">Confirmar</button>
+                        <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @if (ViewBag.ClasAlta == true)
+    {
+        <div class="modal fade" id="confirmClasRapido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="width: 90%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Clasificador - Carga Rápida</h4>
+                    </div>
+                    <form class="form-horizontal rowAlt" id="formClasRapido" method="post">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <label>Clasificador</label>
+                                            <select class="form-control" id="clasTablas" name="clasTablas">
+                                                <option></option>
+                                                @foreach (var item in ClasificadoresAdmin.GetTablas())
+                                                {
+                                                    <option value="@item">@item</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <label>Descripción</label>
+                                            <input class="form-control" name="clasDesc" id="clasDesc" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <label>Abreviatura</label>
+                                            <input class="form-control" id="clasAbrev" name="clasAbrev" maxlength="5">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <label>Depende de</label>
+                                            <input type="text" style="width: 100%;" class="form-control input-sm" id="clasPadre" name="clasPadre" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary btn-rounded" id="btnClasGuardar"><i class="fa fa-check"></i> Confirmar</button>
+                            <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+
+            $(function () {
+                $("#clasTablas").select2({
+                    placeholder: "Seleccione una tabla",
+                    allowClear: false
+                });
+                $('#clasTablas').on("change", function () {
+                    $('#clasPadre').select2('data', null);
+                });
+
+                $('#formClasRapido')
+                    .bootstrapValidator({
+                        submitButtons: '#btnClasGuardar',
+                        fields: {
+                            clasTablas: {
+                                validators: {
+                                    notEmpty: {
+                                        message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                                    }
+                                }
+                            },
+                            clasDesc: {
+                                groupo: '.valClasDesc',
+                                validators: {
+                                    notEmpty: {
+                                        message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                                    }
+                                }
+                            }
+                        }
+                    }).on('success.form.bv', function (e) {
+                        e.preventDefault();
+                        var sessionData = {
+                            "Clas_Padre": $("#clasPadre").select2("val")[$("#clasPadre").select2("val").length - 1],
+                            "Clas_Tabla": $("#clasTablas").select2('val'),
+                            "Clas_Desc": $("#clasDesc").val(),
+                            "Clas_Abrev": $('#clasAbrev').val(),
+                            "Clas_DatoOblig": true,
+                        };
+                        $.ajax({
+                            url: '@Url.Action("Index", "Clasificadores")',
+                            type: 'POST',
+                            data: JSON.stringify(sessionData),
+                            contentType: "application/json",
+                            success: function (results) {
+                                if (results.success) {
+                                    new PNotify({
+                                        title: ':)',
+                                        text: 'Clasificador cargado exitosamente',
+                                        type: 'success',
+                                        hide: true,
+                                        styling: 'bootstrap3',
+                                        delay: 3000,
+                                        animate: {
+                                            animate: true,
+                                            in_class: 'bounceInDown',
+                                            out_class: 'bounceOutRight'
+                                        }
+                                    });
+                                    $('#clasAbrev, #clasDesc').val('');
+                                    $('#clasPadre,#clasTablas').select2('data', null);
+                                    $('#formClasRapido').bootstrapValidator('resetForm');
+                                    $('#confirmClasRapido').modal('hide');
+                                } else {
+                                    new PNotify({
+                                        title: 'Error!',
+                                        text: results.msg,
+                                        type: 'danger',
+                                        hide: false,
+                                        styling: 'bootstrap3',
+                                        animation: 'slide'
+                                    });
+                                }
+                            }
+                        });
+                    });
+
+                $("#clasPadre").select2({
+                    maximumInputLength: 10,
+                    placeholder: "Clasificador",
+                    multiple: true,
+                    ajax: {
+                        url: '@Url.Action("GetClasificador", "Clasificadores")',
+                        dataType: 'json',
+                        type: 'POST',
+                        data: function (term, page) {
+                            if ($("#clasPadre").select2("val").length == 0) {
+                                return {
+                                    tabla: $('#clasTablas').select2('val'),
+                                    q: term // search term
+                                };
+                            } else {
+                                return {
+                                    tabla: $('#clasTablas').select2('val'),
+                                    q: term, // search term
+                                    id: $("#clasPadre").select2("val")[$("#clasPadre").select2("val").length - 1]
+                                };
+                            }
+                        },
+                        results: function (data, page) {
+                            return {
+                                results: data
+                            };
+                        }
+                    }
+                });
+
+                $('#clasPadre').on("change", function () {
+                    $('.select2-search-choice-close').css("display", "none");
+                    $('.select2-search-field').prev().find('.select2-search-choice-close').css("display", "block");
+                    $('#clasPadre').select2('open');
+                });
+            });
+        </script>
+    }
+</body>
+<script>
+    var idleTime = 0;
+    $(function () {
+
+        var idleInterval = setInterval(timerIncrement, 5000);
+
+
+        $(this).mousemove(function (e) {
+            idleTime = 0;
+        });
+        $(this).keypress(function (e) {
+            idleTime = 0;
+        });
+
+        $('input[type="search"]').focus();
+
+        $('body').on('focus', '.datepicker', function () {
+
+            $(this).datepicker({
+                format: "dd/mm/yyyy",
+                startView: 1,
+                todayBtn: "linked",
+                //language: "es",
+                autoclose: true
+            });
+        });
+
+        $('body').on('click', '#btnAgregarFormDoc', function () {
+            $('#docModal').toggle();
+        });
+
+        $('body').on('click', '#btnAgregarForm', function () {
+            $('form[role="form"]').toggle();
+        });
+
+        $('input').on('keydown', null, 'f2', function () {
+            $('#confirmClasRapido').modal('show');
+        });
+
+        $('select').on('keydown', null, 'f2', function () {
+            $('#confirmClasRapido').modal('show');
+        });
+
+        $('body').on('keydown', null, 'f2', function () {
+            $('#confirmClasRapido').modal('show');
+        });
+
+        $(document).on('focus',':input',function(){
+            $(this).attr('autocomplete','off');
+        });
+
+        $('body').bind('keydown', 'f9', function () {
+            $('#modalIssue').modal('toggle');
+        });
+
+        $('#issueTipo').select2();
+
+        $('#btnConfirmarIssue').on('click', function () {
+            var sessionData = {
+                "es_error": $("#issueTipo").select2("val"),
+                "referencia_ped": $("#issueReferencia").val(),
+                "obs_pedido": $("#issueObservacion").val()
+            };
+            $.ajax({
+                url: '/Error/SolicitudCambios',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'success',
+                            texto: 'Solicitud cargada exitosamente',
+                        });
+
+                        $('#issueTipo').select2('data', null);
+                        $('#issueReferencia,#issueObservacion').val('');
+
+                        $('#modalIssue').modal('toggle');
+
+                    } else {
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'danger',
+                            texto: results.msg,
+                        });
+                    }
+                }
+            });
+        });
+    });
+    function timerIncrement() {
+        idleTime = idleTime + 1;
+        if (idleTime == @(System.Web.HttpContext.Current.Session.Timeout * 12)) { //60 secs
+
+            new PNotify({
+                title: 'Alerta!',
+                text: 'La sesión fue cerrada por inactivadad.',
+                icon: 'glyphicon glyphicon-exclamation-sign',
+                styling: 'bootstrap3',
+                hide: false,
+                confirm: {
+                    confirm: true,
+                    buttons: [
+                        {
+                            text: 'Ok',
+                            addClass: 'btn-primary',
+                            click: function(notice) {
+                                notice.remove();
+                                window.location.href = "@Url.Action("Login","Account")";
+                            }
+                        },
+                        null
+                    ]
+                },
+                buttons: {
+                    closer: false,
+                    sticker: false
+                },
+                addclass: 'stack-modal',
+                stack: { 'dir1': 'down', 'dir2': 'right', 'modal': true }
+            });
+        }
+    }
+
+    function ValidateSelect2Multi(algo, form, campo) {
+
+        if (algo != null) {
+            $.ajax({
+                url: '@Url.Action("ValidateSelect2Multi", "Clasificadores")',
+                async: false,
+                type: 'POST',
+                data: JSON.stringify({ id: algo }),
+                contentType: "application/json",
+                success: function(results) {
+                    if (results.msg) {
+                        form.data('bootstrapValidator')
+                            .updateStatus(campo, 'VALID', null)
+                            .validateField(campo);
+                    } else {
+                        form.data('bootstrapValidator')
+                            .updateStatus(campo, 'INVALID', null)
+                            .validateField(campo);
+                    }
+                }
+            });
+        } else {
+            form.data('bootstrapValidator')
+                .updateStatus(campo, 'INVALID', null)
+                .validateField(campo);
+        }
+    }
+
+    function clasificadorById(nombre, _clasId) {
+        if (_clasId != '') {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetClasificadorById", "Clasificadores")',
+                dataType: 'json',
+                data: { id: _clasId },
+                success: function (data) {
+                    $('#'+nombre).select2('data', data);
+                }
+            }).done(function () {
+                $('#s2id_' + nombre + ' .select2-search-choice-close').css("display", "none");
+                $('#s2id_' + nombre + ' .select2-search-field').prev().find('.select2-search-choice-close').css("display", "block");
+            });
+        }
+    }
+
+    function clasificador(nombre, tabla, formulario, valida) {
+
+        $('#' + nombre).select2({
+            maximumInputLength: 10,
+            multiple: true,
+            initSelection: function(element, callback) {
+                console.log($('#' + nombre).val());
+                if ($('#' + nombre).val() > 0) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetClasificadorById", "Clasificadores")',
+                        dataType: 'json',
+                        data: { id: $('#' + nombre).val() },
+                        success: function(data) {
+                            callback(data);
+                        }
+                    }).done(function() {
+                        $('#s2id_' + nombre + ' .select2-search-choice-close').css("display", "none");
+
+                        $('#s2id_' + nombre + ' .select2-search-field').prev().find('.select2-search-choice-close').css("display", "block");
+                    });
+                }
+            },
+            ajax: {
+                url: '@Url.Action("GetClasificador", "Clasificadores")',
+                dataType: 'json',
+                type: 'POST',
+                data: function (term, page) {
+                    if ($('#' + nombre).select2("val").length == 0) {
+                        return {
+                            tabla: tabla,
+                            q: term // search term
+                        };
+                    } else {
+                        return {
+                            tabla: tabla,
+                            q: term, // search term
+                            id: $('#' + nombre).select2("val")[$('#' + nombre).select2("val").length - 1]
+                        };
+                    }
+                },
+                results: function (data, page) {
+                    return {
+                        results: data
+                    };
+                }
+            }
+        });
+
+        $('#' + nombre).on("change", function () {
+            $('#s2id_'+nombre+' .select2-search-choice-close').css("display", "none");
+            $('#s2id_'+nombre+' .select2-search-field').prev().find('.select2-search-choice-close').css("display", "block");
+            if ($(this).select2("data")[$(this).select2("val").length - 1] != null && $(this).select2("data")[$(this).select2("val").length - 1].ultimoNivel == false) {
+                $(this).select2('open');
+            }
+            if (valida == true)
+                if ($(this).select2("data")[$(this).select2("val").length - 1] != null && $(this).select2("data")[$(this).select2("val").length - 1].ultimoNivel == true) {
+                    $('#' + formulario).data('bootstrapValidator').updateStatus(nombre, 'VALID', null).validateField(nombre);
+                } else {
+                    $('#' + formulario).data('bootstrapValidator').updateStatus(nombre, 'INVALID', null).validateField(nombre);
+                }
+            //ValidateSelect2Multi($('#' + nombre).select2("val")[$('#' + nombre).select2("val").length - 1], $('#' + formulario), nombre);
+        });
+    }
+
+    $(document).ajaxError(function (event, request, settings) {
+        if (request.status === 403) {
+            window.location.href = '@Url.Action("Login", "Account")';
+            return;
+        }
+    });
+    //$('.numeros').mask("#,##0.00", {reverse: true});
+    //$('.numeros5').mask("#,##0.00000", {reverse: true});
+    function parseCurrency( num ) {
+        if (num.toString().indexOf(',') != -1)
+            return parseFloat( num.replace( /,/g, '') );
+        else
+            return parseFloat( num );
+    }
+
+    function comunicacionesVigentes() {
+            $.ajax({
+                url: '@Url.Action("SinLeerGrilla", "ComunicacionesInternas")',
+                type: 'GET',
+                contentType: "application/json",
+                success: function (results) {
+                    $('#badgeInternas').text(results.length);
+                    var item = '';
+                    for (var i = 0; i < results.length; i++) {
+                        item += '<li class="message-preview" id="alerta-'+results[i].prefijo+'-'+results[i].id+'">' +
+                            '<a href="@Url.Action("Index", "ComunicacionesInternas",new {id=(int?)null})/'+results[i].id+'">' +
+                            '<div class="media">' +
+                            '<div class="media-body">' +
+                            '<span class="pull-right text-muted" style="margin-top: -5px;">'+
+                            '<em>'+results[i].fechaUltimaRespuesta+'</em>'+
+                            '</span>'+
+                            '<h5 class="media-heading">'+results[i].usuarioUltimaRespuesta+'</h5>' +
+                            '<strong style="display:block;">'+results[i].asunto+'</strong>' +
+                            '<span>'+results[i].detalle+'</span>' +
+                            '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li><li class="divider"></li>';
+                    }
+                    item += '<li>' +
+                        '<a class="text-center" href="@Url.Action("Buscador", "ComunicacionesInternas")">' +
+                        '<strong>Leer todas </strong>' +
+                        '<i class="fa fa-angle-right"></i>' +
+                        '</a>' +
+                        '</li>';
+                    $('#ulInternas').append(item);
+                }
+            });
+        }
+
+        comunicacionesVigentes();
+
+</script>
+</html>

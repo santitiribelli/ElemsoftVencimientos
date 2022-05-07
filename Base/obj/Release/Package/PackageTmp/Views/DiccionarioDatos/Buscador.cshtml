@@ -1,0 +1,115 @@
+﻿@model List<Entities.Dic_Tablas>
+@{
+    ViewBag.Title = "Buscador";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-10">
+        <h4 class="page-header">Diccionario de Datos</h4>
+    </div>
+    @if (ViewBag.Alta == true)
+    {
+        <div class="col-lg-2">
+            <button type="button" class="btn btn-info  btn-block" id="btnAgregarForm" onclick=" location.href='@Url.Action("Index", "DiccionarioDatos")' "><i class="fa fa-plus"></i>Agregar</button>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-tablas">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Nombre Interno</th>
+                                <th>Activo</th>
+                                <th>Visible</th>
+                                <th>Auditoría</th>
+                                <th>Fecha Alta</th>
+                                <th>Fecha Baja</th>
+                                <th>Orden</th>
+                                <th>Acciones</th>
+                                <th>Cam</th>
+                                <th>Rel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="odd gradeC">
+                                    <td><span id="tbl_nomGrid">@item.Tab_Nom</span></td>
+                                    <td><span id="tbl_descGrid">@item.Tab_Desc</span></td>
+                                    <td><span id="tbl_nomIntGrid">@item.Tab_NomInt</span></td>
+                                    <td align="center"><span id="tbl_activoGrid">@(item.Tab_Activo ? "SI" : "NO")</span></td>
+                                    <td align="center"><span id="tbl_visibleGrid">@(item.Tab_Visible ? "SI" : "NO")</span></td>
+                                    <td align="center"><span id="tbl_auditoriaGrid">@(item.Tab_Auditoria ? "SI" : "NO")</span></td>
+                                    <td><span id="tbl_fechaAltaGrid">@item.Tab_FechaAlta.ToString("dd/MM/yyyy")</span></td>
+                                    <td><span id="tbl_fechaBajaGrid">@(item.Tab_FechaBaja.HasValue ? item.Tab_FechaBaja.Value.ToString("dd/MM/yyyy") : string.Empty) </span></td>
+                                    <td><span id="tbl_ordenGrid">@item.Tab_Orden</span></td>
+                                    <td align="center" width="35px">
+                                        @if (item.Dic_Campos.Count > 0)
+                                        {
+                                            <span class="glyphicon glyphicon-ok " style="color: green"></span> 
+                                        }
+                                        else
+                                        {
+                                            <span class="glyphicon glyphicon-remove " style="color: red"></span> 
+                                        }
+                                    </td>
+                                    <td align="center" width="35px">
+                                        @if (item.Dic_Relaciones.Count > 0)
+                                        {
+                                            <span class="glyphicon glyphicon-ok " style="color: green"></span> 
+                                        }
+                                        else
+                                        {
+                                            <span class="glyphicon glyphicon-remove " style="color: red"></span> 
+                                        }
+                                    </td>
+                                    <td align="center" width="60px">
+                                        <button type="button" class="btn btn-success btn-xs" id="@item.Tab_Id" onclick="location.href='@Url.Action("Index", "DiccionarioDatos", new { id = item.Tab_Id })'"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#dataTables-tablas').dataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar: ",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+        $('.dataTables_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+    });
+</script>
+

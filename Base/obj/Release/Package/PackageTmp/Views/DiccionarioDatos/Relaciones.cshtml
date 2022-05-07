@@ -1,0 +1,490 @@
+﻿@using BusinessLogic
+@using Entities
+@if (ViewBag.Alta == true)
+{
+    <form class="form-horizontal rowAlt" role="form" id="formRelaciones" style="display: none;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Descripción</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control input-sm" name="relacionesDecrip" id="relacionesDecrip" maxlength="50" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Campo Primario</label>
+                        <div class="col-lg-8">
+                            <select class="form-control select2" id="relacionesCampoPri" name="relacionesCampoPri">
+                                @foreach (var item in Dic_CamposAdmin.GetListByTabla(ViewBag.TablaID))
+                                {
+                                    <option value="@item.Cam_Id">@item.Cam_Nom</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Tabla Secundaria</label>
+                        <div class="col-lg-8">
+                            <select class="form-control " id="relacionesTablasSec" name="relacionesTablasSec">
+                                @foreach (var item in Dic_TablasAdmin.GetList())
+                                {
+                                    if (ViewBag.TablaID != item.Tab_Id)
+                                    {
+                                        <option value="@item.Tab_Id">@item.Tab_Nom</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Campo Secundario</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control" id="relacionesCampoSec" name="relacionesCampoSec" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Activo</label>
+                        <div class="col-lg-4" style="height: 30px;">
+                            <input type="checkbox" id="relacionesActivo" data-on-color="success" data-off-color="success" data-on-text="Si" data-off-text="No" checked>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right btn-Cont">
+                <button type="submit" class="btn btn-success" id="btnGuardar">Guardar</button>
+            </div>
+        </div>
+    </form>
+}
+<div class="row">
+    <div class="col-lg-10">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-relaciones">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (ViewBag.Alta == true)
+    {
+        <div class="col-lg-2">
+            <div class="well">
+                <button type="button" class="btn btn-info  btn-block" id="btnAgregarForm"><i class="fa fa-plus"></i>Agregar</button>
+            </div>
+        </div>
+    }
+</div>
+<div class="modal fade" id="confirmEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Editar</h4>
+            </div>
+            <form class="form-horizontal" id="formEdit" method="post">
+                <div class="modal-body rowAlt">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-lg-4 control-label">Descripción</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control input-sm" name="relacionesDecripEdit" id="relacionesDecripEdit" maxlength="50" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-lg-4 control-label">Campo Primario</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control select2" id="relacionesCampoPriEdit" name="relacionesCampoPriEdit">
+                                        @foreach (var item in Dic_CamposAdmin.GetListByTabla(ViewBag.TablaID))
+                                        {
+                                            <option value="@item.Cam_Id">@item.Cam_Nom</option>                    
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-lg-4 control-label">Tabla Secundaria</label>
+                                <div class="col-lg-8">
+                                    <select class="form-control " id="relacionesTablasSecEdit" name="relacionesTablasSecEdit">
+                                        @foreach (var item in Dic_TablasAdmin.GetList())
+                                        {
+                                            if (ViewBag.TablaID != item.Tab_Id)
+                                            {                                                                                   
+                                                <option value="@item.Tab_Id">@item.Tab_Nom</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-lg-4 control-label">Campo Secundario</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control" id="relacionesCampoSecEdit" name="relacionesCampoSecEdit" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-lg-4 control-label">Activo</label>
+                                <div class="col-lg-4" style="height: 30px;">
+                                    <input type="checkbox" id="relacionesActivoEdit" data-on-color="success" data-off-color="success" data-on-text="Si" data-off-text="No" checked>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    @if (ViewBag.Alta == true)
+                    {
+                        <button type="submit" class="btn btn-primary" id="btnEditar">Confirmar</button>
+                    }
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var id;
+    $(function () {
+        function generarTabla() {
+            $('#dataTables-relaciones').dataTable({
+                "scrollX": true,
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar: ",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                "destroy": true,
+                "ajax": {
+                    "type": "GET",
+                    "url": '/DiccionarioDatos/RelacionesGrilla',
+                    "data": { id: $('#tablaId').val() },
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+                "ordering": false,
+                "autoWidth": true,
+                "columns": [
+                    {
+                        "data": "campoPrimario",
+                        "title": 'Campo Primario',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="priGrid">' + data + '</span><input type="hidden" id="priGridID" value="' + full['campoPrimarioId'] + '"/>';
+                        }
+                    },
+                    {
+                        "data": "tablaSecundaria",
+                        "title": 'Tabla Secundaria',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="tablaSecGrid">' + data + '</span><input type="hidden" id="tablaSecGridID" value="' + full['tablaSecundariaId'] + '"/>';
+                        }
+                    },
+                    {
+                        "data": "campoSecundario",
+                        "title": 'Campo Secundario',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="secGrid">' + data + '</span><input type="hidden" id="secGridID" value="' + full['campoSecundarioId'] + '"/>';
+                        }
+                    },
+                    {
+                        "data": "desc",
+                        "title": 'Descripción',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="descGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "activo",
+                        "title": 'Activo',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="activoGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "",
+                        "title": 'Acciones',
+                        "class": "claseAlign",
+                        "render": function (data, type, full, meta) {
+                            var algo = "";
+                            if ('@ViewBag.Alta' == 'True')
+                            algo += '<button type="button" class="btn btn-success btn-xs editarRegistro" title="Editar" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmEdit"><span class="glyphicon glyphicon-pencil"></span></button>';
+                        return algo;
+                    }
+                }
+            ]
+        });
+
+            $('.dataTables_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+        }
+        generarTabla();
+        $('#relacionesTablasSec,#relacionesCampoPri').select2();
+        $('#relacionesCampoSec').select2({ allowClear: false, placeholder: 'Seleccione una tabla', data: [] });
+        $("#relacionesActivo").bootstrapSwitch('state', true, true);
+        
+        $('#formRelaciones').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnGuardar',
+            fields: {
+                relacionesDecrip: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                relacionesTablasSec: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                relacionesCampoSec: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+
+            var sessionData = {
+                "Rel_Descr": $('#relacionesDecrip').val(),
+                "Tab_Id1": $("#tablaId").val(),
+                "Tab_Id2": $("#relacionesTablasSec").select2('val'),
+                "Cam_Id1": $("#relacionesCampoPri").select2('val'),
+                "Cam_Id2": $("#relacionesCampoSec").select2('val'),
+                "Rel_Activo": $('#relacionesActivo').bootstrapSwitch('state')
+            };
+
+            $.ajax({
+                url: '/DiccionarioDatos/Relaciones',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'success',
+                            texto: 'Relación guardada exitosamente',
+                        });
+                        $('#relacionesDecrip').val('');
+                        $('#relacionesCampoPri,#relacionesTablasSec').select2('data', null);
+                        $('#relacionesCampoSec').select2({ data: [], placeholder: 'Seleccione una tabla' });
+                        $('#relacionesActivo').bootstrapSwitch('state', true, true);
+                        $('#formRelaciones').bootstrapValidator('resetForm');
+                    } else {
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'danger',
+                            texto: results.msg,
+                        });
+                    }
+                }
+            });
+        });
+
+        // Obtiene los campos de la tabla secundaria y las ingresa en la lista de campos secundarios
+        $('#relacionesTablasSec').on('change', function () {
+            $('#formRelaciones').bootstrapValidator('resetField', 'relacionesCampoSec', true);
+            $('#relacionesCampoSec').select2('destroy').select2({
+                allowClear: false,
+                placeholder: "Campo",
+                data: []
+            });
+            $.ajax({
+                type: "GET",
+                url: "/DiccionarioDatos/CamposTabla",
+                async: false,
+                data: { id: $('#relacionesTablasSec').select2('val') },
+                success: function (results2) {
+                    if (results2.success) {
+                        $('#relacionesCampoSec').select2('destroy').select2({
+                            allowClear: true,
+                            placeholder: "Campo",
+                            data: results2.msg
+                        });
+                    } else {
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'danger',
+                            texto: results2.msg,
+                        });
+                    }
+                }
+            });
+        }).change();
+
+        $('#relacionesTablasSecEdit,#relacionesCampoPriEdit').select2();
+        $('#relacionesCampoSecEdit').select2({ allowClear: false, placeholder: 'Seleccione una tabla', data: [] });
+        $("#relacionesActivoEdit").bootstrapSwitch('state', true, true);
+
+        $('#formEdit').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnEditar',
+            fields: {
+                relacionesDecripEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                relacionesTablasSecEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                relacionesCampoSecEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+
+            var sessionData = {
+                "Rel_Descr": $('#relacionesDecripEdit').val(),
+                "Rel_Id": id,
+                "Tab_Id1": $("#tablaId").val(),
+                "Tab_Id2": $("#relacionesTablasSecEdit").select2('val'),
+                "Cam_Id1": $("#relacionesCampoPriEdit").select2('val'),
+                "Cam_Id2": $("#relacionesCampoSecEdit").select2('val'),
+                "Rel_Activo": $('#relacionesActivoEdit').bootstrapSwitch('state')
+            };
+
+            $.ajax({
+                url: '/DiccionarioDatos/Relaciones',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'success',
+                            texto: 'Relación actualizada exitosamente',
+                        });
+                        $('#relacionesDecripEdit').val('');
+                        $('#relacionesCampoPriEdit,#relacionesTablasSecEdit').select2('data', null);
+                        $('#relacionesCampoSecEdit').select2({ data: [], placeholder: 'Seleccione una tabla' });
+                        $('#relacionesActivoEdit').bootstrapSwitch('state', true, true);
+                        $('#formEdit').bootstrapValidator('resetForm');
+                        id = null;
+                        $('#confirmEdit').modal('hide');
+                    } else {
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'danger',
+                            texto: results.msg,
+                        });
+                    }
+                }
+            });
+        });
+
+        // Obtiene los campos de la tabla secundaria y las ingresa en la lista de campos secundarios
+        $('#relacionesTablasSecEdit').on('change', function () {
+            $('#formEdit').bootstrapValidator('resetField', 'relacionesCampoSecEdit', true);
+            $('#relacionesCampoSecEdit').select2('destroy').select2({
+                allowClear: false,
+                placeholder: "Campo",
+                data: []
+            });
+            $.ajax({
+                type: "GET",
+                url: "/DiccionarioDatos/CamposTabla",
+                async: false,
+                data: { id: $('#relacionesTablasSecEdit').select2('val') },
+                success: function (results2) {
+                    if (results2.success) {
+                        $('#relacionesCampoSecEdit').select2('destroy').select2({
+                            allowClear: true,
+                            placeholder: "Campo",
+                            data: results2.msg
+                        });
+                    } else {
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'danger',
+                            texto: results2.msg,
+                        });
+                    }
+                }
+            });
+        }).change();
+
+        $('body').on('click', '#dataTables-relaciones .editarRegistro', function () {
+            id = this.id;
+            $(this).parents('tr').find('td').css('background-color', 'yellow');
+            $("#relacionesDecripEdit").focus();
+
+            $('#relacionesDecripEdit').val($(this).parents('tr').find('#descGrid').text());
+            $('#relacionesCampoPriEdit').select2('val', $(this).parents('tr').find('#priGridID').val());
+            $('#relacionesTablasSecEdit').select2('val', $(this).parents('tr').find('#tablaSecGridID').val());
+            $('#relacionesTablasSecEdit').change();
+            $('#relacionesCampoSecEdit').select2('val', $(this).parents('tr').find('#secGridID').val());
+
+            if ($(this).parents('tr').find('#activoGrid').text() == 'SI')
+                $("#relacionesActivoEdit").bootstrapSwitch('state', true, true);
+            else
+                $("#relacionesActivoEdit").bootstrapSwitch('state', false, true);
+        });
+
+        $('#confirmEdit').on('hidden.bs.modal', function (e) {
+            $('td').css('background-color', '');
+            if (id == null)
+                generarTabla();
+        });
+        
+    });
+</script>

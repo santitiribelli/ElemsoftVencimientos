@@ -1,0 +1,25 @@
+﻿<script>
+    $(function() {
+        //-----------------------
+        //Habilitar Modal Editar
+        //-----------------------
+        $('#confirmEdit').on('show.bs.modal', function (e) {
+            $('body').on({
+                'mousewheel': function (e) {
+                    if (e.target.id == 'el') return;
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
+        });
+
+        //-------------------------
+        //Deshabilitar Modal Editar
+        //-------------------------
+        $('#confirmEdit').on('hidden.bs.modal', function (e) {
+            $('td').css('background-color', '');
+            if (id == null)
+                generarTabla();
+        });
+    });
+</script>

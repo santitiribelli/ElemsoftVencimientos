@@ -1,0 +1,493 @@
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\GestionProcesos.dll.config
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\GestionProcesos.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\GestionProcesos.pdb
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\Antlr3.Runtime.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\BusinessLogic.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\CrystalDecisions.ReportSource.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\CrystalDecisions.Shared.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\Entities.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\EntityFramework.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\EntityFramework.SqlServer.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\Microsoft.Web.Infrastructure.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\Newtonsoft.Json.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Net.Http.Formatting.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.Http.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.Http.WebHost.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.Mvc.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.Optimization.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.Providers.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.Razor.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.WebPages.Deployment.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.WebPages.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.WebPages.Razor.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\WebGrease.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\DataAccess.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\FacturaElectronicaProd.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\stdole.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\BusinessLogic.pdb
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\Entities.pdb
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\EntityFramework.xml
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\EntityFramework.SqlServer.xml
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\Newtonsoft.Json.xml
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Net.Http.Formatting.xml
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.Http.xml
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.Http.WebHost.xml
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.Mvc.xml
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.Razor.xml
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.WebPages.xml
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.WebPages.Deployment.xml
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\System.Web.WebPages.Razor.xml
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\DataAccess.pdb
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\es\EntityFramework.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\es\System.Web.Http.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\es\System.Web.Http.WebHost.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\es\System.Web.Mvc.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\es\System.Web.Optimization.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\es\System.Web.Providers.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\es\System.Web.Razor.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\es\System.Web.WebPages.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\obj\Debug\Base.csprojResolveAssemblyReference.cache
+C:\Proyectos\TresPrimos\TresPrimos\Base\obj\Debug\GestionProcesos.dll
+C:\Proyectos\TresPrimos\TresPrimos\Base\obj\Debug\GestionProcesos.pdb
+C:\Proyectos\Terramar\Terramar\Base\bin\GestionProcesos.dll.config
+C:\Proyectos\Terramar\Terramar\Base\bin\GestionProcesos.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\GestionProcesos.pdb
+C:\Proyectos\Terramar\Terramar\Base\bin\Antlr3.Runtime.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\BusinessLogic.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\CrystalDecisions.ReportSource.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\CrystalDecisions.Shared.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\Entities.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\EntityFramework.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\EntityFramework.SqlServer.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\Microsoft.Web.Infrastructure.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\Newtonsoft.Json.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Net.Http.Formatting.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.Http.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.Http.WebHost.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.Mvc.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.Optimization.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.Providers.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.Razor.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.WebPages.Deployment.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.WebPages.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.WebPages.Razor.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\WebGrease.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\DataAccess.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\FacturaElectronicaProd.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\stdole.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\BusinessLogic.pdb
+C:\Proyectos\Terramar\Terramar\Base\bin\Entities.pdb
+C:\Proyectos\Terramar\Terramar\Base\bin\EntityFramework.xml
+C:\Proyectos\Terramar\Terramar\Base\bin\EntityFramework.SqlServer.xml
+C:\Proyectos\Terramar\Terramar\Base\bin\Newtonsoft.Json.xml
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Net.Http.Formatting.xml
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.Http.xml
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.Http.WebHost.xml
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.Mvc.xml
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.Razor.xml
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.WebPages.xml
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.WebPages.Deployment.xml
+C:\Proyectos\Terramar\Terramar\Base\bin\System.Web.WebPages.Razor.xml
+C:\Proyectos\Terramar\Terramar\Base\bin\DataAccess.pdb
+C:\Proyectos\Terramar\Terramar\Base\bin\es\EntityFramework.resources.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\es\System.Web.Http.resources.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\es\System.Web.Http.WebHost.resources.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\es\System.Web.Mvc.resources.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\es\System.Web.Optimization.resources.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\es\System.Web.Providers.resources.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\es\System.Web.Razor.resources.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\es\System.Web.WebPages.resources.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Proyectos\Terramar\Terramar\Base\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Proyectos\Terramar\Terramar\Base\obj\Debug\Base.csprojResolveAssemblyReference.cache
+C:\Proyectos\Terramar\Terramar\Base\obj\Debug\GestionProcesos.dll
+C:\Proyectos\Terramar\Terramar\Base\obj\Debug\GestionProcesos.pdb
+C:\Proyectos\Sealand\Sealand\Base\bin\GestionProcesos.dll.config
+C:\Proyectos\Sealand\Sealand\Base\bin\GestionProcesos.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\GestionProcesos.pdb
+C:\Proyectos\Sealand\Sealand\Base\bin\Antlr3.Runtime.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\BusinessLogic.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\CrystalDecisions.ReportSource.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\CrystalDecisions.Shared.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\Entities.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\EntityFramework.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\EntityFramework.SqlServer.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\Microsoft.Web.Infrastructure.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\Newtonsoft.Json.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Net.Http.Formatting.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.Http.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.Http.WebHost.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.Mvc.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.Optimization.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.Providers.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.Razor.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.WebPages.Deployment.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.WebPages.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.WebPages.Razor.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\WebGrease.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\DataAccess.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\stdole.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\BusinessLogic.pdb
+C:\Proyectos\Sealand\Sealand\Base\bin\Entities.pdb
+C:\Proyectos\Sealand\Sealand\Base\bin\EntityFramework.xml
+C:\Proyectos\Sealand\Sealand\Base\bin\EntityFramework.SqlServer.xml
+C:\Proyectos\Sealand\Sealand\Base\bin\Newtonsoft.Json.xml
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Net.Http.Formatting.xml
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.Http.xml
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.Http.WebHost.xml
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.Mvc.xml
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.Razor.xml
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.WebPages.xml
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.WebPages.Deployment.xml
+C:\Proyectos\Sealand\Sealand\Base\bin\System.Web.WebPages.Razor.xml
+C:\Proyectos\Sealand\Sealand\Base\bin\DataAccess.pdb
+C:\Proyectos\Sealand\Sealand\Base\bin\es\EntityFramework.resources.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\es\System.Web.Http.resources.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\es\System.Web.Http.WebHost.resources.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\es\System.Web.Mvc.resources.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\es\System.Web.Optimization.resources.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\es\System.Web.Providers.resources.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\es\System.Web.Razor.resources.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\es\System.Web.WebPages.resources.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Proyectos\Sealand\Sealand\Base\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Proyectos\Sealand\Sealand\Base\obj\Debug\Base.csprojResolveAssemblyReference.cache
+C:\Proyectos\Sealand\Sealand\Base\obj\Debug\GestionProcesos.dll
+C:\Proyectos\Sealand\Sealand\Base\obj\Debug\GestionProcesos.pdb
+C:\Proyectos\Sealand\Sealand\Base\bin\Gma.QrCodeNet.Encoding.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\obj\Debug\Base.csprojResolveAssemblyReference.cache
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\obj\Debug\GestionProcesos.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\obj\Debug\GestionProcesos.pdb
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\GestionProcesos.dll.config
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\GestionProcesos.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\GestionProcesos.pdb
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\Antlr3.Runtime.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\BusinessLogic.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportSource.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.Shared.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\Entities.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\EntityFramework.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\EntityFramework.SqlServer.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\Gma.QrCodeNet.Encoding.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\Microsoft.Web.Infrastructure.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\Newtonsoft.Json.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Net.Http.Formatting.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Http.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Http.WebHost.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Mvc.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Optimization.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Providers.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Razor.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.Deployment.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.Razor.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\WebGrease.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\DataAccess.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\stdole.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\BusinessLogic.pdb
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\Entities.pdb
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\EntityFramework.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\EntityFramework.SqlServer.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\Newtonsoft.Json.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Net.Http.Formatting.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Http.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Http.WebHost.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Mvc.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Razor.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.Deployment.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.Razor.xml
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\DataAccess.pdb
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\es\EntityFramework.resources.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Http.resources.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Http.WebHost.resources.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Mvc.resources.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Optimization.resources.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Providers.resources.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Razor.resources.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.WebPages.resources.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Proyectos\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\GestionProcesos.dll.config
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\GestionProcesos.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\GestionProcesos.pdb
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\Antlr3.Runtime.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\BusinessLogic.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportSource.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.Shared.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\Entities.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\EntityFramework.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\EntityFramework.SqlServer.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\Gma.QrCodeNet.Encoding.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\Newtonsoft.Json.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Net.Http.Formatting.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Http.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Http.WebHost.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Mvc.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Optimization.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Providers.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Razor.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.Deployment.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.Razor.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\WebGrease.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\DataAccess.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\stdole.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\BusinessLogic.pdb
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\Entities.pdb
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\EntityFramework.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\EntityFramework.SqlServer.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\Newtonsoft.Json.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Net.Http.Formatting.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Http.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Http.WebHost.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Mvc.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Razor.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.Deployment.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.Razor.xml
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\DataAccess.pdb
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\es\EntityFramework.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\es\EntityFramework.SqlServer.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Http.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Http.WebHost.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Mvc.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Optimization.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Providers.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Razor.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.WebPages.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\obj\Debug\Base.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\obj\Debug\GestionProcesos.dll
+C:\Users\User\Documents\VencimientosExternos\VencimientosExternos\Base\obj\Debug\GestionProcesos.pdb
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\GestionProcesos.dll.config
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\GestionProcesos.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\GestionProcesos.pdb
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\Antlr3.Runtime.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\BusinessLogic.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportSource.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.Shared.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\Entities.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\EntityFramework.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\EntityFramework.SqlServer.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\Gma.QrCodeNet.Encoding.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\Newtonsoft.Json.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Net.Http.Formatting.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Http.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Http.WebHost.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Mvc.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Optimization.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Providers.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Razor.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.Razor.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\WebGrease.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\DataAccess.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\stdole.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\BusinessLogic.pdb
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\BusinessLogic.dll.config
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\Entities.pdb
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\Entities.dll.config
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\EntityFramework.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\EntityFramework.SqlServer.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\Newtonsoft.Json.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Net.Http.Formatting.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Http.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Http.WebHost.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Mvc.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.Razor.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\System.Web.WebPages.Razor.xml
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\DataAccess.pdb
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\DataAccess.dll.config
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\es\EntityFramework.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\es\EntityFramework.SqlServer.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Http.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Http.WebHost.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Mvc.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Optimization.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Providers.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.Razor.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.WebPages.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\obj\Debug\Base.csproj.AssemblyReference.cache
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\obj\Debug\Base.csproj.CoreCompileInputs.cache
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\obj\Debug\Base.csproj.CopyComplete
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\obj\Debug\GestionProcesos.dll
+C:\Users\Santiago.Tiribelli\Downloads\VencimientosExternos\VencimientosExternos\Base\obj\Debug\GestionProcesos.pdb
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\GestionProcesos.dll.config
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\GestionProcesos.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\GestionProcesos.pdb
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\Antlr3.Runtime.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\BusinessLogic.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\CrystalDecisions.ReportSource.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\CrystalDecisions.Shared.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\Entities.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\EntityFramework.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\EntityFramework.SqlServer.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\Gma.QrCodeNet.Encoding.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\Newtonsoft.Json.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Net.Http.Formatting.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.Http.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.Http.WebHost.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.Mvc.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.Optimization.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.Providers.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.Razor.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.WebPages.Deployment.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.WebPages.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.WebPages.Razor.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\WebGrease.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\DataAccess.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\stdole.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\BusinessLogic.pdb
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\BusinessLogic.dll.config
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\Entities.pdb
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\Entities.dll.config
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\EntityFramework.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\EntityFramework.SqlServer.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\Newtonsoft.Json.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Net.Http.Formatting.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.Http.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.Http.WebHost.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.Mvc.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.Razor.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.WebPages.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.WebPages.Deployment.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\System.Web.WebPages.Razor.xml
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\DataAccess.pdb
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\DataAccess.dll.config
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\es\EntityFramework.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\es\EntityFramework.SqlServer.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\es\System.Net.Http.Formatting.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\es\System.Web.Http.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\es\System.Web.Http.WebHost.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\es\System.Web.Mvc.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\es\System.Web.Optimization.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\es\System.Web.Providers.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\es\System.Web.Razor.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\es\System.Web.WebPages.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\obj\Debug\Base.csproj.AssemblyReference.cache
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\obj\Debug\Base.csproj.CoreCompileInputs.cache
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\obj\Debug\Base.csproj.CopyComplete
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\obj\Debug\GestionProcesos.dll
+C:\Users\santi\Downloads\VencimientosExternos (4)\VencimientosExternos\Base\obj\Debug\GestionProcesos.pdb

@@ -1,0 +1,160 @@
+﻿@{
+    ViewBag.Title = "Estadistica";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="page-header">Estadística</h4>
+    </div>
+</div>
+
+<form class="form-horizontal rowAlt" role="form" id="formRegistro">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Período Desde</label>
+                        <div class="col-lg-3">
+                            <input type="text" class="input-sm form-control datepicker" id="periodoDesde" name="periodoDesde" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Período Hasta</label>
+                        <div class="col-lg-3">
+                            <input type="text" class="input-sm form-control datepicker" id="periodoHasta" name="periodoHasta" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Por</label>
+                        <div class="col-lg-4" style="height:30px;">
+                            <select id="por" class="form-control">
+                                <option value="T" selected>Tabla</option>
+                                <option value="U">Usuario</option>
+                            </select>
+
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">De</label>
+                        <div class="col-lg-4" style="height:30px;">
+                              <select id="de" class="form-control">
+                                <option value="D" selected>Datos</option>
+                                <option value="E">Exportación</option>
+                            </select>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right btn-Cont">
+                <button type="submit" class="btn btn-success" id="btnBuscar">Buscar</button>
+            </div>
+        </div>
+    </div>
+     
+</form>
+ <div  id="gridRegistro" class="row">
+    </div>
+<script>
+    $(function () {
+        $('#por').select2({ allowClear: true });
+        $('#de').select2({ allowClear: false });
+
+        $.fn.bootstrapValidator.validators.dates = {
+            validate: function (validator, $field, options) {
+                var d1 = $('#periodoDesde').val();
+                var d2 = $('#periodoHasta').val();
+                d1 = d1.split('/');
+                d2 = d2.split('/');
+                d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+                
+                if (!$('#periodoHasta').val())
+                    return true;
+                return d2 >= d1;
+            }
+        };
+
+
+
+        $('#formRegistro').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnBuscar',
+            fields: {
+                periodoDesde: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                        regexp: {
+                            regexp: /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/,
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Formato incorrecto").IdiPal_Texto)'
+                        }
+                    }
+                },
+                periodoHasta: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                        regexp: {
+                            regexp: /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/,
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Formato incorrecto").IdiPal_Texto)'
+                        },
+                        dates: {
+                            message: 'La fecha debe ser superior a la fecha desde.'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+
+            var lfechaDesde = $('#periodoDesde').val();
+            var lfechaHasta = $('#periodoHasta').val();
+            var lpor = $('#por').val();
+            var lde = $('#de').val();
+
+
+            $("#gridRegistro").load('/Auditoria/EstadisticaGrilla',
+                {
+                    fechaDesde: lfechaDesde,
+                    fechaHasta: lfechaHasta,
+                    por: lpor, de: lde
+                });
+
+
+            /*
+            $.ajax({
+                url: '/Auditoria/EstadisticaGrilla',               
+                data: { fechaDesde: lfechaDesde, fechaHasta: lfechaHasta, por: lpor, de: lde },
+                success: function (mydata) {
+                    
+                    $("#gridRegistro").hide();
+                    $("#gridRegistro").empty().append(mydata);
+                    $("#gridRegistro").show();
+
+                },
+                type: "GET"
+            });*/
+        });
+
+
+
+    });
+</script>
+
+
+
+    

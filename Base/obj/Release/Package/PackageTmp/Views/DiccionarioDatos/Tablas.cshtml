@@ -1,0 +1,381 @@
+﻿@model Entities.Dic_Tablas
+<form class="form-horizontal rowAlt" role="form" id="formTablas">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="" class="col-lg-4 control-label">Descripción</label>
+                    <div class="col-lg-8">
+                        <textarea class="form-control input-sm" name="tablaDescripcion" id="tablaDescripcion" maxlength="200"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="" class="col-lg-4 control-label">Orden</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control input-sm" name="orden" id="orden"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="" class="col-lg-4 control-label">Nombre</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control input-sm" name="tablaNombre" id="tablaNombre" maxlength="50" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="" class="col-lg-4 control-label">Nombre Interno</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control input-sm" name="tablaNombreInterno" id="tablaNombreInterno" maxlength="50" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="" class="col-lg-4 control-label">Activo</label>
+                    <div class="col-lg-8" style="height: 30px;">
+                        <input type="checkbox" id="tablaActivo" data-on-color="success" data-off-color="success" data-on-text="Si" data-off-text="No" checked>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="" class="col-lg-4 control-label">Visible</label>
+                    <div class="col-lg-4" style="height: 30px;">
+                        <input type="checkbox" id="tablaVisible" data-on-color="success" data-off-color="success" data-on-text="Si" data-off-text="No" checked>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="" class="col-lg-4 control-label">Fecha Alta</label>
+                    <div class="col-lg-4">
+                        <input type="text" class="input-sm form-control datepicker" id="tablafechaAlta" name="tablafechaAlta" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="" class="col-lg-4 control-label">Fecha Baja</label>
+                    <div class="col-lg-4">
+                        <input type="text" class="input-sm form-control datepicker" id="tablafechaBaja" name="tablafechaBaja" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="" class="col-lg-4 control-label">Auditoría</label>
+                    <div class="col-lg-4" style="height: 30px;">
+                        <input type="checkbox" id="tablaAuditoria" data-on-color="success" data-off-color="success" data-on-text="Si" data-off-text="No" checked>
+                    </div>
+                </div>
+            </div>
+        </div>
+       @if (ViewBag.Alta == true)
+       {
+           <div class="pull-right btn-Cont">
+               <button type="submit" class="btn btn-success" id="btnGuardar">Guardar</button>
+           </div>
+       }
+    </div>
+</form>
+<script>
+
+    $(function () {
+        $("#tablaActivo,#tablaVisible,#tablaAuditoria").bootstrapSwitch('state', true, true);
+
+        $("#tablaActivo").on('switchChange.bootstrapSwitch', function (event, state) {
+            if (state == true) {
+
+                $('#tablafechaBaja').val('');
+                $('#tablafechaBaja').change();
+            } else {
+                $('#tablafechaBaja').val('@DateTime.Now.ToString("dd/MM/yyyy")');
+                $('#tablafechaBaja').change();
+            }
+        });
+
+        $('#tablafechaAlta').on("change", function () {
+            $('#formTablas').data('bootstrapValidator')
+                // Mark the field as not validated, so it'll be re-validated when the user change date
+                .updateStatus('tablafechaAlta', 'NOT_VALIDATED', null)
+                // Validate the field
+                .validateField('tablafechaAlta');
+
+            $('#formTablas').data('bootstrapValidator')
+                // Mark the field as not validated, so it'll be re-validated when the user change date
+                .updateStatus('tablafechaBaja', 'NOT_VALIDATED', null)
+                // Validate the field
+                .validateField('tablafechaBaja');
+
+        });
+
+        $('#tablafechaBaja').on("change", function () {
+            $('#formTablas').data('bootstrapValidator')
+                // Mark the field as not validated, so it'll be re-validated when the user change date
+                .updateStatus('tablafechaBaja', 'NOT_VALIDATED', null)
+                // Validate the field
+                .validateField('tablafechaBaja');
+        });
+
+        $.fn.bootstrapValidator.validators.dates = {
+            validate: function (validator, $field, options) {
+                if ($('#tablafechaBaja').val() == '')
+                    return true;
+                var d1 = $('#tablafechaAlta').val();
+                var d2 = $('#tablafechaBaja').val();
+                d1 = d1.split('/');
+                d2 = d2.split('/');
+                d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                return d2 >= d1;
+            }
+        };
+
+
+        $.fn.bootstrapValidator.validators.nameExist = {
+            validate: function (validator, $field, options) {
+                var current = null;
+                if ($("#tablaId").val() > 0)
+                    current = $("#tablaId").val();
+                var isValid = true;
+                $.ajax({
+                    url: '/DiccionarioDatos/ExisteTablaNombre',
+                    type: 'POST',
+                    data: JSON.stringify({ current: current, nombre: $field.val() }),
+                    contentType: "application/json",
+                    async: false,
+                    success: function (results) {
+                        isValid = !results.success;
+                    }
+                });
+                return isValid;
+            }
+        };
+
+        $.fn.bootstrapValidator.validators.nameIntExist = {
+            validate: function (validator, $field, options) {
+                var current = null;
+                if ($("#tablaId").val() > 0)
+                    current = $("#tablaId").val();
+                var isValid = true;
+                $.ajax({
+                    url: '/DiccionarioDatos/ExisteTablaNombreInterno',
+                    type: 'POST',
+                    data: JSON.stringify({ current: current, nombre: $field.val() }),
+                    contentType: "application/json",
+                    async: false,
+                    success: function (results) {
+                        isValid = !results.success;
+                    }
+                });
+                return isValid;
+            }
+        };
+
+        $('#formTablas').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnGuardar',
+            fields: {
+                tablaDescripcion: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                tablaNombre: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        },
+                        nameExist: {
+                            enabled: false,
+                            message: 'El nombre ya existe'
+                        }
+                    }
+                },
+                tablaNombreInterno: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        },
+                        nameIntExist: {
+                            enabled: false,
+                            message: 'El nombre ya existe'
+
+                        }
+                    }
+                },
+                tablaVisible: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                tablaActivo: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                tablafechaAlta: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: "Formato incorrecto"
+                        }
+                    }
+                },
+                tablafechaBaja: {
+                    validators: {
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: "Formato incorrecto"
+                        },
+                        dates: {
+                            message: 'La fecha debe ser superior a la de alta.'
+                        }
+                    }
+                },
+                orden: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        },
+                        integer: {
+                            message: 'solo numeros'
+                        }
+                    }
+                },
+            }
+        })
+        .on("keyup", "#tablaNombre,#tablaNombreInterno", function () {
+            $('#formTablas').bootstrapValidator("enableFieldValidators", "tablaNombre", false)
+                            .bootstrapValidator("enableFieldValidators", "tablaNombreInterno", false);
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+            $('#formTablas').bootstrapValidator('enableFieldValidators', 'tablaNombre', true)
+                            .bootstrapValidator('enableFieldValidators', 'tablaNombreInterno', true)
+                            .bootstrapValidator('validateField', 'tablaNombre')
+                            .bootstrapValidator('validateField', 'tablaNombreInterno');
+            var $form = $(e.target);
+            var bv = $form.data('bootstrapValidator');
+
+            if (bv.isValid()) {
+                var sessionData = {
+                    "Tab_Id": $("#tablaId").val(),
+                    "Tab_Desc": $('#tablaDescripcion').val(),
+                    "Tab_Nom": $('#tablaNombre').val(),
+                    "Tab_NomInt": $('#tablaNombreInterno').val(),
+                    "Tab_Visible": $('#tablaVisible').bootstrapSwitch('state'),
+                    "Tab_Auditoria": $('#tablaAuditoria').bootstrapSwitch('state'),
+                    "Tab_Activo": $('#tablaActivo').bootstrapSwitch('state'),
+                    "Tab_FechaAlta": $('#tablafechaAlta').val(),
+                    "Tab_FechaBaja": $('#tablafechaBaja').val(),
+                    "Tab_Orden": $('#orden').val()
+                };
+
+                $.ajax({
+                    url: '/DiccionarioDatos/Tablas',
+                    type: 'POST',
+                    data: JSON.stringify(sessionData),
+                    contentType: "application/json",
+                    success: function (results) {
+                        if (results.success) {
+                            if ($('#tablaId').val() > 0) {
+                                window.location.href = '/DiccionarioDatos/Index/?id=' + results.msg;
+                            } else {
+                                window.location.href = '/DiccionarioDatos/Index/?id=' + results.msg;
+                            }
+
+                        } else {
+                            $('#alertMessage2').gelemAlert({
+                                tipo: 'danger',
+                                texto: results.msg,
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+
+
+    });
+
+
+
+</script>
+@if (Model != null)
+{
+    <script>
+        $(function () {
+            //Descripcion
+            $('#tablaDescripcion').val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Tab_Desc))');
+
+            // Nombre 
+            $('#tablaNombre').val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Tab_Nom))');
+
+            // Nombre Interno
+            $('#tablaNombreInterno').val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Tab_NomInt))');
+
+            //fecha alta
+            $('#tablafechaAlta').val('@Model.Tab_FechaAlta.ToString("dd/MM/yyyy")');
+
+            //fecha baja
+            //puesto en el html en el value
+
+            // Visible
+            // if () {
+            if ('@Model.Tab_Visible' == 'True') {
+                $('#tablaVisible').bootstrapSwitch('state', true);
+            }
+            else {
+                $('#tablaVisible').bootstrapSwitch('state', false);
+            }
+            
+            // Auditoría
+            // if () {
+            if ('@Model.Tab_Auditoria' == 'True') {
+                $('#tablaAuditoria').bootstrapSwitch('state', true);
+            }
+            else {
+                $('#tablaAuditoria').bootstrapSwitch('state', false);
+            }
+
+            // Activo
+
+            if ('@Model.Tab_Activo' == 'True') {
+                $('#tablaActivo').bootstrapSwitch('state', true);
+            }
+            else {
+                $('#tablaActivo').bootstrapSwitch('state', false);
+            }
+
+            // Orden 
+            $('#orden').val('@Model.Tab_Orden');
+
+            //Boton "Actualizar"
+            $('#btnGuardar').text('Actualizar');
+        });
+    </script>
+}

@@ -1,0 +1,380 @@
+﻿@using System
+@model Entities.Documentaciones
+
+
+<form class="form-horizontal rowAlt" role="form" id="formMultialta">
+    <input type="hidden" id="hiddenTabla" />
+    <input type="hidden" id="hiddenTablaId" />
+    <input type="hidden" id="hiddenTablaMultiDocId" />
+    @if (Model != null && Model.Doc_Dig != null)
+    {
+        <div class="alert alert-info alert-dismissible" id="tabInfo" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+            <strong>Información:</strong> El documento ya tiene cargado el documento digitalizado. Si carga otro nuevo se perdera el anterior.
+        </div>
+    }
+    <input type="hidden" name="docId" id="docId" />
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Tipo</label>
+                        <div class="col-lg-8">
+                            <input type="text" class="form-control input-sm" value="@(Model != null ? Model.Clas_Doc_Id.ToString() : "")" name="docTipo" id="docTipo" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Número</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="form-control input-sm " name="docNumero" id="docNumero" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Letra</label>
+
+                        <div class="col-lg-2">
+                            <input type="text" class="form-control input-sm " name="letra" id="letra" />
+                        </div>
+                        <div class="valAnio">
+                            <label for="" class="col-lg-2 control-label">Año</label>
+                            <div class="col-lg-2">
+                                <input type="text" class="form-control input-sm" name="año" id="año" maxlength="4" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Fecha</label>
+                        <div class="col-lg-4">
+                            <input type="text" class="input-sm form-control datepicker" id="docFecha" name="docFecha" />
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Reseña</label>
+                        <div class="col-lg-8">
+                            <textarea class="form-control input-sm" rows="3" id="reseña" name="reseña"></textarea>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Activo</label>
+                        <div class="col-lg-3" style="height: 30px;">
+                            <input type="checkbox" name="docActivo" id="docActivo" data-on-color="success" data-off-color="success" data-on-text="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Control Switch - SI").IdiPal_Texto)" data-off-text="@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Control Switch - NO").IdiPal_Texto)" checked>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-lg-4 control-label">Subir Archivo</label>
+                        <div class="col-lg-8">
+                            <input id="input-id" type="file" class="file input-sm" name="imagen" data-show-preview="false">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="pull-right btn-Cont">
+                <button type="submit" class="btn btn-success" id="btnGuardarDoc" style="display:none;">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Guardar").IdiPal_Texto)</button>
+                <button type="button" class="btn btn-info 1" id="btnBuscar">Buscar</button>
+            </div>
+        </div>
+    </div>
+</form>
+<div id="gridResultadoDoc" class="row">
+</div>
+
+
+<script>
+    function uploadfile(docId) {
+        var bannerImage = $("#input-id").val();
+        if (bannerImage) {
+            var file = document.getElementById('input-id').files[0];
+            var formData = new FormData();
+            formData.append(file.name, file);
+            var xhr = new XMLHttpRequest();
+            var url = "@Url.Action("UploadFotoSinParametro")/" + docId;
+            xhr.open('POST', url, true);
+            xhr.onload = function (e) {
+                var response = $.parseJSON(e.target.response);
+                if (response.success == false) {
+                    $('#alertMessage2').gelemAlert({
+                        tipo: 'danger',
+                        texto: response.msg,
+                    });
+                }
+            };
+            xhr.send(formData);  // multipart/form-data
+            $('#input-id').fileinput('clear');
+        }
+    }
+
+    $(function () {
+
+
+        $('#btnBuscar').on('click', function() {
+            $("#gridResultadoDoc").load('@Url.Action("DocumentacionBuscar")', { activo: $('[name="docActivo"]').bootstrapSwitch('state'), aa: $("#año").val(), fecha: $("#docFecha").val(), letra: $("#letra").val(), num: $("#docNumero").val(), tipo: $("#docTipo").select2("val")[$("#docTipo").select2("val").length - 1] });
+            $('#btnGuardarDoc').show();
+        });
+        
+        $("[name='docActivo']").bootstrapSwitch('state', true, true);
+
+        $('#docTipo').select2({
+            maximumInputLength: 10,
+            multiple: true,
+            initSelection: function (element, callback) {
+                if ($('#docTipo').val() > 0) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetClasificadorById","Clasificadores")',
+                        dataType: 'json',
+                        data: { id: $('#docTipo').val(), tabla: 'Documentos - Tipos' },
+                        success: function (data) {
+                            callback(data);
+                        }
+                    }).done(function () {
+                        $('.select2-search-choice-close').css("display", "none");
+
+                        $('.select2-search-field').prev().find('.select2-search-choice-close').css("display", "block");
+                    });
+                }
+            },
+            ajax: {
+                url: '@Url.Action("GetClasificador","Clasificadores")',
+                dataType: 'json',
+                type: 'POST',
+                data: function (term, page) {
+                    if ($('#docTipo').select2("val").length == 0) {
+                        return {
+                            tabla: 'Documentos - Tipos',
+                            q: term // search term
+                        };
+                    } else {
+                        return {
+                            tabla: 'Documentos - Tipos',
+                            q: term, // search term
+                            id: $('#docTipo').select2("val")[$('#docTipo').select2("val").length - 1]
+                        };
+                    }
+                },
+                results: function (data, page) {
+                    return {
+                        results: data
+                    };
+                }
+            }
+        });
+        $('#docTipo').on("change", function () {
+
+            $('.select2-search-choice-close').css("display", "none");
+            $('.select2-search-field').prev().find('.select2-search-choice-close').css("display", "block");
+
+            $('#docTipo').select2('open');
+
+            ValidateSelect2Multi($('#docTipo').select2("val")[$('#docTipo').select2("val").length - 1], $('#formMultialta'), 'docTipo');
+        });
+
+        $('#docFecha').on("change", function () {
+            $('#formMultialta').data('bootstrapValidator')
+                // Mark the field as not validated, so it'll be re-validated when the user change date
+                .updateStatus('docFecha', 'NOT_VALIDATED', null)
+                // Validate the field
+                .validateField('docFecha');
+        });
+
+        $('#formMultialta').bootstrapValidator({
+            submitButtons: '#btnGuardarDoc',
+            fields: {
+                docTipo: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                docNumero: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                        regexp: {
+                            regexp: /^\d+$/,
+                            message: 'solo números'
+                        },
+                    }
+                },
+                año: {
+                    group: '.valAnio',
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                        between: {
+                            min: 1900,
+                            max: '@DateTime.Now.Year',
+                            message: 'El año tiene que ser un valor entre 1900 y @DateTime.Now.Year'
+                        }
+                    }
+                },
+                docFecha: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        },
+                        regexp: {
+                            regexp: /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/,
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Formato incorrecto").IdiPal_Texto)'
+                        }
+                    }
+                },
+                reseña: {
+                    validators: {
+                        notEmpty: {
+                            message: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Validacion - Campo Requerido").IdiPal_Texto)'
+                        }
+                    }
+                },
+                imagen: {
+                    validators: {
+                        stringLength: {
+                            max: 50,
+                            message: 'el nombre del documento no puede superar los 45 caracteres'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            e.preventDefault();
+
+            var sessionData = {
+                "Doc_Id": $("#docId").val(),
+                "Clas_Doc_Id": $("#docTipo").select2("val")[$("#docTipo").select2("val").length - 1],
+                "Doc_Num": $("#docNumero").val(),
+                "Doc_AA": $("#año").val(),
+                "Doc_Let": $("#letra").val(),
+                "Doc_Fec": $("#docFecha").val(),
+                "Doc_Res": $("#reseña").val(),
+                "Doc_Activo": $('[name="docActivo"]').bootstrapSwitch('state')
+            };
+
+            var parametro = { "model": sessionData, "tabla": $("#hiddenTabla").val(), "tablaId": $("#hiddenTablaId").val(), "tablaMultiDocId": $("#hiddenTablaMultiDocId").val() };
+
+            $.ajax({
+                url: '@Url.Action("MultiAlta")',
+                type: 'POST',
+                data: JSON.stringify(parametro),
+                contentType: "application/json",
+                success: function (results) {
+
+                    if (results.success) {
+                        if (results.msg == 'U') {
+                            $('#alertMessage2').gelemAlert({
+                                tipo: 'success',
+                                texto: 'Documento actualizado exitosamente',
+                            });
+                        } else {
+                            $('#alertMessage2').gelemAlert({
+                                tipo: 'success',
+                                texto: 'Documento guardado exitosamente',
+                            });
+                        }
+                        id = null;
+                        $('#docTipo').select2('data', null);
+                        $('#docNumero,#docFecha,#letra,#año,#reseña').val('');
+                        $('#docActivo').bootstrapSwitch('state', true, true);
+
+                        uploadfile(results.id);
+                        
+                        if ($('#confirmDoc').hasClass('in') == true)
+                            {
+                            $('#confirmDoc').modal('hide');
+                        } else {
+                            $("#grid").load('@Url.Action("MultiGrilla")', { tablaNombre: $("#hiddenTabla").val(), tablaId: $("#hiddenTablaId").val() });
+                        }
+
+                        if ($('#tabDocumentacion') != null) {
+                            $('#tabDocumentacion').removeClass('sinInfo text-info');
+                            $('#tabDocumentacion i').remove();
+                            //$("#grid").load('/Documentacion/MultiGrilla', { tablaNombre: $("#hiddenTabla").val(), tablaId: $("#hiddenTablaId").val() });
+                        }
+
+                    } else {
+                        $('#alertMessage2').gelemAlert({
+                            tipo: 'danger',
+                            texto: results.msg,
+                        });
+                    }
+                }
+            });
+        });
+
+        $("#input-id").fileinput({
+            previewFileType: "image",
+            browseClass: "btn btn-sm btn-success",
+            browseLabel: " Buscar",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-sm btn-danger",
+            removeLabel: " Borrar",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            showUpload: false
+        });
+    });
+</script>
+@if (Model != null)
+{
+    <script>
+        $(function () {
+            //Id
+            $("#docId").val('@Model.Doc_Id');
+
+            //Tipo
+            $("#docTipo").select2('val', "Gera");
+
+            //Numero
+            $('#docNumero').val('@Model.Doc_Num');
+
+            //Letra
+            $('#letra').val('@Model.Doc_Let');
+
+            //Año
+            $('#año').val('@Model.Doc_AA');
+
+            //Fecha
+            $('#docFecha').val('@Model.Doc_Fec.ToShortDateString()');
+
+            //Reseña
+            $('#reseña').val('@Html.Raw(Model.Doc_Res)');
+
+            //Activo
+            if ('@Model.Doc_Activo' == 'True') {
+                $('#docActivo').bootstrapSwitch('state', true);
+            }
+            else {
+                $('#docActivo').bootstrapSwitch('state', false);
+            }
+
+            //Boton "Actualizar"
+            $('#btnGuardar').text('Actualizar');
+        });
+    </script>
+    
+}

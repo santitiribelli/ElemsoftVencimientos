@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="GestionProcesosModelStoreContainer" CdmEntityContainer="GestionProcesosEntities">
+    <FunctionImportMapping FunctionImportName="sp_Alertas" FunctionName="GestionProcesosModel.Store.sp_Alertas">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="GestionProcesosModel.sp_Alertas_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Prefijo" ColumnName="Prefijo" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="TextoCorto" ColumnName="TextoCorto" />
+          <ScalarProperty Name="Texto" ColumnName="Texto" />
+          <ScalarProperty Name="Dato" ColumnName="Dato" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Clasificadores">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Clasificadores">
+        <MappingFragment StoreEntitySet="Clasificadores">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Clas_Interno" ColumnName="Clas_Interno" />
+          <ScalarProperty Name="Clas_FecBaja" ColumnName="Clas_FecBaja" />
+          <ScalarProperty Name="Clas_FecAlta" ColumnName="Clas_FecAlta" />
+          <ScalarProperty Name="Clas_Padre" ColumnName="Clas_Padre" />
+          <ScalarProperty Name="Clas_DatoOblig" ColumnName="Clas_DatoOblig" />
+          <ScalarProperty Name="Clas_Detalle" ColumnName="Clas_Detalle" />
+          <ScalarProperty Name="Clas_Tabla" ColumnName="Clas_Tabla" />
+          <ScalarProperty Name="Clas_Abrev" ColumnName="Clas_Abrev" />
+          <ScalarProperty Name="Clas_Desc" ColumnName="Clas_Desc" />
+          <ScalarProperty Name="Clas_Id" ColumnName="Clas_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadPaginas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.SeguridadPaginas">
+        <MappingFragment StoreEntitySet="SeguridadPaginas">
+          <ScalarProperty Name="SegPag_Cod" ColumnName="SegPag_Cod" />
+          <ScalarProperty Name="SegPag_Act" ColumnName="SegPag_Act" />
+          <ScalarProperty Name="SegPag_NomDesc" ColumnName="SegPag_NomDesc" />
+          <ScalarProperty Name="SegPag_Nom" ColumnName="SegPag_Nom" />
+          <ScalarProperty Name="SegPag_Id" ColumnName="SegPag_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadRoles">
+      <EntityTypeMapping TypeName="GestionProcesosModel.SeguridadRoles">
+        <MappingFragment StoreEntitySet="SeguridadRoles">
+          <ScalarProperty Name="SegRol_Descr" ColumnName="SegRol_Descr" />
+          <ScalarProperty Name="SegRol_Id" ColumnName="SegRol_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadRolesPaginas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.SeguridadRolesPaginas">
+        <MappingFragment StoreEntitySet="SeguridadRolesPaginas">
+          <ScalarProperty Name="SegRolPag_Expo" ColumnName="SegRolPag_Expo" />
+          <ScalarProperty Name="SegRolPag_Alta" ColumnName="SegRolPag_Alta" />
+          <ScalarProperty Name="SegRolPag_Ver" ColumnName="SegRolPag_Ver" />
+          <ScalarProperty Name="SegPag_Id" ColumnName="SegPag_Id" />
+          <ScalarProperty Name="SegRol_Id" ColumnName="SegRol_Id" />
+          <ScalarProperty Name="SegRolPag_Id" ColumnName="SegRolPag_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadUsuarios">
+      <EntityTypeMapping TypeName="GestionProcesosModel.SeguridadUsuarios">
+        <MappingFragment StoreEntitySet="SeguridadUsuarios">
+          <ScalarProperty Name="Salt" ColumnName="Salt" />
+          <ScalarProperty Name="SegUsu_FecBaja" ColumnName="SegUsu_FecBaja" />
+          <ScalarProperty Name="SegUsu_FecAlta" ColumnName="SegUsu_FecAlta" />
+          <ScalarProperty Name="SegRol_Id" ColumnName="SegRol_Id" />
+          <ScalarProperty Name="SegUsu_Pass" ColumnName="SegUsu_Pass" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+          <ScalarProperty Name="SegUsu_Id" ColumnName="SegUsu_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeguridadUsuariosPaginas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.SeguridadUsuariosPaginas">
+        <MappingFragment StoreEntitySet="SeguridadUsuariosPaginas">
+          <ScalarProperty Name="SegPagUsu_Expo" ColumnName="SegPagUsu_Expo" />
+          <ScalarProperty Name="SegPagUsu_Alta" ColumnName="SegPagUsu_Alta" />
+          <ScalarProperty Name="SegPagUsu_Ver" ColumnName="SegPagUsu_Ver" />
+          <ScalarProperty Name="SegPag_Id" ColumnName="SegPag_Id" />
+          <ScalarProperty Name="SegUsu_Id" ColumnName="SegUsu_Id" />
+          <ScalarProperty Name="SegUsuPag_Id" ColumnName="SegUsuPag_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehiculosDocumentos">
+      <EntityTypeMapping TypeName="GestionProcesosModel.VehiculosDocumentos">
+        <MappingFragment StoreEntitySet="VehiculosDocumentos">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="VehDoc_Obs" ColumnName="VehDoc_Obs" />
+          <ScalarProperty Name="VehDoc_DatosVerificados" ColumnName="VehDoc_DatosVerificados" />
+          <ScalarProperty Name="VehDoc_ArchivoAdjunto" ColumnName="VehDoc_ArchivoAdjunto" />
+          <ScalarProperty Name="GeneraAlerta" ColumnName="GeneraAlerta" />
+          <ScalarProperty Name="VehDoc_FechaAviso" ColumnName="VehDoc_FechaAviso" />
+          <ScalarProperty Name="VehDoc_FechaVencimiento" ColumnName="VehDoc_FechaVencimiento" />
+          <ScalarProperty Name="VehDoc_FechaAprobado" ColumnName="VehDoc_FechaAprobado" />
+          <ScalarProperty Name="Clas_TipoDocumento_Id" ColumnName="Clas_TipoDocumento_Id" />
+          <ScalarProperty Name="Veh_Id" ColumnName="Veh_Id" />
+          <ScalarProperty Name="VehDoc_Id" ColumnName="VehDoc_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehiculosLicencias">
+      <EntityTypeMapping TypeName="GestionProcesosModel.VehiculosLicencias">
+        <MappingFragment StoreEntitySet="VehiculosLicencias">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="VehLic_Obs" ColumnName="VehLic_Obs" />
+          <ScalarProperty Name="VehLic_DatosVerificados" ColumnName="VehLic_DatosVerificados" />
+          <ScalarProperty Name="GeneraAlerta" ColumnName="GeneraAlerta" />
+          <ScalarProperty Name="VehLic_FechaHasta" ColumnName="VehLic_FechaHasta" />
+          <ScalarProperty Name="VehLic_FechaDesde" ColumnName="VehLic_FechaDesde" />
+          <ScalarProperty Name="Clas_TipoLicencia_Id" ColumnName="Clas_TipoLicencia_Id" />
+          <ScalarProperty Name="Veh_Id" ColumnName="Veh_Id" />
+          <ScalarProperty Name="VehLic_Id" ColumnName="VehLic_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VencimientosServiciosExternosSet">
+      <EntityTypeMapping TypeName="GestionProcesosModel.VencimientosServiciosExternos">
+        <MappingFragment StoreEntitySet="VencimientosServiciosExternos">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="VenSerExt_Descripcion" ColumnName="VenSerExt_Descripcion" />
+          <ScalarProperty Name="VenSerExt_Identificacion" ColumnName="VenSerExt_Identificacion" />
+          <ScalarProperty Name="VenSerExt_Prov_Id" ColumnName="VenSerExt_Proveedor" />
+          <ScalarProperty Name="VenSerExt_Id" ColumnName="VenSerExt_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VencimientosServiciosExternosDetalles">
+      <EntityTypeMapping TypeName="GestionProcesosModel.VencimientosServiciosExternosDetalles">
+        <MappingFragment StoreEntitySet="VencimientosServiciosExternosDetalles">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="VenSerExtDet_Obs" ColumnName="VenSerExtDet_Obs" />
+          <ScalarProperty Name="VenSerExtDet_FechaVencimiento" ColumnName="VenSerExtDet_FechaVencimiento" />
+          <ScalarProperty Name="Clas_MonedasTipos_Id" ColumnName="Clas_MonedasTipos_Id" />
+          <ScalarProperty Name="VenSerExtDet_ValorPagado" ColumnName="VenSerExtDet_ValorPagado" />
+          <ScalarProperty Name="VenSerExtDet_FechaPagado" ColumnName="VenSerExtDet_FechaPagado" />
+          <ScalarProperty Name="VenSerExt_Id" ColumnName="VenSerExt_Id" />
+          <ScalarProperty Name="VenSerExtDet_Id" ColumnName="VenSerExtDet_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Personas">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Personas">
+        <MappingFragment StoreEntitySet="Personas">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Per_Foto" ColumnName="Per_Foto" />
+          <ScalarProperty Name="Per_Obs" ColumnName="Per_Obs" />
+          <ScalarProperty Name="Per_RegistroComodin" ColumnName="Per_RegistroComodin" />
+          <ScalarProperty Name="Per_DatosVerificados" ColumnName="Per_DatosVerificados" />
+          <ScalarProperty Name="Per_DatosCompletos" ColumnName="Per_DatosCompletos" />
+          <ScalarProperty Name="Per_PersonaFisica" ColumnName="Per_PersonaFisica" />
+          <ScalarProperty Name="Per_MAIL" ColumnName="Per_MAIL" />
+          <ScalarProperty Name="Per_TE_Celular" ColumnName="Per_TE_Celular" />
+          <ScalarProperty Name="Clas_Localidad_Id" ColumnName="Clas_Localidad_Id" />
+          <ScalarProperty Name="Per_Direccion" ColumnName="Per_Direccion" />
+          <ScalarProperty Name="Per_FecHas" ColumnName="Per_FecHas" />
+          <ScalarProperty Name="Per_FecDes" ColumnName="Per_FecDes" />
+          <ScalarProperty Name="Clas_Nacionalidad_Id" ColumnName="Clas_Nacionalidad_Id" />
+          <ScalarProperty Name="Clas_Sexo_Id" ColumnName="Clas_Sexo_Id" />
+          <ScalarProperty Name="Per_Doc_Extranjero" ColumnName="Per_Doc_Extranjero" />
+          <ScalarProperty Name="Per_Cuil_Con" ColumnName="Per_Cuil_Con" />
+          <ScalarProperty Name="Per_Cuil_Doc" ColumnName="Per_Cuil_Doc" />
+          <ScalarProperty Name="Per_Cuil_Cod" ColumnName="Per_Cuil_Cod" />
+          <ScalarProperty Name="Per_Alias" ColumnName="Per_Alias" />
+          <ScalarProperty Name="Per_Ape" ColumnName="Per_Ape" />
+          <ScalarProperty Name="Per_SoloNom" ColumnName="Per_SoloNom" />
+          <ScalarProperty Name="Per_SoloApe" ColumnName="Per_SoloApe" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proveedores">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Proveedores">
+        <MappingFragment StoreEntitySet="Proveedores">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Prov_Obs" ColumnName="Prov_Obs" />
+          <ScalarProperty Name="Prov_DatosVerificados" ColumnName="Prov_DatosVerificados" />
+          <ScalarProperty Name="Prov_Propio" ColumnName="Prov_Propio" />
+          <ScalarProperty Name="Prov_CtaCorriente" ColumnName="Prov_CtaCorriente" />
+          <ScalarProperty Name="Clas_ProEst_Id" ColumnName="Clas_ProEst_Id" />
+          <ScalarProperty Name="Prov_Codigo" ColumnName="Prov_Codigo" />
+          <ScalarProperty Name="Per_Id" ColumnName="Per_Id" />
+          <ScalarProperty Name="Prov_Id" ColumnName="Prov_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehiculos">
+      <EntityTypeMapping TypeName="GestionProcesosModel.Vehiculos">
+        <MappingFragment StoreEntitySet="Vehiculos">
+          <ScalarProperty Name="AudUser" ColumnName="AudUser" />
+          <ScalarProperty Name="AudFecha" ColumnName="AudFecha" />
+          <ScalarProperty Name="Veh_Obs" ColumnName="Veh_Obs" />
+          <ScalarProperty Name="Veh_DatosVerificados" ColumnName="Veh_DatosVerificados" />
+          <ScalarProperty Name="Veh_PasajerosCantidad" ColumnName="Veh_PasajerosCantidad" />
+          <ScalarProperty Name="Veh_FechaHasta" ColumnName="Veh_FechaHasta" />
+          <ScalarProperty Name="Veh_FechaDesde" ColumnName="Veh_FechaDesde" />
+          <ScalarProperty Name="Prov_Id" ColumnName="Prov_Id" />
+          <ScalarProperty Name="Veh_Patente" ColumnName="Veh_Patente" />
+          <ScalarProperty Name="Veh_Id" ColumnName="Veh_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

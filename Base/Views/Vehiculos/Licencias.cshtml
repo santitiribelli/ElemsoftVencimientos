@@ -1,0 +1,770 @@
+﻿@*  Alta Registro  *@
+@if (ViewBag.Alta == true)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="button" class="btn btn-info  btn-block" id="btnAgregarForm"><i class="fa fa-plus"></i> Agregar</button>
+        </div>
+    </div>
+
+    <form class="form-horizontal rowAlt" role="form" id="formPrincipal" style="display: none;">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Licencia</label>
+                                <select type="text" class="form-control input-sm" name="tipo" id="tipo">
+                                    <option></option>
+                                    @foreach (var item in BusinessLogic.ClasificadoresAdmin.GetList("Vehículos Licencias"))
+                                    {
+                                        <option value="@item.Clas_Id">@item.Clas_Desc</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>F. Desde</label>
+                                <input type="text" class="input-sm form-control bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaDesde" name="fechaDesde" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>F. Hasta</label>
+                                <input type="text" class="input-sm form-control bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaHasta" name="fechaHasta" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label style="display: block;">Generar Alerta</label>
+                                <input type="checkbox" name="generarAlerta" id="generarAlerta" data-on-color="success" data-off-color="danger" data-on-text="SI" data-off-text="NO" checked>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label>Observación</label>
+                                <textarea class="form-control input-sm" maxlength="200" rows="3" id="observacion" name="observacion"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-right btn-Cont">
+                    <button type="submit" class="btn btn-success btn-rounded" id="btnGuardar"><i class="fa fa-check"></i> Guardar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+
+<style>
+    .colHidden {
+        display: none;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="dataTables-example" style="min-width: 100%;">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*  Edición Licencia  *@
+<div class="modal fade" id="confirmEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Editar</h4>
+            </div>
+
+            <form class="form-horizontal" id="formEdit" method="post">
+                <div class="modal-body rowAlt">
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Licencia</label>
+                                    <select type="text" class="form-control input-sm" name="tipoEdit" id="tipoEdit">
+                                        <option></option>
+                                        @foreach (var item in BusinessLogic.ClasificadoresAdmin.GetList("Vehículos Licencias"))
+                                        {
+                                            <option value="@item.Clas_Id">@item.Clas_Desc</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>F. Desde</label>
+                                    <input type="text" class="input-sm form-control bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaDesdeEdit" name="fechaDesdeEdit" readonly="readonly" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>F. Hasta</label>
+                                    <input type="text" class="input-sm form-control bfh-phone datepicker" autocomplete="off" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" id="fechaHastaEdit" name="fechaHastaEdit" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label style="display: block;">Generar Alerta</label>
+                                    <input type="checkbox" name="generarAlertaEdit" id="generarAlertaEdit" data-on-color="success" data-off-color="danger" data-on-text="SI" data-off-text="NO" checked>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <label>Observación</label>
+                                    <textarea class="form-control input-sm" maxlength="200" rows="3" id="observacionEdit" name="observacionEdit"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="modal-footer">
+                    @if (ViewBag.Alta == true)
+                    {
+                        <div class="pull-left btn-Cont">
+                            <button type="button" class="btn btn-warning btn-rounded" id="btnVerificar" data-toggle="modal" data-target="#confirmVerificar"><i class="fa fa-check"></i> Verificar</button>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-rounded" id="btnEditar"><i class="fa fa-check"></i> Guardar</button>
+                        <button type="button" class="btn btn-danger btn-rounded borrarRegistro" title="Borrar" data-toggle="modal" data-target="#confirmDelete"><i class="fa fa-trash"></i> Eliminar</button>
+                    }
+
+                    <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@*  Eliminar Cuentas*@
+    <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Eliminar</h4>
+                </div>
+                <div class="modal-body">
+                    Confirma que desea eliminar el registro?
+                </div>
+                <div class="modal-footer">
+                    @if (ViewBag.Alta == true)
+                    {
+                        <button type="button" class="btn btn-primary btn-rounded delete"><i class="fa fa-check"></i> Guardar</button>
+                    }
+                    <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirmVerificar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 90%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Verificar").IdiPal_Texto)*@
+                    <h4 class="modal-title" id="myModalLabel">Verificar</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+
+                </div>
+                <div class="modal-body">
+                    Confirma que desea verificar el registro?
+                </div>
+                <div class="modal-footer">
+                    @if (ViewBag.Alta == true)
+                    {
+                        <button type="button" class="btn btn-primary btn-rounded verificar"><i class="fa fa-check"></i> Guardar</button>
+                    }
+                    <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    var id;
+    //---------------------------------
+    //Generación de la tabla principal : Listado
+    //---------------------------------
+    function generarTabla() {
+        $('#dataTables-example').dataTable({
+            "stateSave": true,
+            "scrollX": true,
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar: ",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            "destroy": true,
+            "ajax": {
+                "type": "GET",
+                "url": '@Url.Action("LicenciasGrilla")',
+                    "data": { id: $('#vehiculoId').val() },
+                    "dataType": 'json',
+                    "dataSrc": ""
+                },
+                "ordering": false,
+                "autoWidth": false,
+                "columns": [
+                    {
+                        "data": "tipo",
+                        "title": 'Licencia',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="tipoGrid">' + data + '</span><input type="hidden" id="hiddenTipo" value="' + full['tipoId'] + '"/>';
+                        }
+                    },
+
+                    {
+                        "data": "fechaDesde",
+                        "title": 'F. Desde',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="desdeGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "fechaHasta",
+                        "title": 'F. Hasta',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="hastaGrid">' + data + '</span>';
+                        }
+                    },
+                     {
+                        "data": "",
+                        "title": 'Generar Alerta',
+                        "class": "claseAlign",
+                        "render": function (data, type, full, meta) {
+                            var algo = "";
+                            if (full['generarAlerta'] == "True")
+                            {
+                                algo += '<button type="button" class="btn btn-success btn-xs " ><span class="fa fa-check"></span></button>';
+                            }
+                            else
+                            {
+                                algo += '<button type="button" class="btn btn-danger btn-xs " ><span class="fa fa-times"></span></button>';
+                            }
+                            return algo;
+                        }
+                    },
+
+                    {
+                        "data": "generarAlerta",
+                        "title": 'Alerta',
+                         "class": "colHidden",
+                        "render": function (data, type, full, meta) {
+                            return '<span id="generarAlertaGrid">' + data + '</span>';
+                        }
+                    },
+                     {
+                        "data": "observacion",
+                        "title": 'Observación',
+                        "render": function (data, type, full, meta) {
+                            return '<span id="observacionGrid">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "",
+                        "title": 'Acciones',
+                        "class": "claseAlign",
+                        "render": function (data, type, full, meta) {
+                            var algo = "";
+                            if ('@ViewBag.Alta' == 'True') {
+                                if (full['ultimo'] == "True")
+                                {
+                                    algo += '<button type="button" class="btn ' + (full['verificados'] == true ? "btn-success" : "btn-warning") + ' btn-xs editarRegistro" title="Editar" id="' + full['id'] + '" data-toggle="modal" data-target="#confirmEdit"><span class="glyphicon glyphicon-pencil"></span></button>';
+                                }
+                            }
+
+                            return algo;
+                        }
+                    }
+                ],
+            });
+
+                $('.dataTables_wrapper .row:first .col-sm-6:first-child').css('float', 'right');
+            }
+
+    $(function () {
+
+        $("[name='generarAlerta']").bootstrapSwitch();
+        $("[name='generarAlerta']").bootstrapSwitch('state', false, true);
+
+        $('#tipo').select2();
+
+        //---------------------------------
+        //Campos de Alta Registro
+        //Validators
+        //---------------------------------
+        //clasificador('tipo', 'Vehiculos - Licencias', 'formPrincipal', true);
+        //clasificador('tipoEdit', 'Vehiculos - Licencias', 'formEdit', true);
+
+        $('#fechaDesde').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaDesde', 'NOT_VALIDATED', null).validateField('fechaDesde');
+
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null).validateField('fechaHasta');
+
+        });
+
+        $('#fechaHasta').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                // Mark the field as not validated, so it'll be re-validated when the user change date
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null)
+                // Validate the field
+                .validateField('fechaHasta');
+        });
+
+        $.fn.bootstrapValidator.validators.dates = {
+            validate: function (validator, $field, options) {
+                if ($('#fechaHasta').val() == '')
+                    return true;
+                var d1 = $('#fechaDesde').val();
+                var d2 = $('#fechaHasta').val();
+                d1 = d1.split('/');
+                d2 = d2.split('/');
+                d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                return d2 >= d1;
+            }
+        };
+
+        //---------------------------------
+        //Insert Submit Registro
+        //Validators
+        //---------------------------------
+        $('#formPrincipal').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnGuardar',
+            fields: {
+                tipo: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                fechaDesde: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: 'Formato incorrecto'
+                        }
+                    }
+                },
+                fechaHasta: {
+                    validators: {
+                        dates: {
+                            message: 'La fecha hasta debe ser menor a la fecha desde'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: 'Formato incorrecto'
+                        },
+                        @*callback: {
+                            message: 'verifique las fechas. <br />',
+                            callback: function (value, validator) {
+                                var mensaje = '';
+                                var estado = true;
+                                if ($('#fechaDesde').val() != '') {
+                                    $.ajax({
+                                        type: "POST",
+                                        async: false,
+                                        url: '@Url.Action("ValidarFechasLicencias")',
+                                        dataType: 'json',
+                                        data: { desde: $('#fechaDesde').val(), hasta: $('#fechaHasta').val(), idPropio: null, vehiculoId: $('#vehiculoId').val() },
+                                        success: function (data) {
+                                            mensaje = data.msg;
+                                            estado = data.success;
+                                        }
+                                    });
+
+                                    return {
+                                        valid: estado,
+                                        message: mensaje + '<br />'
+                                    };
+
+                                } else {
+                                    message: 'fecha desde es requerido. <br />'
+                                    return false;
+                                }
+                            }
+                        }*@
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {
+            //----------------------
+            //Submit del Form Insert
+            //----------------------
+            e.preventDefault();
+            var sessionData = {
+                //"VehLic_Id": id,
+                "Clas_TipoLicencia_Id": $("#tipo").val(),
+                "Veh_Id": $("#vehiculoId").val(),
+                "VehLic_FechaDesde": $("#fechaDesde").val(),
+                "VehLic_FechaHasta": $("#fechaHasta").val(),
+                "GeneraAlerta": $('[name="generarAlerta"]').bootstrapSwitch('state'),
+                "VehLic_Obs": $("#observacion").val(),
+                "VehLic_DatosVerificados":false,
+            };
+            $.ajax({
+                url: '@Url.Action("Licencias")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro guardado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000,
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'bounceOutRight'
+                            }
+                        });
+                        
+                        $('#tabLicencias').removeClass('sinInfo text-info');
+                        $('#tabLicencias i').remove();
+
+                        $('#tipo').select2('data', null);
+                        $("[name='generarAlerta']").bootstrapSwitch('state', false, true);
+                        $('#fechaDesde,#fechaHasta').datepicker('update', '');
+                        $('#observacion').val('');
+                        $('#formPrincipal').bootstrapValidator('resetForm');
+
+                        generarTabla();
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        //---------------------------------
+        //Campos de Edición Registro
+        //Validators
+        //---------------------------------
+        $('#tipoEdit').select2();
+        $("[name='generarAlertaEdit']").bootstrapSwitch();
+        $("[name='generarAlertaEdit']").bootstrapSwitch('state', false, true);
+
+        $('#fechaDesdeEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                    .updateStatus('fechaDesdeEdit', 'NOT_VALIDATED', null).validateField('fechaDesdeEdit');
+
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaHastaEdit', 'NOT_VALIDATED', null).validateField('fechaHastaEdit');
+        });
+
+        $('#fechaHastaEdit').on("change", function () {
+            $('#formEdit').data('bootstrapValidator')
+                .updateStatus('fechaHastaEdit', 'NOT_VALIDATED', null).validateField('fechaHastaEdit');
+        });
+
+        $.fn.bootstrapValidator.validators.datesEdit = {
+            validate: function (validator, $field, options) {
+                if ($('#fechaHastaEdit').val() == '')
+                    return true;
+                var d1 = $('#fechaDesdeEdit').val();
+                var d2 = $('#fechaHastaEdit').val();
+                d1 = d1.split('/');
+                d2 = d2.split('/');
+                d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                return d2 >= d1;
+            }
+        };
+
+        //---------------------------------
+        //Edición Submit Registro
+        //Validators
+        //---------------------------------
+        $('#formEdit').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnEditar',
+            fields: {
+                tipoEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                fechaDesdeEdit: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: 'Formato incorrecto'
+                        }
+                    }
+                },
+                fechaHastaEdit: {
+                    validators: {
+                        datesEdit: {
+                            message: 'La fecha hasta debe ser menor a la fecha desde'
+                        },
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: 'Formato incorrecto'
+                        },
+                        @*callback: {
+                            message: 'verifique las fechas. <br />',
+                            callback: function (value, validator) {
+                                var mensaje = '';
+                                var estado = true;
+                                if ($('#fechaDesdeEdit').val() != '') {
+                                    $.ajax({
+                                        type: "POST",
+                                        async: false,
+                                        url: '@Url.Action("ValidarFechasLicencias")',
+                                        dataType: 'json',
+                                        data: { desde: $('#fechaDesdeEdit').val(), hasta: $('#fechaHastaEdit').val(), idPropio: id, vehiculoId: $('#vehiculoId').val() },
+                                        success: function (data) {
+                                            mensaje = data.msg;
+                                            estado = data.success;
+                                        }
+                                    });
+
+                                    return {
+                                        valid: estado,
+                                        message: mensaje + '<br />'
+                                    };
+
+                                } else {
+                                    message: 'fecha desde y hasta es requerido. <br />'
+                                    return false;
+                                }
+                            }
+                        }*@
+                    }
+                },
+
+            }
+        }).on('success.form.bv', function (e) {
+            //----------------------
+            //Submit del Form Edit
+            //----------------------
+            e.preventDefault();
+            var sessionData = {
+                "VehLic_Id": id,
+                "Clas_TipoLicencia_Id": $("#tipoEdit").val(),
+                "Veh_Id": $("#vehiculoId").val(),
+                "VehLic_FechaDesde": $("#fechaDesdeEdit").val(),
+                "VehLic_FechaHasta": $("#fechaHastaEdit").val(),
+                "GeneraAlerta": $('[name="generarAlertaEdit"]').bootstrapSwitch('state'),
+                "VehLic_Obs": $("#observacionEdit").val(),
+
+            };
+            $.ajax({
+                url: '@Url.Action("Licencias")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro actualizado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 3000,
+                            animate: {
+                                animate: true,
+                                in_class: 'bounceInDown',
+                                out_class: 'bounceOutRight'
+                            }
+                        });
+                        
+                        $('#tipoEdit').select2('data', null);
+                        $('#fechaDesdeEdit,#fechaHastaEdit').datepicker('update', '');
+                        $('#observacionEdit, #hiddenTipoEdit').val('');
+                        $('#formEdit').bootstrapValidator('resetForm');
+                        id = null;
+
+                        $('#confirmEdit').modal('hide');
+                         generarTabla();
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+        //-------------------------
+        //Editar btn Grilla
+        //-------------------------
+        $('body').off('click', '.editarRegistro').on('click', '.editarRegistro', function () {
+            var table = $('#dataTables-example').DataTable();
+            var aData = table.row($(this).parents('tr')).data();
+            id = aData.id;
+            $(this).parent().parent().find('td').css('background-color', 'yellow');
+            $('#observacionEdit').val(aData.observacion);
+            $('#fechaDesdeEdit').val(aData.fechaDesde);
+            $('#fechaHastaEdit').val(aData.fechaHasta);
+            $('#tipoEdit').val(aData.tipoId).trigger('change');
+            if (aData.generarAlerta == 'True')
+                $("[name='generarAlertaEdit']").bootstrapSwitch('state', true, true);
+            else
+                $("[name='generarAlertaEdit']").bootstrapSwitch('state', false, true);
+
+            if (aData.verificados == true)
+                $('#btnVerificar').hide();
+            else
+                $('#btnVerificar').show();
+
+
+        });
+
+        $('body').off('click', '.delete').on('click', '.delete', function () {
+            $.ajax({
+                url: '@Url.Action("LicenciasDelete")',
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro eliminado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#confirmEdit, #confirmDelete').modal('hide');
+                        id = null;
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+
+        $('body').off('click', '.verificar').on('click', '.verificar', function () {
+            $.ajax({
+                url: '@Url.Action("LicenciasVerificar")',
+                data: { id: id },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro actualizado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#confirmEdit, #confirmDelete, #confirmVerificar').modal('hide');
+                        id = null;
+                        generarTabla();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+
+        $('#confirmEdit, #confirmDelete, #visualizarRegistro').on('hidden.bs.modal', function (e) {
+            id = null;
+            $('td').css('background-color', '');
+        });
+
+        generarTabla();
+    });
+    </script>

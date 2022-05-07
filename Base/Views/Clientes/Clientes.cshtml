@@ -1,0 +1,324 @@
+﻿@using Entities
+@model Clientes
+<form class="form-horizontal rowAlt" role="form" id="formPrincipal">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label><label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Clientes - Estado").IdiPal_Texto)</label></label>
+                            <select class="form-control input-sm" style="width: 100%;" id="estado" name="estado">
+                                @foreach (var item in BusinessLogic.ClasificadoresIdiomasAdmin.GetList("Clientes Estados"))
+                                {
+                                    <option value="@item.Clas_Id">@item.ClasIdi_Texto</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>F. Desde</label>
+                            <input type="text" class="input-sm form-control bfh-phone datepicker" autocomplete="off" id="fechaDesde" name="fechaDesde" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>F. Hasta</label>
+                            <input type="text" class="input-sm form-control bfh-phone datepicker" autocomplete="off" id="fechaHasta" name="fechaHasta" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Clientes - Asesor Principal").IdiPal_Texto)</label>
+                            <select class="form-control input-sm" style="width: 100%;" id="principal" name="principal">
+                                <option></option>
+                                @foreach (var item in BusinessLogic.EmpleadosAdmin.GetListVerificados())
+                                {
+                                    <option value="@item.Emp_Id">@item.Personas.NombreCompleto</option>
+                                }
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Clientes - Asesor Secundario").IdiPal_Texto)</label>
+                            <select class="form-control input-sm" style="width: 100%;" id="secundario" name="secundario">
+                                <option></option>
+                                @foreach (var item in BusinessLogic.EmpleadosAdmin.GetListVerificados())
+                                {
+                                    <option value="@item.Emp_Id">@item.Personas.NombreCompleto</option>
+                                }
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Clientes - Asesor Guardia").IdiPal_Texto)</label>
+                            <select class="form-control input-sm" style="width: 100%;" id="guardia" name="guardia">
+                                <option></option>
+                                @foreach (var item in BusinessLogic.EmpleadosAdmin.GetListVerificados())
+                                {
+                                    <option value="@item.Emp_Id">@item.Personas.NombreCompleto</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>Observación</label>
+                            <textarea rows="3" class="input-sm form-control" id="observacion" name="observacion"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (ViewBag.Alta == true)
+            {
+                if (Model != null)
+                {
+                    if (Model.Cli_DatosVerificados == false && ViewBag.EsAdmin == true)
+                    {
+                        <div class="pull-left btn-Cont">
+                            <button type="button" class="btn btn-warning btn-rounded" id="btnVerificar" data-toggle="modal" data-target="#confirmVerificar"><i class="fa fa-check"></i> Verificar</button>
+                        </div>
+                    }
+                }
+                <div class="pull-right btn-Cont">
+                    <button type="submit" class="btn btn-success btn-rounded" id="btnGuardar"><i class="fa fa-check"></i> Guardar</button>
+                </div>
+            }
+        </div>
+    </div>
+</form>
+<div class="modal fade" id="confirmVerificar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton/Titulo - Verificar").IdiPal_Texto)*@
+                <h4 class="modal-title" id="myModalLabel">Verificar</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+
+            </div>
+            <div class="modal-body">
+                @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Confirmar Verificar").IdiPal_Texto)
+            </div>
+            <div class="modal-footer">
+                @if (ViewBag.Alta == true)
+                {
+                    <button type="button" class="btn btn-primary btn-rounded verificar"><i class="fa fa-check"></i> Guardar</button>
+                }
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#estado').select2({});
+        $('#principal').select2({});
+        $('#secundario').select2();
+        $('#guardia').select2();
+
+        $('#fechaDesde').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaDesde', 'NOT_VALIDATED', null).validateField('fechaDesde');
+
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null).validateField('fechaHasta');
+
+        });
+
+        $('#fechaHasta').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null).validateField('fechaHasta');
+        });
+
+        $.fn.bootstrapValidator.validators.dates = {
+            validate: function (validator, $field, options) {
+                if ($('#fechaDesde').val() == '' || $('#fechaHasta').val() == '')
+                    return true;
+
+                var d1 = $('#fechaDesde').val();
+                var d2 = $('#fechaHasta').val();
+                d1 = d1.split('/');
+                d2 = d2.split('/');
+                d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                return d2 >= d1;
+            }
+        };
+
+        $('#formPrincipal').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnGuardar',
+            fields: {
+                principal: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                fechaDesde: {
+                    validators: {
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: 'Formato incorrecto'
+                        },
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                fechaHasta: {
+                    validators: {
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: 'Formato incorrecto'
+                        },
+                        dates: {
+                            message: 'La fecha hasta debe ser menor a la fecha desde'
+                        }
+                    }
+                },
+                estado: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        },
+                    }
+                },
+            }
+        }).on('success.form.bv', function(e) {
+            e.preventDefault();
+
+            var sessionData = {
+                "Cli_Id": $("#clienteId").val(),
+                "Per_Id": $('#personaId').val(),
+                "Emp_Principal_Id": $('#principal').select2("val"),
+                "Emp_Secundario_Id": $('#secundario').select2("val"),
+                "Emp_Guardia_Id": $('#guardia').select2("val"),
+                "Clas_CliEst_Id": $("#estado").select2("val"),
+                "Cli_Obs": $('#observacion').val(),
+                "Cli_FechaDesde": $('#fechaDesde').val(),
+                "Cli_FechaHasta": $('#fechaHasta').val(),
+            };
+
+            $.ajax({
+                url: '@Url.Action("Clientes")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function(results) {
+                    if (results.success) {
+                        if ($('#clienteId').val() > 0) {
+                            new PNotify({
+                                title: ':)',
+                                text: 'Registro actualizado exitosamente',
+                                type: 'success',
+                                hide: true,
+                                styling: 'bootstrap3',
+                                delay: 3000,
+                                animate: {
+                                    animate: true,
+                                    in_class: 'bounceInDown',
+                                    out_class: 'bounceOutRight'
+                                }
+                            });
+
+                        } else {
+
+                            window.location.href = '@Url.Action("Index")/?tab=Clientes&id=' + $('#personaId').val();
+                        }
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+         $('body').off('click', '.verificar').on('click', '.verificar', function () {
+            $.ajax({
+                url: '@Url.Action("Verificar")',
+                data: { id: $('#clienteId').val() },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro actualizado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#btnVerificar').hide();
+                        $('#confirmEdit, #confirmDelete, #confirmVerificar').modal('hide');
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+
+    });
+</script>
+@if (Model != null)
+{
+    <script>
+        $(function () {
+            $("#fechaDesde").val('@Model.Cli_FechaDesde.ToString("dd/MM/yyyy")');
+            $("#fechaHasta").val('@(Model.Cli_FechaHasta.HasValue ? Model.Cli_FechaHasta.Value.ToString("dd/MM/yyyy") : "")');
+            $("#observacion").val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Cli_Obs))');
+            $("#principal").select2('val', @Model.Emp_Principal_Id);
+            $("#secundario").select2('val', @Model.Emp_Secundario_Id);
+            $("#guardia").select2('val', @Model.Emp_Guardia_Id);
+            $("#estado").select2('val', @Model.Clas_CliEst_Id);
+        });
+    </script>
+}
+else
+{
+    <script>
+        $(function () {
+            $("#fechaDesde").val('@(DateTime.Now.ToString("dd/MM/yyyy"))');
+            $("#principal").select2('val', @ViewBag.Emp_Id);
+            $("#estado").select2('val',739);
+        });
+    </script>
+
+}

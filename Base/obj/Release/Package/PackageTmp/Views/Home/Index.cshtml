@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Sealand";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Action("Alertas", "Home")
+@if (ViewBag.HayAlertas == true)
+{
+    <script>
+        $(function () {
+            $('#confirmNotif').modal('show');
+        });
+    </script>
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row" style="padding-bottom: 25px;">
+            <div class="col-lg-12">
+                <h1 class="page-header" style="text-align: center;">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Buques Viajes").IdiPal_Texto)</h1>
+            </div>
+            <div class="col-md-6">
+                <a class="btn btn-large btn-info" href="@Url.Action("OptimaClientes", "Servicios")" role="form" style="width: 100%;">
+                    <label style="cursor: pointer;">@(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Titulo").IdiPal_Texto)</label>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a class="btn btn-large btn-info" href="@Url.Action("OptimaBuques", "Servicios")" role="form" style="width: 100%;">
+                    <label style="cursor: pointer;">@(((List<Entities.IdiomasPalabras>) Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Menu - Buques").IdiPal_Texto)</label>
+                </a>
+            </div>
+            @*<div class="col-md-6">
+                <a class="btn btn-large btn-info" href="#" role="form" id="btnQR" style="width: 100%;">
+                    <label style="cursor: pointer;">QR</label>
+                </a>
+            </div>*@
+        </div>
+    </div>
+</div>
+@*<a class="btn btn-large btn-info" href="#" role="form" data-toggle="modal" data-target="#confirmClasRapido">
+        <div class="row">
+            <div class="col-md-12">
+                <label style="cursor: pointer;">F2 = Alta Clasificadores</label>
+            </div>
+        </div>
+    </a>*@
+
+@*<a class="btn btn-large btn-info" href="#" role="form">
+        <div class="row">
+            <div class="col-md-12">
+                <label style="cursor: pointer;">F3 = Alta Personas Físicas</label>
+            </div>
+        </div>
+    </a>
+    <a class="btn btn-large btn-info" href="#" role="form">
+        <div class="row">
+            <div class="col-md-12">
+                <label style="cursor: pointer;">F4 = Alta Personas Jurídicas</label>
+            </div>
+        </div>
+    </a>*@
+<script>
+     $(function () {
+         $('body').off('click', '#btnQR').on('click', '#btnQR', function () {
+            $.ajax({
+                url: '@Url.Action("generarQR")',
+                data: { id: 1 },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: '@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Texto - Verificar").IdiPal_Texto)',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+
+                        //$('#btnVerificar').hide();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+        });
+
+
+
+</script>

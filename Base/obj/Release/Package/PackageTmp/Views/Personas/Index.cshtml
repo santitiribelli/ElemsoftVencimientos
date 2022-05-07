@@ -1,0 +1,217 @@
+﻿@model Entities.Personas
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .kv-avatar .file-preview-frame, .kv-avatar .file-preview-frame:hover {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        text-align: center;
+    }
+
+    .kv-avatar .file-input {
+        display: table-cell;
+        max-width: 220px;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="page-header">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Titulo").IdiPal_Texto)</h4>
+    </div>
+</div>
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="well well-sm overflowWell">
+                <input type="hidden" value="@Model.Per_Id" name="personaId" id="personaId" />
+                <input type="hidden" value="@Model.Per_PersonaFisica.ToString()" name="perFis" id="perFis" />
+                <div class="row">
+                    <div class="col-md-1">
+                        @if (ViewBag.path != "")
+                        {
+                            <img id="foto" src="@ViewBag.path" alt="@Model.NombreCompleto" style="width:100%; cursor:pointer;">
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input id="foto" type="file" class="file-loading input-sm" name="imagen" accept="image/*" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-11">
+                        <h5 class="text-info">
+                            <small>@(Model.Per_PersonaFisica ? ((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Apellido").IdiPal_Texto : ((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Razon Social").IdiPal_Texto):</small><span id="tituloNombre">@Model.NombreCompleto</span>
+                            <br />
+                            <small>@(Model.Per_PersonaFisica ? ((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - CUIL").IdiPal_Texto + "/" : "") @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Personas - Doc. Extranjero").IdiPal_Texto):</small><span id="tituloCuit">@Model.Documento</span>
+                            @if (Model.Clientes.Count > 0)
+                            {
+                                <br />
+                                <span><a class="text-info" href="@Url.Action("Index","Clientes",new {tab = "Clientes"})&id=@Model.Per_Id"> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Clientes - Titulo").IdiPal_Texto)</a></span>
+                            }
+                            @if (Model.Empleados.Count > 0 && Model.Per_PersonaFisica)
+                            {
+                                <br />
+                                <span><a class="text-info" href="@Url.Action("Index","Empleados",new {tab = "Empleados"})&id=@Model.Per_Id"> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Empleados - Titulo").IdiPal_Texto)</a></span>
+                            }
+                            @if (Model.Proveedores.Count > 0)
+                            {
+                                <br />
+                                <span><a class="text-info" href="@Url.Action("Index","Proveedores",new {tab = "Proveedores"})&id=@Model.Per_Id"> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Proveedores - Titulo").IdiPal_Texto)</a></span>
+                            }
+                            @if (Model.Tripulantes.Count > 0 && Model.Per_PersonaFisica)
+                            {
+                                <br />
+                                <span><a class="text-info" href="@Url.Action("Index","Tripulantes",new {tab = "Tripulantes"})&id=@Model.Per_Id"> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Tripulantes - Titulo").IdiPal_Texto)</a></span>
+                            }
+                        </h5>
+                        <a class="btn btn-info btn-rounded volver" href="@Url.Action("Buscador","Personas")"><i class="fa fa-caret-left"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Volver").IdiPal_Texto)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <ul class="nav nav-tabs bar_tabs" role="tablist" role="tablist" id="myTab">
+            <li role="presentation" class="@(ViewBag.Tab == "Personas" ? "active" : "")"><a href="#" id="datos" role="tab" data-toggle="tab" aria-expanded="true" role-section="@Url.Action("Personas")/@(Model != null ? Model.Per_Id.ToString() : "")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Titulo").IdiPal_Texto)</a></li>
+            @if (Model != null)
+            {
+                <li><a class="@(Model !=null && Model.PersonasDomicilios.Count > 0 ? "" : "sinInfo") @(ViewBag.Tab == "Domicilios" ? "active" : "")" href="#" id="tabDomicilios" data-toggle="tab" role-section="@Url.Action("Domicilios")/@(Model != null ? Model.Per_Id.ToString() : "")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Solapa Domicilios").IdiPal_Texto)</a></li>
+                <li><a class="@(Model !=null && Model.PersonasContactos.Count > 0 ? "" : "sinInfo") @(ViewBag.Tab == "Contactos" ? "active" : "")" href="#" id="tabContactos" data-toggle="tab" role-section="@Url.Action("Contactos")/@(Model != null ? Model.Per_Id.ToString() : "")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Solapa Contactos").IdiPal_Texto)</a></li>
+                <li><a class="@(Model !=null && Model.PersonasDocumentos.Count > 0 ? "" : "sinInfo") @(ViewBag.Tab == "Documentos" ? "active" : "")" href="#" id="tabDocumentos" data-toggle="tab" role-section="@Url.Action("Documentos")/@(Model != null ? Model.Per_Id.ToString() : "")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Solapa Documentos").IdiPal_Texto)</a></li>
+                <li><a class="@(Model !=null && Model.PersonasCaracteristicas.Count > 0 ? "" : "sinInfo") @(ViewBag.Tab == "Caracteristicas" ? "active" : "")" href="#" id="tabCaracteristicas" data-toggle="tab" role-section="@Url.Action("Caracteristicas")/@(Model != null ? Model.Per_Id.ToString() : "")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Solapa Caracteristicas").IdiPal_Texto)</a></li>
+                if (Model.Per_PersonaFisica)
+                {
+                    <li><a class="@(Model !=null && Model.PersonasIdiomas.Count > 0 ? "" : "sinInfo") @(ViewBag.Tab == "Idiomas" ? "active" : "")" href="#" id="tabIdiomas" data-toggle="tab" role-section="@Url.Action("Idiomas")/@(Model != null ? Model.Per_Id.ToString() : "")">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Solapa Idiomas").IdiPal_Texto)</a></li>
+                }
+            }
+        </ul>
+        <div class="tab-content" id="">
+            <div id="link">
+                @if (ViewBag.Tab != null)
+                {
+                    string tag = ViewBag.Tab;
+                    if (Model != null)
+                    {
+                        @Html.Action(tag, new { id = Model.Per_Id.ToString() });
+                    }
+                    else
+                    {
+                        @Html.Action(tag)
+                    }
+                }
+                else
+                {
+                    @Html.Action("Personas")
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="visualizarFoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 50%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "Personas - Foto Persona").IdiPal_Texto)</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+            </div>
+            <!-- Modal -->
+            <div class="modal-body rowAlt">
+                <div class="row">
+                    <div class="col-md-12">
+                        <img src="@ViewBag.path" alt="" style="width:100%;">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> @(((List<Entities.IdiomasPalabras>)Session["Idiomas"]).FirstOrDefault(x => x.IdiPal_Clave == "General - Boton - Cancelar").IdiPal_Texto)</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        //$('.nav-pills, .nav-tabs').tabdrop({ text: '<i class="fa fa-align-justify"></i>' });;
+        //codigo para cargar las partialview de cada solapa
+        $('#myTab a').click(function (e) {
+            e.preventDefault();
+
+            var id = this.id;
+            if ($(this).attr('role-section') != null && $(this).attr('role-section') != '') {
+                $(this).tab('show');
+                $.ajax({
+                    url: $(this).attr('role-section'),
+                    data: { data: id },
+                    success: function (mydata) {
+                        $("#link").empty().append(mydata);
+                    },
+                    type: "GET"
+                });
+            }
+        });
+        $('.sinInfo').append('<i class="fa fa-exclamation-triangle"></i>').addClass('text-info');
+
+        if ('@ViewBag.path' != "") {
+            // $('#foto').on('change', function (event) {
+            //    uploadfile($('#personaId').val());
+            //});
+            @*$('#foto').fileinput('refresh', { defaultPreviewContent: '<img src="@Url.Content("~/uploads/personas/" + Model.Per_Id + ".jpg")" alt="Su Imagen" style="width:100%"><h6 class="text-muted">Click para seleccionar</h6>' });*@
+            $("#foto").click(function () {
+                $('#visualizarFoto').modal("show");
+            });
+
+        } else {
+            $('#foto').on('change', function (event) {
+                uploadfile($('#personaId').val());
+
+            });
+
+            $("#foto").fileinput({
+                overwriteInitial: true,
+                //maxFileSize: 1500,
+                showClose: false,
+                showCaption: false,
+                showBrowse: false,
+                browseOnZoneClick: true,
+                elErrorContainer: '#kv-avatar-errors-2',
+                msgErrorClass: 'alert alert-block alert-danger',
+                defaultPreviewContent: '<img src="@Url.Content("/images/default_avatar_male.jpg")" alt="" style="width:100%">',
+                layoutTemplates: { main2: '{preview} {browse}' },
+                allowedFileExtensions: ["jpg", "jpeg", "png", "gif"]
+            });
+
+        }
+
+
+    });
+
+
+        function uploadfile(id) {
+
+            var bannerImage = $("#foto").val();
+            if (bannerImage) {
+                var file = document.getElementById('foto').files[0];
+                var formData = new FormData();
+                formData.append(file.name, file);
+                var xhr = new XMLHttpRequest();
+                var url = "@Url.Action("UploadFoto")/" + id;
+                xhr.open('POST', url, true);
+                xhr.onload = function (e) {
+                    //var response = $.parseJSON(e.target.response);
+                    //if (response.success)
+                                        
+                };
+                xhr.send(formData); // multipart/form-data
+                location.reload();
+
+            }
+        }
+</script>
+

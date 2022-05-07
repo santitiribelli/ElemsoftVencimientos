@@ -1,0 +1,318 @@
+﻿@using BusinessLogic
+@using Entities
+@model Vehiculos
+<form class="form-horizontal rowAlt" role="form" id="formPrincipal">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label style="display:block;">Patente</label>
+                            <input type="text" class="form-control input-sm" name="patente" id="patente" style="text-transform:uppercase" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>Proveedor</label>
+                            <select class="form-control input-sm" style="width: 100%;" id="proveedor" name="proveedor">
+                                <option value=""></option>
+                                @foreach (var item in ProveedoresAdmin.GetList())
+                                {
+                                    <option value="@item.Prov_Id">@item.Personas.NombreCompleto</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>Fecha Desde</label>
+                            <input type="text" required class="form-control input-sm bfh-phone datepicker" autocomplete="off" id="fechaDesde" name="fechaDesde" data-format="dd/dd/dddd" placeholder="xx/xx/xxxx" value="@DateTime.Now.ToString("dd/MM/yyyy")">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>Fecha Hasta</label>
+                            <input type="text" class="form-control input-sm bfh-phone datepicker" autocomplete="off" id="fechaHasta" name="fechaHasta" data-format="dd/dd/dddd">
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label style="display:block;">Cant.</label>
+                            <input type="text" class="form-control input-sm" name="cantidad" id="cantidad" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <label>Observación</label>
+                            <textarea rows="3" class="input-sm form-control" id="observacion" name="observacion"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (ViewBag.Alta == true)
+            {
+                if (Model != null)
+                {
+                    if (Model.Veh_DatosVerificados == false && ViewBag.EsAdmin == true)
+                    {
+                        <div class="pull-left btn-Cont">
+                            <button type="button" class="btn btn-warning btn-rounded" id="btnVerificar"><i class="fa fa-check"></i> Verificar</button>
+                        </div>
+                    }
+                    if (Model.VehiculosDocumentos.Count == 0 && Model.VehiculosLicencias.Count == 0)
+                    {
+                        <button type="button" class="btn btn-danger btn-rounded" data-toggle="modal" data-target="#confirmDelete"><i class="fa fa-trash"></i>   Eliminar</button>
+                    }
+                }
+
+                <div class="pull-right btn-Cont">
+                    <button type="submit" class="btn btn-success btn-rounded" id="btnGuardar"><i class="fa fa-check"></i> Guardar</button>
+                </div>
+            }
+        </div>
+    </div>
+
+</form>
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Eliminar</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                @if (ViewBag.Alta == true)
+                {
+                    <button type="button" class="btn btn-primary btn-rounded delete"><i class="fa fa-check"></i> Guardar</button>
+                }
+                <button type="button" class="btn btn-default btn-rounded" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        bootstrapHelper();
+        $('#proveedor').select2();
+        $('#fechaDesde').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaDesde', 'NOT_VALIDATED', null).validateField('fechaDesde');
+
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null).validateField('fechaHasta');
+        });
+        $('#fechaHasta').on("change", function () {
+            $('#formPrincipal').data('bootstrapValidator')
+                .updateStatus('fechaHasta', 'NOT_VALIDATED', null).validateField('fechaHasta');
+        });
+
+        $.fn.bootstrapValidator.validators.dates = {
+            validate: function (validator, $field, options) {
+                if ($('#fechaDesde').val() == '' || $('#fechaHasta').val() == '')
+                    return true;
+
+                var d1 = $('#fechaDesde').val();
+                var d2 = $('#fechaHasta').val();
+                d1 = d1.split('/');
+                d2 = d2.split('/');
+                d1 = new Date(d1.pop(), d1.pop() - 1, d1.pop());
+                d2 = new Date(d2.pop(), d2.pop() - 1, d2.pop());
+
+                return d2 >= d1;
+            }
+        };
+
+        $('#formPrincipal').bootstrapValidator({
+            live: 'enabled',
+            submitButtons: '#btnGuardar',
+            fields: {
+                patente: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                 cantidad: {
+                    validators: {
+                        notEmpty: {
+                            message: 'campo requerido'
+                        }
+                    }
+                },
+                fechaDesde: {
+                    validators: {
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: 'Formato incorrecto'
+                        }
+                    }
+                },
+                fechaHasta: {
+                    validators: {
+                        date: {
+                            format: 'DD/MM/YYYY',
+                            message: 'Formato incorrecto'
+                        },
+                        dates: {
+                            message: 'La fecha hasta debe ser menor a la fecha desde'
+                        }
+                    }
+                },
+
+            }
+        }).on('success.form.bv', function(e) {
+            e.preventDefault();
+
+            var sessionData = {
+                "Veh_Id": $("#vehiculoId").val(),
+                "Veh_Patente": $('#patente').val(),
+                "Prov_Id": $('#proveedor').select2("val"),
+                "Veh_PasajerosCantidad": $('#cantidad').val(),
+                "Veh_DatosVerificados": false,
+                "Veh_Obs": $('#observacion').val(),
+                "Veh_FechaDesde": $('#fechaDesde').val(),
+                "Veh_FechaHasta": $('#fechaHasta').val(),
+            };
+
+            $.ajax({
+                url: '@Url.Action("Vehiculos")',
+                type: 'POST',
+                data: JSON.stringify(sessionData),
+                contentType: "application/json",
+                success: function(results) {
+                    if (results.success) {
+                        if ($('#vehiculoId').val() > 0) {
+                            new PNotify({
+                                title: ':)',
+                                text: 'Registro actualizado exitosamente',
+                                type: 'success',
+                                hide: true,
+                                styling: 'bootstrap3',
+                                delay: 3000,
+                                animate: {
+                                    animate: true,
+                                    in_class: 'bounceInDown',
+                                    out_class: 'bounceOutRight'
+                                }
+                            });
+
+                            $('#tituloPatente').text($('#patente').val());
+
+                        } else {
+
+                            window.location.href = '@Url.Action("Index")/?id=' + results.msg;
+                        }
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                }
+            });
+        });
+
+
+        $('body').off('click', '#btnVerificar').on('click', '#btnVerificar', function () {
+            $.ajax({
+                url: '@Url.Action("Verificar")',
+                data: { id: $('#buquesViajesId').val() },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro verificado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+
+                        $('#btnVerificar').hide();
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: false,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+        $('body').off('click', '.delete').on('click', '.delete', function () {
+            $.ajax({
+                url: '@Url.Action("VehiculosDelete")',
+                data: { id: $('#vehiculoId').val() },
+                success: function (results) {
+                    if (results.success) {
+                        new PNotify({
+                            title: ':)',
+                            text: 'Registro eliminado exitosamente',
+                            type: 'success',
+                            hide: true,
+                            styling: 'bootstrap3',
+                            delay: 2000, animate: { animate: true, in_class: 'bounceInDown', out_class: 'bounceOutRight' }
+                        });
+                        $('#confirmEdit, #confirmDelete').modal('hide');
+
+                        location.href = '@Url.Action("Buscador", "Vehiculos")';
+
+
+                    } else {
+                        new PNotify({
+                            title: 'Error!',
+                            text: results.msg,
+                            type: 'danger',
+                            hide: true,
+                            delay: 3000,
+                            styling: 'bootstrap3',
+                            animation: 'slide'
+                        });
+                    }
+                },
+                type: "POST"
+            });
+        });
+
+
+    });
+</script>
+@if (Model != null)
+{
+    <script>
+        $(function () {
+            $("#patente").val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Veh_Patente))');
+            $("#fechaDesde").val('@Model.Veh_FechaDesde.ToString("dd/MM/yyyy")');
+            $("#fechaHasta").val('@(Model.Veh_FechaHasta.HasValue ? Model.Veh_FechaHasta.Value.ToString("dd/MM/yyyy") : "")');
+            $("#observacion").val('@Html.Raw(Ajax.JavaScriptStringEncode(Model.Veh_Obs))');
+            $("#cantidad").val('@Model.Veh_PasajerosCantidad');
+            $("#proveedor").select2('val', '@Model.Prov_Id');
+        });
+    </script>
+}

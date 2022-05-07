@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="766b685897f4460097973af656e784f3" Name="Diagrama1" ZoomLevel="73">
+        <EntityTypeShape EntityType="GestionProcesosModel.Clasificadores" Width="1.5" PointX="8.25" PointY="9.875" />
+        <EntityTypeShape EntityType="GestionProcesosModel.SeguridadPaginas" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="GestionProcesosModel.SeguridadRoles" Width="1.5" PointX="0.75" PointY="8.125" />
+        <EntityTypeShape EntityType="GestionProcesosModel.SeguridadRolesPaginas" Width="1.5" PointX="3" PointY="7.625" />
+        <EntityTypeShape EntityType="GestionProcesosModel.SeguridadUsuarios" Width="1.5" PointX="6" PointY="6.875" />
+        <EntityTypeShape EntityType="GestionProcesosModel.SeguridadUsuariosPaginas" Width="1.5" PointX="8.25" PointY="5.625" />
+        <EntityTypeShape EntityType="GestionProcesosModel.VehiculosDocumentos" Width="1.5" PointX="21.25" PointY="8.125" />
+        <EntityTypeShape EntityType="GestionProcesosModel.VehiculosLicencias" Width="1.5" PointX="17.25" PointY="9" />
+        <AssociationConnector Association="GestionProcesosModel.FK_Clasificadores_Clasificadores" />
+        <AssociationConnector Association="GestionProcesosModel.FK_Clasificadores_SeguridadUsuarios" />
+        <AssociationConnector Association="GestionProcesosModel.FK_VehiculosDocumentos_Clasificadores" />
+        <AssociationConnector Association="GestionProcesosModel.FK_VehiculosLicencias_ClasificadoresTipoLicencia" />
+        <AssociationConnector Association="GestionProcesosModel.FK_SeguridadRolesPaginas_SeguridadPaginas" />
+        <AssociationConnector Association="GestionProcesosModel.FK_SeguridadUsuariosPaginas_SeguridadPaginas" />
+        <AssociationConnector Association="GestionProcesosModel.FK_SeguridadRolesPaginas_SeguridadRoles" />
+        <AssociationConnector Association="GestionProcesosModel.FK_SeguridadUsuarios_SeguridadRoles" />
+        <AssociationConnector Association="GestionProcesosModel.FK_SeguridadUsuariosPaginas_SeguridadUsuarios" />
+        <AssociationConnector Association="GestionProcesosModel.FK_VehiculosDocumentos_SeguridadUsuarios" />
+        <AssociationConnector Association="GestionProcesosModel.FK_VehiculosLicencias_SeguridadUsuarios" />
+        <EntityTypeShape EntityType="GestionProcesosModel.VencimientosServiciosExternos" Width="3.25" PointX="8.25" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionProcesosModel.VencimientosServiciosExternosDetalles" Width="2.875" PointX="10.875" PointY="2.125" />
+        <AssociationConnector Association="GestionProcesosModel.FK_VencimientosServiciosExternosDetalles_Clasificadores" />
+        <AssociationConnector Association="GestionProcesosModel.FK_VencimientosServiciosExternos_SeguridadUsuarios" />
+        <AssociationConnector Association="GestionProcesosModel.FK_VencimientosServiciosExternosDetalles_SeguridadUsuarios" />
+        <AssociationConnector Association="GestionProcesosModel.FK_VencimientosServiciosExternosDetalles_VencimientosServiciosExternos" />
+        <EntityTypeShape EntityType="GestionProcesosModel.Personas" Width="1.5" PointX="10.5" PointY="7.5" />
+        <EntityTypeShape EntityType="GestionProcesosModel.Proveedores" Width="1.5" PointX="12.75" PointY="9" />
+        <AssociationConnector Association="GestionProcesosModel.FK_Personas_ClasificadoresLocalidades" />
+        <AssociationConnector Association="GestionProcesosModel.FK_Personas_ClasificadoresNacionalidad" />
+        <AssociationConnector Association="GestionProcesosModel.FK_Proveedores_Clasificadores_ProEst" />
+        <AssociationConnector Association="GestionProcesosModel.FK_Personas_SeguridadUsuarios" />
+        <AssociationConnector Association="GestionProcesosModel.FK_Proveedores_Personas" />
+        <AssociationConnector Association="GestionProcesosModel.FK_SeguridadUsuarios_Personas" />
+        <AssociationConnector Association="GestionProcesosModel.FK_Proveedores_SeguridadUsuarios" />
+        <EntityTypeShape EntityType="GestionProcesosModel.Vehiculos" Width="1.5" PointX="15" PointY="8" />
+        <AssociationConnector Association="GestionProcesosModel.FK_Vehiculos_Proveedores" />
+        <AssociationConnector Association="GestionProcesosModel.FK_Vehiculos_SeguridadUsuarios" />
+        <AssociationConnector Association="GestionProcesosModel.FK_VehiculosDocumentos_Vehiculos" />
+        <AssociationConnector Association="GestionProcesosModel.FK_VehiculosLicencias_Vehiculos" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,123 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = System.Configuration.ConfigurationManager.AppSettings["EmpresaNombre"];
+}
+<html><head>
+          <link rel="icon" type="image/png" href="@Url.Content("~/Images/favicon.png")"/>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Cache-control" content="no-cache">
+          <link href="@Url.Content("~/Content/sb-admin.css")" rel="stylesheet">
+          <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet">
+          <link href="@Url.Content("~/Content/select2.css")" rel="stylesheet">
+          <link href="@Url.Content("~/Content/select2-bootstrap.css")" rel="stylesheet">
+          <script src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")"></script>
+          <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+          <script src="@Url.Content("~/Scripts/bootstrapValidator.js")"></script>
+          <script src="@Url.Content("~/Scripts/select2.js")"></script>
+          <script src="@Url.Content("~/Scripts/select2_locale_es.js")"></script>
+          <script>
+              $(function () {
+
+                  $('#idioma').select2();
+                  localStorage.setItem("vuelve", null);
+                  localStorage.setItem("busqueda", "");
+                  localStorage.setItem("PaginaActual", "");
+                  localStorage.setItem("grilla", "");
+                  localStorage.setItem("Paginado", 10);
+                  localStorage.setItem("ventaFechaDesde", null);
+                  localStorage.setItem("ventaFechaHasta", null);
+                  localStorage.setItem("ventaVendedor", null);
+                  localStorage.setItem("ventaSoloPendiente", null);
+                  $('#formLogin')
+                      .bootstrapValidator({
+                          submitButtons: '#btnLogin',
+                          fields: {
+                              user: {
+                                  validators: {
+                                      notEmpty: {
+                                          message: 'campo requerido'
+                                      }
+                                  }
+                              },
+                              password: {
+                                  validators: {
+                                      notEmpty: {
+                                          message: 'campo requerido'
+                                      }
+                                  }
+                              }
+                          }
+                      });
+              }).on('success.form.bv', function (e) {
+                  e.preventDefault();
+                  $('#alertMessage').hide();
+                  $.ajax({
+                      url: '@Url.Action("Login")',
+                      type: 'POST',
+                      data: JSON.stringify({ 'user': $('#user').val(), 'password': $('#password').val(), idioma: $('#idioma').val() }),
+                      contentType: "application/json",
+                      success: function (results) {
+                          if (!results.success) {
+                              $('#alertMessage').text(results.msg);
+                              $('#alertMessage').show();
+                          } else {
+                              if (results.msg)
+                                  window.location.href = '@Url.Action("Index", "Home",new {})';
+                              else
+                                  window.location.href = '@Url.Action("CambiarPassword", "Account")';
+                          }
+                      }
+                  });
+              });
+          </script>
+      </head>
+    @*<div style=" width:100%;height:100%;position:fixed;z-index:-10;top:0;left:0">
+        <img src="@Url.Content("~/images/BackgroundLogin.jpg")" style="width:100%;" />
+    </div>*@
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <img src="@Url.Content("~/images/logo.svg")" style="margin-left: 70px;width: 200px;" />
+                <h4 style="color: #ededed; display: block; text-align: center;">Inicie sesión para acceder al Administrador</h4>
+                <div class="login-panel panel panel-default">
+                    @*<div class="panel-heading">
+                    <h3 class="panel-title">Login</h3>
+                </div>*@
+
+                    <div class="panel-body" style="padding:30px 10px;@(ViewBag.Produccion == true ? "" : "background-color:red;")">
+                        <form role="form" id="formLogin" method="POST">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Documento" id="user" name="user" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Contraseña" id="password" name="password" type="password" value="" autocomplete="off">
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control input-sm select" name="idioma" id="idioma">
+                                        @foreach (var item in BusinessLogic.IdiomasAdmin.GetListActivos())
+                                        {
+                                            <option value="@item.Idi_Id">@item.Clasificadores.Clas_Desc</option>
+                                        }
+                                    </select>
+                                </div>
+                                @*<div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                    </label>
+                                </div>*@
+
+                                <div class="alert alert-dismissible alert-danger" id="alertMessage" role="alert" style="display: none;">
+                                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <strong>Login</strong> guardado exitosamente
+                                </div>
+                                <input class="btn btn-lg btn-info btn-block" type="submit" id="btnLogin" value="Login" />
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>
